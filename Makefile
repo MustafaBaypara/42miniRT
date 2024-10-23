@@ -1,4 +1,4 @@
-
+MAKEFLAGS 			+= --no-print-directory
 NAME                = cub3d
 LIBFT               = ./libft/libft.a
 SRC_DIR             = src/
