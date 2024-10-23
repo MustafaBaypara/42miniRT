@@ -6,11 +6,11 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:05:08 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/10/23 14:22:21 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:16:57 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "mlx.h"
 
 int	main(void)
 {
