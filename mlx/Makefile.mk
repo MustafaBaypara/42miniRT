@@ -10,11 +10,11 @@
 
 ## Please use configure script
 
-MAKEFLAGS 			+= --no-print-directory
+
 INC	=%%%%
 
 UNAME = $(shell uname)
-CC	= gcc -w
+CC	= gcc
 ifeq ($(UNAME),FreeBSD)
 	CC = clang
 endif
@@ -42,12 +42,12 @@ all	: $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 $(NAME)	: $(OBJ)
-	@ar -c -r $(NAME) $(OBJ)
-	@ranlib $(NAME)
-	@cp $(NAME) $(NAME_UNAME)
+	ar -r $(NAME) $(OBJ)
+	ranlib $(NAME)
+	cp $(NAME) $(NAME_UNAME)
 
 check: all
 	@test/run_tests.sh

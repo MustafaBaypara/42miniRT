@@ -1,4 +1,4 @@
-MAKEFLAGS 			+= --no-print-directory
+
 INC=%%%%
 
 INCLIB=$(INC)/../lib
@@ -21,14 +21,14 @@ else ifeq ($(UNAME), FreeBSD)
 	CC = clang
 else
 	#Linux and others...
-	CC	= gcc -w
+	CC	= gcc
 	LFLAGS += -lbsd
 endif
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
+	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
 
 show:
 	@printf "UNAME		: $(UNAME)\n"

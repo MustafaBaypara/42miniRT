@@ -3,22 +3,246 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 14:05:08 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/10/23 15:16:57 by mbaypara         ###   ########.fr       */
+/*   Created: 2024/10/23 21:49:15 by marvin            #+#    #+#             */
+/*   Updated: 2024/10/23 21:49:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <mlx.h>
+#include <time.h>
 
-int	main(void)
-{
-	void	*mlx;
-	void	*mlx_win;
+#define WIN_WIDTH 1280
+#define WIN_HEIGHT 720
+#define MAP_WIDTH 16
+#define MAP_HEIGHT 16
+#define FOV 60 * (M_PI / 180)
+#define MOVE_SPEED 0.1
+#define ROT_SPEED 0.05
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	mlx_loop(mlx);
+// Gökyüzü ve zemin renkleri
+#define SKY_COLOR 0x87CEEB  // Açık mavi (gökyüzü)
+#define FLOOR_COLOR 0x8B4513 // Kahverengi (zemin)
+
+// Tuşlar için sabitler
+#define KEY_W 119
+#define KEY_S 115
+#define KEY_A 97
+#define KEY_D 100
+#define KEY_SPACE 32
+#define ESC_KEY 65307
+
+#define SPACE_DELAY 200 // Gecikme süresi (milisaniye)
+
+long get_current_time() {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (tv.tv_sec * 1000) + (tv.tv_usec / 1000); // Milisaniye cinsine dönüştür
 }
 
+int map[MAP_HEIGHT][MAP_WIDTH] = {
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
+
+typedef struct {
+    double x;
+    double y;
+    double dir_x;
+    double dir_y;
+    double plane_x;
+    double plane_y;
+} player_t;
+
+typedef struct {
+    void *mlx;
+    void *win;
+    player_t player;
+    long last_space_time; 
+    int key_states[256];  // Tuş durumlarını takip etmek için dizi
+} game_t;
+
+void draw_vertical_line(game_t *game, int x, int start, int end, int color) {
+    for (int y = start; y < end; y++) {
+        mlx_pixel_put(game->mlx, game->win, x, y, color);
+    }
+}
+
+void draw_sky_and_floor(game_t *game, int x, int wall_start, int wall_end) {
+    // Gökyüzü çizimi
+    draw_vertical_line(game, x, 0, wall_start, SKY_COLOR);
+    // Zemin çizimi
+    draw_vertical_line(game, x, wall_end, WIN_HEIGHT, FLOOR_COLOR);
+}
+
+void raycast(game_t *game) {
+    for (int x = 0; x < WIN_WIDTH; x++) {
+        double camera_x = 2 * x / (double)WIN_WIDTH - 1;
+        double ray_dir_x = game->player.dir_x + game->player.plane_x * camera_x;
+        double ray_dir_y = game->player.dir_y + game->player.plane_y * camera_x;
+
+        int map_x = (int)game->player.x;
+        int map_y = (int)game->player.y;
+
+        double side_dist_x, side_dist_y;
+        double delta_dist_x = fabs(1 / ray_dir_x);
+        double delta_dist_y = fabs(1 / ray_dir_y);
+        double perp_wall_dist;
+
+        int step_x, step_y;
+        int hit = 0;
+        int side;
+
+        if (ray_dir_x < 0) {
+            step_x = -1;
+            side_dist_x = (game->player.x - map_x) * delta_dist_x;
+        } else {
+            step_x = 1;
+            side_dist_x = (map_x + 1.0 - game->player.x) * delta_dist_x;
+        }
+        if (ray_dir_y < 0) {
+            step_y = -1;
+            side_dist_y = (game->player.y - map_y) * delta_dist_y;
+        } else {
+            step_y = 1;
+            side_dist_y = (map_y + 1.0 - game->player.y) * delta_dist_y;
+        }
+
+        while (hit == 0) {
+            if (side_dist_x < side_dist_y) {
+                side_dist_x += delta_dist_x;
+                map_x += step_x;
+                side = 0;
+            } else {
+                side_dist_y += delta_dist_y;
+                map_y += step_y;
+                side = 1;
+            }
+            if (map[map_y][map_x] > 0) hit = 1;
+        }
+
+        if (side == 0)
+            perp_wall_dist = (map_x - game->player.x + (1 - step_x) / 2) / ray_dir_x;
+        else
+            perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y;
+
+        int line_height = (int)(WIN_HEIGHT / perp_wall_dist);
+
+        int draw_start = -line_height / 2 + WIN_HEIGHT / 2;
+        if (draw_start < 0) draw_start = 0;
+        int draw_end = line_height / 2 + WIN_HEIGHT / 2;
+        if (draw_end >= WIN_HEIGHT) draw_end = WIN_HEIGHT - 1;
+
+        // Gökyüzü ve zemin çizimini duvardan önce yapıyoruz
+        draw_sky_and_floor(game, x, draw_start, draw_end);
+
+        // Duvar çizimi
+        int color = (side == 1) ? 0xFF0000 : 0x00FF00; // Renk seçimi
+
+        draw_vertical_line(game, x, draw_start, draw_end, color);
+    }
+}
+
+// Tuşa basılma durumunu kaydet
+int handle_keypress(int keycode, game_t *game) {
+    game->key_states[keycode] = 1;  // Tuş basıldı
+    return 0;
+}
+
+// Tuşun bırakılma durumunu kaydet
+int handle_keyrelease(int keycode, game_t *game) {
+    game->key_states[keycode] = 0;  // Tuş bırakıldı
+    return 0;
+}
+
+// Tuşlara basılı tutulduğunda hareketi sağla
+void update_player_movement(game_t *game) {
+    if (game->key_states[KEY_W]) {
+        if (map[(int)(game->player.x + game->player.dir_x * MOVE_SPEED)][(int)(game->player.y)] == 0)
+            game->player.x += game->player.dir_x * MOVE_SPEED;
+        if (map[(int)(game->player.x)][(int)(game->player.y + game->player.dir_y * MOVE_SPEED)] == 0)
+            game->player.y += game->player.dir_y * MOVE_SPEED;
+    }
+    if (game->key_states[KEY_S]) {
+        if (map[(int)(game->player.x - game->player.dir_x * MOVE_SPEED)][(int)(game->player.y)] == 0)
+            game->player.x -= game->player.dir_x * MOVE_SPEED;
+        if (map[(int)(game->player.x)][(int)(game->player.y - game->player.dir_y * MOVE_SPEED)] == 0)
+            game->player.y -= game->player.dir_y * MOVE_SPEED;
+    }
+    if (game->key_states[KEY_A]) {
+        double old_dir_x = game->player.dir_x;
+        game->player.dir_x = game->player.dir_x * cos(ROT_SPEED) - game->player.dir_y * sin(ROT_SPEED);
+        game->player.dir_y = old_dir_x * sin(ROT_SPEED) + game->player.dir_y * cos(ROT_SPEED);
+        double old_plane_x = game->player.plane_x;
+        game->player.plane_x = game->player.plane_x * cos(ROT_SPEED) - game->player.plane_y * sin(ROT_SPEED);
+        game->player.plane_y = old_plane_x * sin(ROT_SPEED) + game->player.plane_y * cos(ROT_SPEED);
+    }
+    if (game->key_states[KEY_D]) {
+        double old_dir_x = game->player.dir_x;
+        game->player.dir_x = game->player.dir_x * cos(-ROT_SPEED) - game->player.dir_y * sin(-ROT_SPEED);
+        game->player.dir_y = old_dir_x * sin(-ROT_SPEED) + game->player.dir_y * cos(-ROT_SPEED);
+        double old_plane_x = game->player.plane_x;
+        game->player.plane_x = game->player.plane_x * cos(-ROT_SPEED) - game->player.plane_y * sin(-ROT_SPEED);
+        game->player.plane_y = old_plane_x * sin(-ROT_SPEED) + game->player.plane_y * cos(-ROT_SPEED);
+    }
+    if (game->key_states[KEY_SPACE]) {
+        long current_time = get_current_time(); 
+
+        if (current_time - game->last_space_time >= SPACE_DELAY) {
+            if (map[7][7] == 1)
+                map[7][7] = 0;
+            else
+                map[7][7] = 1;
+            printf("delay : %ld\n", current_time - game->last_space_time);
+            game->last_space_time = current_time; 
+        }
+    }
+}
+
+
+int game_loop(game_t *game) {
+    update_player_movement(game);
+    raycast(game);
+    return 0;
+}
+
+int main() {
+    game_t game;
+    game.mlx = mlx_init();
+    game.win = mlx_new_window(game.mlx, WIN_WIDTH, WIN_HEIGHT, "küp koyma oyunu");
+
+    game.player.x = 4.5;
+    game.player.y = 4.5;
+    game.player.dir_x = -1;
+    game.player.dir_y = 0;
+    game.player.plane_x = 0;
+    game.player.plane_y = 0.66;
+    game.last_space_time = 0;
+    // tuş değerleri
+    for (int i = 0; i < 256; i++) {
+        game.key_states[i] = 0;
+    }
+
+    mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);    // bas
+    mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);  // bırak
+    mlx_loop_hook(game.mlx, game_loop, &game);
+    mlx_loop(game.mlx);
+
+    return 0;
+}
