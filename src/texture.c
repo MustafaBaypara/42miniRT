@@ -7,7 +7,7 @@
 #define WIN_HEIGHT 720
 #define MAP_WIDTH 8
 #define MAP_HEIGHT 8
-#define FOV 90 * (M_PI / 180)
+#define FOV 180 * (M_PI / 180)
 #define MOVE_SPEED 0.1
 #define ROT_SPEED 0.05
 
@@ -23,14 +23,14 @@
 #define ESC_KEY 65307
 
 int map[MAP_HEIGHT][MAP_WIDTH] = {
-    {0, 0, 1, 0, 0, 0, 0, 1},
-    {0, 1, 0, 0, 1, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 1},
-    {0, 0, 0, 1, 0, 0, 0, 0},
-    {0, 0, 0, 1, 0, 0, 0, 0}
+    {1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 0, 0, 1, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 1, 1},
+    {1, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 1, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1}
 };
 
 typedef struct {
@@ -57,7 +57,7 @@ typedef struct {
     void *mlx;
     void *win;
     player_t player;
-    int key_states[256];  // Tuş durumlarını takip etmek için dizi
+    int key_states[70000];  // Tuş durumlarını takip etmek için dizi
     texture_t textures[4]; // Duvar texture'ları
 } game_t;
 

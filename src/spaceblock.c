@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 21:49:15 by marvin            #+#    #+#             */
-/*   Updated: 2024/10/23 21:49:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/11/06 12:54:02 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <mlx.h>
-#include <time.h>
+#include <sys/time.h>
 
-#define WIN_WIDTH 1280
-#define WIN_HEIGHT 720
+#define WIN_WIDTH 480
+#define WIN_HEIGHT 480
 #define MAP_WIDTH 16
 #define MAP_HEIGHT 16
 #define FOV 60 * (M_PI / 180)
@@ -58,6 +58,8 @@ int map[MAP_HEIGHT][MAP_WIDTH] = {
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
 	{1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
@@ -75,7 +77,7 @@ typedef struct {
 	void *win;
 	player_t player;
 	long last_space_time; 
-	int key_states[256];  // Tuş durumlarını takip etmek için dizi
+	int key_states[70000];  // Tuş durumlarını takip etmek için dizi
 } game_t;
 
 void draw_vertical_line(game_t *game, int x, int start, int end, int color) {
@@ -90,7 +92,7 @@ void draw_sky_and_floor(game_t *game, int x, int wall_start, int wall_end) {
 	// Zemin çizimi
 	draw_vertical_line(game, x, wall_end, WIN_HEIGHT, FLOOR_COLOR);
 }
-
+// ray atıyo
 void raycast(game_t *game) {
 	for (int x = 0; x < WIN_WIDTH; x++) {
 		double camera_x = 2 * x / (double)WIN_WIDTH - 1;
@@ -235,12 +237,11 @@ int main() {
 	game.player.plane_y = 0.66;
 	game.last_space_time = 0;
 	// tuş değerleri
-	for (int i = 0; i < 256; i++) {
+	for (int i = 0; i < 70000; i++) {
 		game.key_states[i] = 0;
 	}
-
 	mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);    // bas
-	mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);  // bırak
+	mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);  // bırakv
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 
