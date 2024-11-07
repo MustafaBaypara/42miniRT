@@ -6,11 +6,11 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:02:20 by abakirca          #+#    #+#             */
-/*   Updated: 2024/11/07 13:02:25 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:23:38 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "cub3d.h"
 
 int main()
 {
