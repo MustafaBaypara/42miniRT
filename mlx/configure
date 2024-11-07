@@ -75,9 +75,9 @@ EOF
 
 clean(){
 	log_info 'Execute "make clean" from "makefile.gen"'
-	${MAKE} -f Makefile.gen clean
+	${MAKE} -s -f Makefile.gen clean
 	log_info 'Execute "make clean" from "test/makefile.gen"'
-	${MAKE} -f Makefile.gen -C test/ --no-print-directory clean
+	${MAKE} -s -f Makefile.gen -C test/ --no-print-directory clean
 }
 
 parse_args(){
@@ -118,9 +118,9 @@ main(){
 		cat test/Makefile.mk | grep -v %%%% >> test/Makefile.gen
 
 	log_info 'Execute "make all" from file "makefile.gen"'
-		${MAKE} -f Makefile.gen all
+		${MAKE} -s -f Makefile.gen all
 	log_info 'Execute "make all" from file "test/makefile.gen"'
-		(cd test ; ${MAKE} -f Makefile.gen all )
+		(cd test ; ${MAKE} -s -f Makefile.gen all )
 }
 
 main "$@"

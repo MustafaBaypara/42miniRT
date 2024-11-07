@@ -1,4 +1,4 @@
-
+MAKEFLAGS 			+= --no-print-directory
 INC=%%%%
 
 INCLIB=$(INC)/../lib
@@ -21,14 +21,14 @@ else ifeq ($(UNAME), FreeBSD)
 	CC = clang
 else
 	#Linux and others...
-	CC	= gcc
+	CC	= gcc -w
 	LFLAGS += -lbsd
 endif
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
+	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
 
 show:
 	@printf "UNAME		: $(UNAME)\n"
@@ -40,6 +40,6 @@ show:
 	@printf "OBJ		:\n	$(OBJ)\n"
 
 clean:
-	rm -f $(NAME) $(OBJ) *~ core *.core
+	@rm -f $(NAME) $(OBJ) *~ core *.core
 
 re: clean all
