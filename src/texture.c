@@ -1,0 +1,264 @@
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <mlx.h>
+
+#define WIN_WIDTH 1280
+#define WIN_HEIGHT 720
+#define MAP_WIDTH 8
+#define MAP_HEIGHT 8
+#define FOV 180 * (M_PI / 180)
+#define MOVE_SPEED 0.1
+#define ROT_SPEED 0.05
+
+// Gökyüzü ve zemin renkleri
+#define SKY_COLOR 0x87CEEB  // Açık mavi (gökyüzü)
+#define FLOOR_COLOR 0x8B4513 // Kahverengi (zemin)
+
+// Tuşlar için sabitler
+#define KEY_W 119
+#define KEY_S 115
+#define KEY_A 97
+#define KEY_D 100
+#define ESC_KEY 65307
+
+int map[MAP_HEIGHT][MAP_WIDTH] = {
+    {1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 0, 0, 1, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 1, 1},
+    {1, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 1, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1}
+};
+
+typedef struct {
+    double x;
+    double y;
+    double dir_x;
+    double dir_y;
+    double plane_x;
+    double plane_y;
+} player_t;
+
+// Texture yapısı
+typedef struct {
+    void *img_ptr;
+    int *data;
+    int width;
+    int height;
+    int bpp;
+    int size_line;
+    int endian;
+} texture_t;
+
+typedef struct {
+    void *mlx;
+    void *win;
+    player_t player;
+    int key_states[70000];  // Tuş durumlarını takip etmek için dizi
+    texture_t textures[4]; // Duvar texture'ları
+} game_t;
+
+// Texture'lar için yardımcı fonksiyonlar
+void load_textures(game_t *game) {
+    game->textures[0].img_ptr = mlx_xpm_file_to_image(game->mlx, "greystone.xpm", &game->textures[0].width, &game->textures[0].height);
+    game->textures[1].img_ptr = mlx_xpm_file_to_image(game->mlx, "greystone.xpm", &game->textures[1].width, &game->textures[1].height);
+    game->textures[2].img_ptr = mlx_xpm_file_to_image(game->mlx, "greystone.xpm", &game->textures[2].width, &game->textures[2].height);
+    game->textures[3].img_ptr = mlx_xpm_file_to_image(game->mlx, "greystone.xpm", &game->textures[3].width, &game->textures[3].height);
+
+    for (int i = 0; i < 4; i++) {
+        game->textures[i].data = (int *)mlx_get_data_addr(game->textures[i].img_ptr, &game->textures[i].bpp, &game->textures[i].size_line, &game->textures[i].endian);
+    }
+}
+
+void draw_vertical_line(game_t *game, int x, int start, int end, int color) {
+    for (int y = start; y < end; y++) {
+        mlx_pixel_put(game->mlx, game->win, x, y, color);
+    }
+}
+
+void draw_sky_and_floor(game_t *game, int x, int wall_start, int wall_end) {
+    // Gökyüzü çizimi
+    draw_vertical_line(game, x, 0, wall_start, SKY_COLOR);
+    // Zemin çizimi
+    draw_vertical_line(game, x, wall_end, WIN_HEIGHT, FLOOR_COLOR);
+}
+
+// Texture koordinatlarını hesaplayarak duvara texture çizimi yapma
+void draw_texture_column(game_t *game, int x, int start, int end, int tex_num, double wall_x, int side) {
+    int tex_x = (int)(wall_x * (double)game->textures[tex_num].width);
+    if (side == 0 && game->player.dir_x > 0) tex_x = game->textures[tex_num].width - tex_x - 1;
+    if (side == 1 && game->player.dir_y < 0) tex_x = game->textures[tex_num].width - tex_x - 1;
+
+    for (int y = start; y < end; y++) {
+        int d = y * 256 - WIN_HEIGHT * 128 + (end - start) * 128;
+        int tex_y = ((d * game->textures[tex_num].height) / (end - start)) / 256;
+        int color = game->textures[tex_num].data[tex_y * game->textures[tex_num].width + tex_x];
+        mlx_pixel_put(game->mlx, game->win, x, y, color);
+    }
+}
+
+void raycast(game_t *game) {
+    for (int x = 0; x < WIN_WIDTH; x++) {
+        double camera_x = 2 * x / (double)WIN_WIDTH - 1;
+        double ray_dir_x = game->player.dir_x + game->player.plane_x * camera_x;
+        double ray_dir_y = game->player.dir_y + game->player.plane_y * camera_x;
+
+        int map_x = (int)game->player.x;
+        int map_y = (int)game->player.y;
+
+        double side_dist_x, side_dist_y;
+        double delta_dist_x = fabs(1 / ray_dir_x);
+        double delta_dist_y = fabs(1 / ray_dir_y);
+        double perp_wall_dist;
+
+        int step_x, step_y;
+        int hit = 0;
+        int side;
+
+        if (ray_dir_x < 0) {
+            step_x = -1;
+            side_dist_x = (game->player.x - map_x) * delta_dist_x;
+        } else {
+            step_x = 1;
+            side_dist_x = (map_x + 1.0 - game->player.x) * delta_dist_x;
+        }
+        if (ray_dir_y < 0) {
+            step_y = -1;
+            side_dist_y = (game->player.y - map_y) * delta_dist_y;
+        } else {
+            step_y = 1;
+            side_dist_y = (map_y + 1.0 - game->player.y) * delta_dist_y;
+        }
+
+        while (hit == 0) {
+            if (side_dist_x < side_dist_y) {
+                side_dist_x += delta_dist_x;
+                map_x += step_x;
+                side = 0;
+            } else {
+                side_dist_y += delta_dist_y;
+                map_y += step_y;
+                side = 1;
+            }
+            if (map[map_y][map_x] > 0) hit = 1;
+        }
+
+        if (side == 0)
+            perp_wall_dist = (map_x - game->player.x + (1 - step_x) / 2) / ray_dir_x;
+        else
+            perp_wall_dist = (map_y - game->player.y + (1 - step_y) / 2) / ray_dir_y;
+
+        int line_height = (int)(WIN_HEIGHT / perp_wall_dist);
+
+        int draw_start = -line_height / 2 + WIN_HEIGHT / 2;
+        if (draw_start < 0) draw_start = 0;
+        int draw_end = line_height / 2 + WIN_HEIGHT / 2;
+        if (draw_end >= WIN_HEIGHT) draw_end = WIN_HEIGHT - 1;
+
+        // Gökyüzü ve zemin çizimini duvardan önce yapıyoruz
+        draw_sky_and_floor(game, x, draw_start, draw_end);
+
+        // Duvarın texture'ını seç
+        int tex_num = map[map_y][map_x] - 1;
+
+        // Duvarın vurduğu noktadaki texture koordinatını hesapla
+        double wall_x;
+        if (side == 0) wall_x = game->player.y + perp_wall_dist * ray_dir_y;
+        else wall_x = game->player.x + perp_wall_dist * ray_dir_x;
+        wall_x -= floor(wall_x);
+
+        // Texture'ı duvara uygula
+        draw_texture_column(game, x, draw_start, draw_end, tex_num, wall_x, side);
+    }
+}
+
+// Tuşa basılma durumunu kaydet
+int handle_keypress(int keycode, game_t *game) {
+    game->key_states[keycode] = 1;  // Tuş basıldı
+    return 0;
+}
+
+// Tuşun bırakılma durumunu kaydet
+int handle_keyrelease(int keycode, game_t *game) {
+    game->key_states[keycode] = 0;  // Tuş bırakıldı
+    return 0;
+}
+
+// Oyuncunun hareketini güncelle
+void update_player_movement(game_t *game) {
+    if (game->key_states[KEY_W]) {
+        if (map[(int)(game->player.y)][(int)(game->player.x + game->player.dir_x * MOVE_SPEED)] == 0) {
+            game->player.x += game->player.dir_x * MOVE_SPEED;
+        }
+        if (map[(int)(game->player.y + game->player.dir_y * MOVE_SPEED)][(int)(game->player.x)] == 0) {
+            game->player.y += game->player.dir_y * MOVE_SPEED;
+        }
+    }
+    if (game->key_states[KEY_S]) {
+        if (map[(int)(game->player.y)][(int)(game->player.x - game->player.dir_x * MOVE_SPEED)] == 0) {
+            game->player.x -= game->player.dir_x * MOVE_SPEED;
+        }
+        if (map[(int)(game->player.y - game->player.dir_y * MOVE_SPEED)][(int)(game->player.x)] == 0) {
+            game->player.y -= game->player.dir_y * MOVE_SPEED;
+        }
+    }
+    if (game->key_states[KEY_A]) {
+        double old_dir_x = game->player.dir_x;
+        game->player.dir_x = game->player.dir_x * cos(ROT_SPEED) - game->player.dir_y * sin(ROT_SPEED);
+        game->player.dir_y = old_dir_x * sin(ROT_SPEED) + game->player.dir_y * cos(ROT_SPEED);
+        double old_plane_x = game->player.plane_x;
+        game->player.plane_x = game->player.plane_x * cos(ROT_SPEED) - game->player.plane_y * sin(ROT_SPEED);
+        game->player.plane_y = old_plane_x * sin(ROT_SPEED) + game->player.plane_y * cos(ROT_SPEED);
+    }
+    if (game->key_states[KEY_D]) {
+        double old_dir_x = game->player.dir_x;
+        game->player.dir_x = game->player.dir_x * cos(-ROT_SPEED) - game->player.dir_y * sin(-ROT_SPEED);
+        game->player.dir_y = old_dir_x * sin(-ROT_SPEED) + game->player.dir_y * cos(-ROT_SPEED);
+        double old_plane_x = game->player.plane_x;
+        game->player.plane_x = game->player.plane_x * cos(-ROT_SPEED) - game->player.plane_y * sin(-ROT_SPEED);
+        game->player.plane_y = old_plane_x * sin(-ROT_SPEED) + game->player.plane_y * cos(-ROT_SPEED);
+    }
+}
+
+// Ana oyun döngüsü
+int game_loop(game_t *game) {
+    // Oyuncu hareketini güncelle
+    update_player_movement(game);
+
+    // Ekranı yeniden çiz
+    raycast(game);
+    
+    return 0;
+}
+
+int main() {
+    game_t game;
+    game.mlx = mlx_init();
+    game.win = mlx_new_window(game.mlx, WIN_WIDTH, WIN_HEIGHT, "Raycaster");
+
+    game.player.x = 4.5;
+    game.player.y = 4.5;
+    game.player.dir_x = -1;
+    game.player.dir_y = 0;
+    game.player.plane_x = 0;
+    game.player.plane_y = 0.66;
+
+    // Texture'ları yükle
+    load_textures(&game);
+
+    // Tüm tuş durumlarını başta sıfırla (basılı değil)
+    for (int i = 0; i < 256; i++) {
+        game.key_states[i] = 0;
+    }
+
+    // Oyun döngüsü ve tuş olayları
+    mlx_hook(game.win, 2, 1L<<0, handle_keypress, &game);    // Tuş basıldığında
+    mlx_hook(game.win, 3, 1L<<1, handle_keyrelease, &game);  // Tuş bırakıldığında
+    mlx_loop_hook(game.mlx, game_loop, &game);               // Sürekli olarak oyun döngüsü
+    mlx_loop(game.mlx);
+
+    return 0;
+}
