@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define WIDTH 800
-#define HEIGHT 600
-#define VOXEL_SIZE 0.5f
-#define GRID_SIZE 5  // Küplerin oluşturacağı dünyadaki birim uzunluğu
+#define WIDTH 2160
+#define HEIGHT 1440
+#define VOXEL_SIZE 0.25f
+#define GRID_SIZE 10
 #define MOVE_SPEED 0.1f
 #define ROTATE_SPEED 0.05f
 
@@ -19,6 +19,8 @@ typedef struct {
     void *win;
     float cameraX, cameraY, cameraZ;
     float angleX, angleY, angleZ;
+    int key_states[70000];  // Tuşların basılı olup olmadığını tutan bir dizi
+    int current_color;    // Çizgi rengini belirleyen değişken
 } App;
 
 void draw_line(App *app, int x0, int y0, int x1, int y1, int color) {
@@ -55,7 +57,7 @@ Vector3 rotate(Vector3 p, float angleX, float angleY, float angleZ) {
     return p;
 }
 
-void draw_voxel(App *app, Vector3 pos, int color) {
+void draw_voxel(App *app, Vector3 pos) {
     Vector3 vertices[8] = {
         {pos.x - VOXEL_SIZE, pos.y - VOXEL_SIZE, pos.z - VOXEL_SIZE},
         {pos.x + VOXEL_SIZE, pos.y - VOXEL_SIZE, pos.z - VOXEL_SIZE},
@@ -87,40 +89,61 @@ void draw_voxel(App *app, Vector3 pos, int color) {
 
     for (int i = 0; i < 12; i++) {
         draw_line(app, (int)projected[edges[i][0]].x, (int)projected[edges[i][0]].y,
-                  (int)projected[edges[i][1]].x, (int)projected[edges[i][1]].y, color);
+                  (int)projected[edges[i][1]].x, (int)projected[edges[i][1]].y, app->current_color);
     }
 }
 
-int key_handler(int keycode, App *app) {
-    if (keycode == 119)  // W tuşu
-        app->cameraZ += MOVE_SPEED;
-    if (keycode == 115)   // S tuşu
-        app->cameraZ -= MOVE_SPEED;
-    if (keycode == 97)   // A tuşu
-        app->cameraX += MOVE_SPEED;
-    if (keycode == 100)   // D tuşu
-        app->cameraX -= MOVE_SPEED;
-    if (keycode == 113) // Sol ok tuşu
-        app->angleY -= ROTATE_SPEED;
-    if (keycode == 114) // Sağ ok tuşu
-        app->angleY += ROTATE_SPEED;
-    if (keycode == 111) // Yukarı ok tuşu
-        app->angleX -= ROTATE_SPEED;
-    if (keycode == 116) // Aşağı ok tuşu
-        app->angleX += ROTATE_SPEED;
-    if (keycode == 53)  // ESC tuşu
-        exit(0);
+int key_press(int keycode, App *app) {
+    if (keycode < 70000)
+        app->key_states[keycode] = 1;
+    
+    // Tuşlara göre renk değişimi
+    if (keycode == 65361) // R tuşu
+        app->current_color = 0xFF0000; // Kırmızı
+    else if (keycode == 65364) // G tuşu
+        app->current_color = 0x00FF00; // Yeşil
+    else if (keycode == 65363) // B tuşu
+        app->current_color = 0x0000FF; // Mavi
+    else if (keycode == 65362) // B tuşu
+        app->current_color = 0xFFFFFF; // Mavi
+
     return 0;
 }
 
+int key_release(int keycode, App *app) {
+    if (keycode < 70000)
+        app->key_states[keycode] = 0;
+    return 0;
+}
+
+void handle_input(App *app) {
+    if (app->key_states[119]) // W tuşu
+        app->cameraZ += MOVE_SPEED;
+    if (app->key_states[115]) // S tuşu
+        app->cameraZ -= MOVE_SPEED;
+    if (app->key_states[97])  // A tuşu
+        app->cameraX += MOVE_SPEED;
+    if (app->key_states[100]) // D tuşu
+        app->cameraX -= MOVE_SPEED;
+    if (app->key_states[65361]) // Sol ok tuşu
+        app->angleY -= ROTATE_SPEED;
+    if (app->key_states[65363]) // Sağ ok tuşu
+        app->angleY += ROTATE_SPEED;
+    if (app->key_states[65362]) // Yukarı ok tuşu
+        app->angleX -= ROTATE_SPEED;
+    if (app->key_states[65364]) // Aşağı ok tuşu
+        app->angleX += ROTATE_SPEED;
+}
+
 int render(App *app) {
+    handle_input(app);
     mlx_clear_window(app->mlx, app->win);
     for (int x = -GRID_SIZE; x <= GRID_SIZE; x++) {
         for (int y = -GRID_SIZE; y <= GRID_SIZE; y++) {
             for (int z = -GRID_SIZE; z <= GRID_SIZE; z++) {
                 if ((x + y + z) % 2 == 0) {
                     Vector3 pos = {x, y, z};
-                    draw_voxel(app, pos, 0xFFFFFF);
+                    draw_voxel(app, pos);
                 }
             }
         }
@@ -132,10 +155,12 @@ int main() {
     App app = {0};
     app.mlx = mlx_init();
     app.win = mlx_new_window(app.mlx, WIDTH, HEIGHT, "Voxel Engine with Controls");
-    app.cameraX = 0; app.cameraY = 0; app.cameraZ = -5;
+    app.cameraX = 0; app.cameraY = 0; app.cameraZ = -10;
+    app.current_color = 0xFFFFFF; // Başlangıç rengi beyaz
 
-    mlx_key_hook(app.win, key_handler, &app);
-    mlx_loop_hook(app.mlx, render, &app);
+    mlx_hook(app.win, 2, 1L << 0, key_press, &app);      // Tuş basma
+    mlx_hook(app.win, 3, 1L << 1, key_release, &app);    // Tuş bırakma
+    mlx_loop_hook(app.mlx, render, &app);                // Sürekli render
     mlx_loop(app.mlx);
     return 0;
 }
