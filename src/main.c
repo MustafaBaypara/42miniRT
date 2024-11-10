@@ -154,8 +154,8 @@ int main()
     mlx.img.data = mlx_get_data_addr(mlx.img.img_ptr, &mlx.img.bpp, &mlx.img.size_line, &mlx.img.endian);
 
     // Initialize sphere and light
-    mlx.sphere = (t_sphere){{0, 0, -5}, 1.0, create_color(255, 0, 0)};
-    mlx.light = (t_light){{2, 2, -3}, 1.0};
+    mlx.sphere = (t_sphere){{0, 0, -5}, 1.0, create_color(150, 0, 200)};
+    mlx.light = (t_light){{2, 5, -3}, 1.0};
 
     render_scene(&mlx);
 
