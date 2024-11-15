@@ -24,6 +24,7 @@ typedef struct s_sphere {
 typedef struct s_light {
     t_vec3 position;
     double intensity;
+    int color; // Işığın rengini tutacak yeni alan
 } t_light;
 
 typedef struct s_image {
@@ -42,69 +43,76 @@ typedef struct s_mlx {
     t_light light;
 } t_mlx;
 
-// Vector operations
+// Vektör işlemleri
 t_vec3 vec3_sub(t_vec3 a, t_vec3 b) {
+    // İki vektörün farkını hesaplar ve yeni bir vektör döner
     return (t_vec3){a.x - b.x, a.y - b.y, a.z - b.z};
 }
 
 t_vec3 vec3_add(t_vec3 a, t_vec3 b) {
+    // İki vektörün toplamını hesaplar ve yeni bir vektör döner
     return (t_vec3){a.x + b.x, a.y + b.y, a.z + b.z};
 }
 
 t_vec3 vec3_mult(t_vec3 v, double scalar) {
+    // Bir vektörü bir skaler ile çarpar ve yeni bir vektör döner
     return (t_vec3){v.x * scalar, v.y * scalar, v.z * scalar};
 }
 
 double vec3_dot(t_vec3 a, t_vec3 b) {
+    // İki vektörün nokta çarpımını hesaplar ve bir skaler döner
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
 double vec3_length(t_vec3 v) {
+    // Bir vektörün uzunluğunu hesaplar ve bir skaler döner
     return sqrt(vec3_dot(v, v));
 }
 
 t_vec3 vec3_normalize(t_vec3 v) {
+    // Bir vektörü normalize eder (birim vektör yapar) ve yeni bir vektör döner
     double len = vec3_length(v);
     return (t_vec3){v.x / len, v.y / len, v.z / len};
 }
-
-// Ray-sphere intersection
+// Işın-küre kesişimi
 int intersect_sphere(t_ray ray, t_sphere sphere, double *t)
 {
-    t_vec3 oc = vec3_sub(ray.origin, sphere.center);
-    double a = vec3_dot(ray.direction, ray.direction);
-    double b = 2.0 * vec3_dot(oc, ray.direction);
-    double c = vec3_dot(oc, oc) - sphere.radius * sphere.radius;
-    double discriminant = b * b - 4 * a * c;
+    // Işının küre ile kesişip kesişmediğini kontrol eder
+    t_vec3 oc = vec3_sub(ray.origin, sphere.center); // Işının başlangıç noktası ile kürenin merkezi arasındaki vektör
+    double a = vec3_dot(ray.direction, ray.direction); // Işının yön vektörünün nokta çarpımı
+    double b = 2.0 * vec3_dot(oc, ray.direction); // Işının yön vektörü ile oc vektörünün nokta çarpımının iki katı
+    double c = vec3_dot(oc, oc) - sphere.radius * sphere.radius; // oc vektörünün nokta çarpımı eksi kürenin yarıçapının karesi
+    double discriminant = b * b - 4 * a * c; // Diskriminant hesaplanır
     if (discriminant < 0)
-        return 0;
+        return 0; // Kesişim yok
     else
     {
-        discriminant = sqrt(discriminant);
-        double t0 = (-b - discriminant) / (2 * a);
-        double t1 = (-b + discriminant) / (2 * a);
-        *t = (t0 < t1) ? t0 : t1;
-        return 1;
+        discriminant = sqrt(discriminant); // Diskriminantın karekökü alınır
+        double t0 = (-b - discriminant) / (2 * a); // İlk kesişim noktası
+        double t1 = (-b + discriminant) / (2 * a); // İkinci kesişim noktası
+        *t = (t0 < t1) ? t0 : t1; // Daha küçük olan t değeri seçilir
+        return 1; // Kesişim var
     }
 }
 
-// Color creation
-int create_color(int r, int g, int b)
-{
+// Renk oluşturma
+int create_color(int r, int g, int b) {
+    // RGB değerlerinden bir renk oluşturur
     return (r << 16 | g << 8 | b);
 }
 
-// Pixel drawing
+// Piksel çizme
 void put_pixel(t_image *img, int x, int y, int color)
 {
     char *pixel;
     int offset;
 
+    // Pikselin görüntü sınırları içinde olup olmadığını kontrol eder
     if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
         return;
-    offset = (y * img->size_line) + (x * (img->bpp / 8));
-    pixel = img->data + offset;
-    *(int *)pixel = color;
+    offset = (y * img->size_line) + (x * (img->bpp / 8)); // Pikselin görüntüdeki konumunu hesaplar
+    pixel = img->data + offset; // Pikselin adresini alır
+    *(int *)pixel = color; // Pikseli renklendirir
 }
 
 void render_scene(t_mlx *mlx)
@@ -126,20 +134,29 @@ void render_scene(t_mlx *mlx)
                 t_vec3 light_dir = vec3_normalize(vec3_sub(mlx->light.position, hit_point));
                 double diffuse = fmax(0.0, vec3_dot(normal, light_dir)) * mlx->light.intensity;
 
-                int r = (int)(diffuse * ((mlx->sphere.color >> 16) & 0xFF));
-                int g = (int)(diffuse * ((mlx->sphere.color >> 8) & 0xFF));
-                int b = (int)(diffuse * (mlx->sphere.color & 0xFF));
+                // Işığın rengini hesaba katar
+                int light_r = (mlx->light.color >> 16) & 0xFF;
+                int light_g = (mlx->light.color >> 8) & 0xFF;
+                int light_b = mlx->light.color & 0xFF;
+
+                int sphere_r = (mlx->sphere.color >> 16) & 0xFF;
+                int sphere_g = (mlx->sphere.color >> 8) & 0xFF;
+                int sphere_b = mlx->sphere.color & 0xFF;
+
+                int r = (int)(diffuse * sphere_r * light_r / 255);
+                int g = (int)(diffuse * sphere_g * light_g / 255);
+                int b = (int)(diffuse * sphere_b * light_b / 255);
+
                 put_pixel(&mlx->img, x, y, create_color(r, g, b));
             }
             else
-                put_pixel(&mlx->img, x, y, create_color(0, 0, 0)); // Background color
+                put_pixel(&mlx->img, x, y, create_color(0, 0, 0));
         }
     }
     mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img_ptr, 0, 0);
 }
 
-int main()
-{
+int main() {
     t_mlx mlx;
 
     mlx.mlx_ptr = mlx_init();
@@ -151,9 +168,9 @@ int main()
     mlx.img.img_ptr = mlx_new_image(mlx.mlx_ptr, WIDTH, HEIGHT);
     mlx.img.data = mlx_get_data_addr(mlx.img.img_ptr, &mlx.img.bpp, &mlx.img.size_line, &mlx.img.endian);
 
-    // Initialize sphere and light
+    // Küre ve ışık kaynağını başlatma
     mlx.sphere = (t_sphere){{0, 0, -5}, 1.0, create_color(150, 0, 200)};
-    mlx.light = (t_light){{8, 5, -3}, 1.1};
+    mlx.light = (t_light){{-8, 5, -3}, 1.0, create_color(0, 255, 255)}; // Işığın rengi beyaz olarak ayarlandı
 
     render_scene(&mlx);
 

@@ -1,5 +1,5 @@
 MAKEFLAGS 			+= --no-print-directory
-NAME                = cub3d
+NAME                = miniRT
 LIBFT               = ./libft/libft.a
 SRC_DIR             = src/
 OBJ_DIR             = obj/
