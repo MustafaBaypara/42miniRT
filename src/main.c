@@ -132,9 +132,7 @@ void render_scene(t_mlx *mlx)
                 put_pixel(&mlx->img, x, y, create_color(r, g, b));
             }
             else
-            {
                 put_pixel(&mlx->img, x, y, create_color(0, 0, 0)); // Background color
-            }
         }
     }
     mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img_ptr, 0, 0);
@@ -155,7 +153,7 @@ int main()
 
     // Initialize sphere and light
     mlx.sphere = (t_sphere){{0, 0, -5}, 1.0, create_color(150, 0, 200)};
-    mlx.light = (t_light){{2, 5, -3}, 1.0};
+    mlx.light = (t_light){{8, 5, -3}, 1.1};
 
     render_scene(&mlx);
 
