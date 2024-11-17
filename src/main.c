@@ -121,10 +121,20 @@ void render_scene(t_mlx *mlx)
     {
         for (int x = 0; x < WIDTH; x++)
         {
+            // 60.000000 x
+            // 52.000000 y
             double u = (double)x / WIDTH;
             double v = (double)y / HEIGHT;
+            // 0.075000 u - x
+            // 0.086667 v - y   1e ölçeklenmiş hali
             t_ray ray = {{0, 0, 0}, {2 * u - 1, 1 - 2 * v, -1}};
+            // x -0.850000
+            // y 0.826667  ray atılacak yön
+            // z -1.000000
             ray.direction = vec3_normalize(ray.direction);
+            // n x -0.548002
+            // n y 0.532959 rayin normalize edilmiş hali
+            // n z -0.644708
 
             double t;
             if (intersect_sphere(ray, mlx->sphere, &t))
