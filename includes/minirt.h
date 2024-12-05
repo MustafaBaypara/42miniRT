@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/05 14:47:42 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:17:36 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "utils.h"
 # include "libft.h"
+# include "mlx.h"
 
 typedef struct s_scene
 {
@@ -22,9 +23,26 @@ typedef struct s_scene
 	t_color		ambient;
 	t_list		*cameras;
 	t_list		*lights;
-	t_list		*objects;
+	t_list		*spheres;
+	t_list		*planes;
+	t_list		*cylinders;
 }	t_scene;
 
+typedef struct s_frame
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_frame;
+
+typedef struct s_window
+{
+	void	*mlx;
+	void	*win;
+	t_scene	*scene;
+}	t_window;
 
 
 

@@ -6,11 +6,15 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/05 12:56:20 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/05 17:38:56 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minirt.h"
+
 int	main(int argc, char **av)
 {
-
+	t_scene		*scene;
+	t_window	*window;
+	t_frame		*frame;
 }
