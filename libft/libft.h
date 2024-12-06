@@ -6,12 +6,16 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:45:01 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/10/16 14:58:43 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:18:54 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 # include <stdlib.h>
 
@@ -21,6 +25,8 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+char				*get_next_line(int fd);
+void				*free_stash(char **stash, int cline);
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t count, size_t size);
