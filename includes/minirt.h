@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/05 16:17:36 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:14:32 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,13 @@ typedef struct s_window
 }	t_window;
 
 
+// Utils
 
+void	error_exit(char *message, int error_code);
 
+// Parsing
 
+t_scene	*init_scene(int argc, char **av);
 
 
 

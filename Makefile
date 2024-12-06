@@ -1,35 +1,36 @@
 MAKEFLAGS 			+= --no-print-directory
 NAME                = miniRT
-LIBFT               = ./libft/libft.a
+LIBFT               = ./libft/
+LIBFTA              = $(LIBFT)libft.a
 SRC_DIR             = src/
 OBJ_DIR             = obj/
-HEADER_DIR          = includes/
+INC         		= ./includes/
 MLX_DIR             = ./mlx/
-MLX				   = $(MLX_DIR)libmlx_Linux.a
+MLX				   	= $(MLX_DIR)libmlx_Linux.a
 CC                  = cc
-CFLAGS              = -Wall -Werror -Wextra
+CFLAGS              = -Wall -Werror -Wextra 
 RM                  = rm -f
-SO_LONG_DIR         = $(SRC_DIR)main.c 
+MAIN_DIR         = $(SRC_DIR)main.c $(SRC_DIR)parse.c $(SRC_DIR)utils.c
 
-SRCS                = $(SO_LONG_DIR)
+SRCS                = $(MAIN_DIR)
 OBJ                 = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 all:                $(NAME)
-$(NAME):           	$(OBJ) $(LIBFT) $(MLX) 
-					@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -I $(MLX_DIR) -L $(MLX_DIR) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-$(LIBFT):
-					@make -C ./libft
+$(NAME):           	$(LIBFTA) $(OBJ) $(MLX) 
+					@$(CC) $(CFLAGS) $(OBJ) $(LIBFTA) -I $(MLX_DIR) -L $(MLX_DIR) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+$(LIBFTA):
+					@make -C $(LIBFT)
 $(OBJ_DIR)%.o:      $(SRC_DIR)%.c
 					@mkdir -p $(@D)
-					@$(CC) -I $(MLX_DIR) -O3 $(INC) -c $< -o $@
+					@$(CC) -I $(MLX_DIR) -I $(LIBFT) -I $(INC) -c $< -o $@
 
 $(MLX):
 					@make -C $(MLX_DIR)
 clean:
 					@$(RM) -r $(OBJ_DIR)
-					@make clean -C ./libft
+					@make clean -C $(LIBFT)
 					@make clean -C $(MLX_DIR)
 fclean:             clean
 					@$(RM) $(NAME)
-					@$(RM) $(LIBFT)
+					@$(RM) $(LIBFTA)
 re:                 fclean all
 .PHONY:             all clean fclean re
