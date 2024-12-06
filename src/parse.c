@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/06 17:16:03 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:25:12 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ t_scene	*parsing(int fd)
 	char	**data;
 
 	scene = init_scene(ft_calloc(1, sizeof(t_scene)));
-	while (get_next_line(fd))
+	line = get_next_line(fd);
+	while (line)
 	{
-		return (scene);
+		line = get_next_line(fd);
+		
 	}
 }
 
