@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/06 13:14:32 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:01:58 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	error_exit(char *message, int error_code);
 
 // Parsing
 
-t_scene	*init_scene(int argc, char **av);
+t_scene	*parse_scene(int argc, char **av);
 
 
 
