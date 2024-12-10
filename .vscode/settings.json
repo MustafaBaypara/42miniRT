@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "spaceblock": "cpp"
+        "spaceblock": "cpp",
+        "minirt.h": "c"
     }
 }

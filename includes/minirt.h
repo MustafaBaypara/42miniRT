@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/06 15:01:58 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:52:52 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 
 typedef struct s_scene
 {
-	t_size		size;
-	t_color		ambient;
+	t_size		res;
+	double		al_ratio;
+	t_color		al_color;
 	t_list		*cameras;
 	t_list		*lights;
 	t_list		*spheres;
@@ -41,6 +42,7 @@ typedef struct s_window
 {
 	void	*mlx;
 	void	*win;
+	t_frame	*frame;
 	t_scene	*scene;
 }	t_window;
 
@@ -53,6 +55,9 @@ void	error_exit(char *message, int error_code);
 
 t_scene	*parse_scene(int argc, char **av);
 
+// Utils
+
+t_color	*set_color(int r, int g, int b);
 
 
 #endif

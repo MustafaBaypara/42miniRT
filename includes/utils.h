@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:58:48 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/05 16:49:45 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:39:10 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_camera
 typedef struct s_light
 {
 	t_vector3	position;
-	double		brightness;
+	double		ratio;
 	t_color		color;
 }	t_light;
 
