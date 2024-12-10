@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/10 16:58:47 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:52:40 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	imaging(t_window *window)
 			impact = NULL;
 			while (--depth)
 			{
-				ray = generate_ray(window->scene->res, pixels);
+				// ray = generate_ray(window->scene->res, pixels);
 			}
 		}
 	}

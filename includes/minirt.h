@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/10 16:52:52 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:56:48 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_window
 	t_scene	*scene;
 }	t_window;
 
-
 // Utils
 
 void	error_exit(char *message, int error_code);
@@ -59,5 +58,8 @@ t_scene	*parse_scene(int argc, char **av);
 
 t_color	*set_color(int r, int g, int b);
 
+// Frame
+
+void	imaging(t_window *window);
 
 #endif

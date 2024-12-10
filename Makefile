@@ -10,7 +10,8 @@ MLX				   	= $(MLX_DIR)libmlx_Linux.a
 CC                  = cc
 CFLAGS              = -Wall -Werror -Wextra 
 RM                  = rm -f
-MAIN_DIR         = $(SRC_DIR)main.c $(SRC_DIR)parse.c $(SRC_DIR)utils.c
+MAIN_DIR         = $(SRC_DIR)main.c $(SRC_DIR)parse.c $(SRC_DIR)utils.c \
+					$(SRC_DIR)frame.c $(SRC_DIR)vector.c $(SRC_DIR)set_utils.c
 
 SRCS                = $(MAIN_DIR)
 OBJ                 = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
