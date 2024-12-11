@@ -6,34 +6,60 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/10 17:52:40 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:44:16 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	imaging(t_window *window)
+t_ray	new_ray(t_vector3 pos, t_vector3 direction)
+{
+	t_ray	ray;
+
+	ray.origin = pos;
+	ray.direction = direction;
+	return (ray);
+}
+
+t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
+{
+	t_vector3	v_dir;
+	int			x;
+
+	v_dir.x = j + 0.5 - res.width / 2;
+	v_dir.y = i + 0.5 - res.height / 2;
+
+	if (res.width > res.height)
+		x = res.width;
+	else
+		x = res.height;
+
+	v_dir.z = x / (2 * tan(camera->fov * M_PI * 0.5 / 180.0));
+
+	return (new_ray(camera->position, vec3_op(v_dir, v_dir, 0, 'n')));
+}
+
+void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 {
 	t_size		pixels;
 	t_ray		ray;
 	int			depth;
 	t_color		*color;
 	void		*objects;
-	t_impact	*impact;
 
 	pixels.height = -1;
-	while (++pixels.height < window->scene->res.height)
+	while (++pixels.height < win->scene->res.height)
 	{
 		pixels.width = -1;
-		while (++pixels.width < window->scene->res.width)
+		while (++pixels.width < win->scene->res.width)
 		{
 			color = set_color(0, 0, 0);
 			depth = 1;
 			objects = NULL;
-			impact = NULL;
+			imp = NULL;
 			while (--depth)
 			{
-				// ray = generate_ray(window->scene->res, pixels);
+				ray = generate_ray(cam, sc->res, pixels.height, pixels.width);
 			}
 		}
 	}

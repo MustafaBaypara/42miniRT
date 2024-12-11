@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/10 17:56:48 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:37:37 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_frame
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		line_len;
+	int		len;
 	int		endian;
 }	t_frame;
 
@@ -48,18 +48,25 @@ typedef struct s_window
 
 // Utils
 
-void	error_exit(char *message, int error_code);
+void		error_exit(char *message, int error_code);
 
 // Parsing
 
-t_scene	*parse_scene(int argc, char **av);
+t_scene		*parse_scene(int argc, char **av);
 
 // Utils
 
-t_color	*set_color(int r, int g, int b);
+t_color		*set_color(int r, int g, int b);
 
 // Frame
 
-void	imaging(t_window *window);
+void		imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp);
+
+// Vector
+t_vector3	new_vec3(double x, double y, double z);
+double		distance(t_vector3 a, t_vector3 b);
+t_vector3	vec3_op(t_vector3 v1, t_vector3 v2, double scalar, char op);
+double		dot_product(t_vector3 v1, t_vector3 v2);
+t_vector3	cross_product(t_vector3 v1, t_vector3 v2);
 
 #endif

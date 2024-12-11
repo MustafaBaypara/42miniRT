@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/10 17:52:53 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:14:04 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 t_window	*init_window(t_scene *scene)
 {
 	t_window	*window;
+	t_size		res;
+	t_frame		*img;
 
+	res = scene->res;
 	window = ft_calloc(1, sizeof(t_window));
 	window->mlx = mlx_init();
-	window->win = mlx_new_window(window->mlx, scene->res.width, scene->res.height, "miniRT");
+	window->win = mlx_new_window(window->mlx, res.width, res.height, "miniRT");
 	window->scene = scene;
 	window->frame = ft_calloc(1, sizeof(t_frame));
-	window->frame->img = mlx_new_image(window->mlx, scene->res.width, scene->res.height);
-	window->frame->addr = mlx_get_data_addr(window->frame->img, &window->frame->bpp, &window->frame->line_len, &window->frame->endian);
+	img = window->frame;
+	img->img = mlx_new_image(window->mlx, res.width, res.height);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len, &img->endian);
 	return (window);
 }
 

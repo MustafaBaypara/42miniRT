@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "spaceblock": "cpp",
-        "minirt.h": "c"
+        "minirt.h": "c",
+        "random": "c",
+        "limits": "c",
+        "algorithm": "c",
+        "math.h": "c"
     }
 }
