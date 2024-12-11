@@ -6,11 +6,12 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/11 15:44:16 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:02:16 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 t_ray	new_ray(t_vector3 pos, t_vector3 direction)
 {
@@ -37,6 +38,17 @@ t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 	v_dir.z = x / (2 * tan(camera->fov * M_PI * 0.5 / 180.0));
 
 	return (new_ray(camera->position, vec3_op(v_dir, v_dir, 0, 'n')));
+}
+
+t_impact	*check_objects(t_ray ray, t_scene *scene, void **object)
+{
+	t_impact	*impact;
+
+	impact = ft_calloc(1, sizeof(t_impact));
+	impact->object = ft_calloc(3, sizeof(char));
+	impact->distance = INFINITY;
+	sphere_ray(ray, scene, impact, object);
+	return (impact);
 }
 
 void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)

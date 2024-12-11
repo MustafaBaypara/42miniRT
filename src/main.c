@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/11 15:14:04 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:04:34 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **av)
 
 	scene = parse_scene(argc, av);
 	window = init_window(scene);
-	imaging(window);
+	imaging(window, (t_camera *)scene->cameras->content, scene, NULL);
 
 
 	return (0);

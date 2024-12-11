@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/11 15:37:37 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:05:36 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		error_exit(char *message, int error_code);
 t_scene		*parse_scene(int argc, char **av);
 
 // Utils
-
+int			quadratic_solver(t_vector3 point, double *a, double *b);
 t_color		*set_color(int r, int g, int b);
 
 // Frame
@@ -68,5 +68,8 @@ double		distance(t_vector3 a, t_vector3 b);
 t_vector3	vec3_op(t_vector3 v1, t_vector3 v2, double scalar, char op);
 double		dot_product(t_vector3 v1, t_vector3 v2);
 t_vector3	cross_product(t_vector3 v1, t_vector3 v2);
+
+// Elements
+void		sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 
 #endif
