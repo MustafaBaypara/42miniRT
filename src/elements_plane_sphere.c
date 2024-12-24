@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:28:22 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/12 14:21:52 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:14:07 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,17 @@ int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 				dot_product(vector, vector) - sphere.radius * sphere.radius),
 			&a, &b))
 		return (0);
-
+	if ((a < 0 && b < 0) || (a > impact->distance && b > impact->distance))
+		return (0);
+	else if (a <= 0.)
+		a = b;
+	else if (b <= 0.)
+		b = a;
+	if (a < b)
+		impact->distance = a;
+	else
+		impact->distance = b;
+	return (1);
 }
 
 void	sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj)

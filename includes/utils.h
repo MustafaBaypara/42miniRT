@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:58:48 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/11 18:05:11 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:12:58 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # define M_PI 3.14159265358979323846
+# define EPSILON 1e-4
 
 // Basic Structures
 
