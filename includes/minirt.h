@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/11 18:05:36 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:58:41 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void		imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp);
 // Vector
 t_vector3	new_vec3(double x, double y, double z);
 double		distance(t_vector3 a, t_vector3 b);
-t_vector3	vec3_op(t_vector3 v1, t_vector3 v2, double scalar, char op);
+t_vector3	vec3_norm(t_vector3 v);
+t_vector3	vec3_add(t_vector3 v1, t_vector3 v2);
+t_vector3	vec3_sub(t_vector3 v1, t_vector3 v2);
+t_vector3	vec3_mult(t_vector3 v, double scalar);
 double		dot_product(t_vector3 v1, t_vector3 v2);
 t_vector3	cross_product(t_vector3 v1, t_vector3 v2);
 

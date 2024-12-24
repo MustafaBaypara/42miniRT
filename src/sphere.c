@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   elements_plane_sphere.c                            :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:28:22 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/24 17:14:07 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/24 19:18:57 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static int	sphere_identify(t_ray ray, t_sphere sphere,
+	t_impact *impact, double b)
+{
+	impact->point = vec3_add(ray.origin, vec3_mult(ray.direction, b));
+	impact->normal = vec3_norm(vec3_sub(impact->point, sphere.position));
+	impact->point = vec3_add(impact->point, vec3_mult(impact->normal, EPSILON));
+	return (1);
+}
 
 int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 {
@@ -36,7 +45,7 @@ int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 		impact->distance = a;
 	else
 		impact->distance = b;
-	return (1);
+	return (sphere_identify(ray, sphere, impact, b));
 }
 
 void	sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj)
@@ -49,6 +58,10 @@ void	sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj)
 	{
 		sphere = (t_sphere *)lst->content;
 		if (sphere_intersection(ray, *sphere, impact))
+		{
 			*obj = sphere;
+			impact->object = "sphere";
+		}
+		lst = lst->next;
 	}
 }
