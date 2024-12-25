@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:58:56 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/24 18:54:52 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/25 14:27:13 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ double	distance(t_vector3 a, t_vector3 b)
 	return (sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2) + pow(b.z - a.z, 2)));
 }
 
-double	dot_product(t_vector3 v1, t_vector3 v2)
+double	dot_pd(t_vector3 v1, t_vector3 v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }

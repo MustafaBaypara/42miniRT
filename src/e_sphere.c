@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:28:22 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/24 19:18:57 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/25 14:20:09 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	sphere_identify(t_ray ray, t_sphere sphere,
 	return (1);
 }
 
-int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
+static int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 {
 	t_vector3	vector;
 	double		a;
