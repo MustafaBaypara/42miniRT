@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/25 14:35:47 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/26 13:53:12 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 			while (--depth)
 			{
 				ray = generate_ray(cam, sc->res, pixels.height, pixels.width);
+				imp = check_objects(ray, sc, &objects);
+				if (objects)
+				{
+					*color = object_color(imp->object, objects);
+				}
 			}
 		}
 	}

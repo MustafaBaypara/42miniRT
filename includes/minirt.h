@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/25 14:26:54 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/26 13:52:30 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_scene		*parse_scene(int argc, char **av);
 // Utils
 int			quadratic_solver(t_vector3 point, double *a, double *b);
 t_color		*set_color(int r, int g, int b);
+t_color		object_color(char *type, void *obj);
 
 // Frame
 
