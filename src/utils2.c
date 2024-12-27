@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 13:49:41 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/27 17:00:59 by mbaypara         ###   ########.fr       */
+/*   Created: 2024/12/10 16:51:44 by mbaypara          #+#    #+#             */
+/*   Updated: 2024/12/27 17:02:10 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color	object_color(char *type, void *obj)
+float	get_maxf(float a, float b)
 {
-	if (!ft_strcmp(type, "sphere"))
-		return (((t_sphere *)obj)->color);
+	if (a > b)
+		return (a);
+	return (b);
 }
 
-int	color_int(t_color color)
+float	get_minf(float a, float b)
 {
-	return (color.r << 16 | color.g << 8 | color.b);
+	if (a < b)
+		return (a);
+	return (b);
 }
 
-t_color	*set_color(int r, int g, int b)
+int	get_maxi(int a, int b)
 {
-	t_color	*color;
+	if (a > b)
+		return (a);
+	return (b);
+}
 
-	color = ft_calloc(1, sizeof(t_color));
-	color->r = r;
-	color->g = g;
-	color->b = b;
-	return (color);
+int	get_mini(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }

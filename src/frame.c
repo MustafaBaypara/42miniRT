@@ -6,12 +6,20 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/26 13:53:12 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:47:05 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
+
+static void	put_pixel(unsigned char *addr, t_size pos, int color, t_size res)
+{
+	int		offset;
+
+	offset = (pos.height * res.width + pos.width) * 4;
+	*(unsigned int *)(addr + offset) = color;
+}
 
 t_ray	new_ray(t_vector3 pos, t_vector3 direction)
 {
@@ -78,8 +86,13 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 				if (objects)
 				{
 					*color = object_color(imp->object, objects);
+					if (dot_pd(imp->normal, ray.direction) >= 0)
+						imp->normal = new_vec3(-imp->normal.x, -imp->normal.y, -imp->normal.z);
+					lighting(sc, imp, color, pixels);
 				}
 			}
+			put_pixel(win->addr, pixels, color_int(*color), sc->res);
+			free(color);
 		}
 	}
 }

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_utils.c                                        :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 16:51:44 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/10 16:52:39 by mbaypara         ###   ########.fr       */
+/*   Created: 2024/12/27 16:56:49 by mbaypara          #+#    #+#             */
+/*   Updated: 2024/12/27 16:57:27 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color	*set_color(int r, int g, int b)
+t_ray	new_ray(t_vector3 pos, t_vector3 dir)
 {
-	t_color	*color;
+	t_ray	ray;
 
-	color = ft_calloc(1, sizeof(t_color));
-	color->r = r;
-	color->g = g;
-	color->b = b;
-	return (color);
+	ray.origin = pos;
+	ray.direction = dir;
+	return (ray);
 }

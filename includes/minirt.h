@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/26 13:52:30 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/27 17:03:19 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,12 @@ typedef struct s_frame
 
 typedef struct s_window
 {
-	void	*mlx;
-	void	*win;
-	t_frame	*frame;
-	t_scene	*scene;
+	void			*mlx;
+	void			*win;
+	unsigned char	*addr;
+	t_frame			*frame;
+	t_scene			*scene;
 }	t_window;
-
-// Utils
-
-void		error_exit(char *message, int error_code);
 
 // Parsing
 
@@ -56,8 +53,13 @@ t_scene		*parse_scene(int argc, char **av);
 
 // Utils
 int			quadratic_solver(t_vector3 point, double *a, double *b);
-t_color		*set_color(int r, int g, int b);
-t_color		object_color(char *type, void *obj);
+void		error_exit(char *message, int error_code);
+
+// Utils tools
+float		get_maxf(float a, float b);
+float		get_minf(float a, float b);
+int			get_maxi(int a, int b);
+int			get_mini(int a, int b);
 
 // Frame
 
@@ -76,5 +78,13 @@ t_vector3	cross_product(t_vector3 v1, t_vector3 v2);
 // Elements
 void		sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		plane_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
+
+// Color
+int			color_int(t_color color);
+t_color		*set_color(int r, int g, int b);
+t_color		object_color(char *type, void *obj);
+
+// Ray
+t_ray		new_ray(t_vector3 pos, t_vector3 dir);
 
 #endif
