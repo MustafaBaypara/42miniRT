@@ -40,5 +40,6 @@ int	main(int argc, char **av)
 	imaging(window, (t_camera *)scene->cameras->content, scene, NULL);
 
 
+
 	return (0);
 }
