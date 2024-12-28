@@ -88,7 +88,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 					*color = object_color(imp->object, objects);
 					if (dot_pd(imp->normal, ray.direction) >= 0)
 						imp->normal = new_vec3(-imp->normal.x, -imp->normal.y, -imp->normal.z);
-					lighting(sc, imp, color, pixels);
+					// lighting(sc, imp, color, pixels);
 				}
 			}
 			put_pixel(win->addr, pixels, color_int(*color), sc->res);

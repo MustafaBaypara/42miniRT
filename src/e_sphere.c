@@ -30,9 +30,9 @@ static int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 	vector = new_vec3(ray.origin.x - sphere.position.x,
 			ray.origin.y - sphere.position.y,
 			ray.origin.z - sphere.position.z);
-	if (!quadratic_solver(new_vec3(dot_product(ray.direction, ray.direction),
-				2 * dot_product(ray.direction, vector),
-				dot_product(vector, vector) - sphere.radius * sphere.radius),
+	if (!quadratic_solver(new_vec3(dot_pd(ray.direction, ray.direction),
+				2 * dot_pd(ray.direction, vector),
+				dot_pd(vector, vector) - sphere.radius * sphere.radius),
 			&a, &b))
 		return (0);
 	if ((a < 0 && b < 0) || (a > impact->distance && b > impact->distance))
