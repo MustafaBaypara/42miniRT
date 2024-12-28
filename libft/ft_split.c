@@ -21,14 +21,14 @@ static int	ft_count(char **strs, char const *s, char c)
 	count = 0;
 	while (s[i])
 	{
-		while (s[i] && s[i] != c)
+		while (s[i] && (s[i] != c || s[i] == '\t'))
 			i++;
 		if (strs)
 			strs[count] = ft_substr(s, 0, i);
 		if (strs && strs[count] == NULL)
 			return (-1);
 		count++;
-		while (s[i] && s[i] == c)
+		while (s[i] && (s[i] == c || s[i] == '\t'))
 			i++;
 		s = s + i;
 		i = 0;
@@ -43,7 +43,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	while (*s && *s == c)
+	while (*s && (*s == c || *s == '\t'))
 		s++;
 	strs = ft_calloc(ft_count(NULL, s, c) + 1, sizeof(char *));
 	if (!strs)

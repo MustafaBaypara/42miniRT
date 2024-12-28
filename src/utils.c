@@ -47,3 +47,43 @@ void	error_exit(char *message, int error_code)
 	ft_putstr_fd("\n", 2);
 	exit(error_code);
 }
+
+double	ft_atod(const char *str)
+{
+	int		i;
+	int		sign;
+	double	result;
+	double	fraction;
+
+	i = 0;
+	sign = 1;
+	result = 0.0;
+	fraction = 0.0;
+	if (str[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
+	{
+		result *= 10.0;
+		result += str[i] - '0';
+		i++;
+	}
+	if (str[i] == '.')
+	{
+		i++;
+		double decimal_place = 0.1;
+		while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
+		{
+			fraction += (str[i] - '0') * decimal_place;
+			decimal_place *= 0.1;
+			i++;
+		}
+	}
+	else if (str[i] != '\0')
+		error_exit("Parser Error.", 1);
+	return (result + fraction) * sign;
+}

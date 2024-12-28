@@ -28,6 +28,7 @@ typedef struct s_scene
 	t_list		*spheres;
 	t_list		*planes;
 	t_list		*cylinders;
+	int			p_control;
 }	t_scene;
 
 typedef struct s_frame
@@ -55,6 +56,7 @@ t_scene		*parse_scene(int argc, char **av);
 // Utils
 int			quadratic_solver(t_vector3 point, double *a, double *b);
 void		error_exit(char *message, int error_code);
+double		ft_atod(const char *str);
 
 // Utils tools
 float		get_maxf(float a, float b);
