@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:49:41 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/27 17:00:59 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/30 13:05:00 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	color_int(t_color color)
 	return (color.r << 16 | color.g << 8 | color.b);
 }
 
-t_color	*set_color(int r, int g, int b)
+t_color	*int_color(int r, int g, int b)
 {
 	t_color	*color;
 
@@ -32,4 +32,24 @@ t_color	*set_color(int r, int g, int b)
 	color->g = g;
 	color->b = b;
 	return (color);
+}
+
+t_color	*mult_color(t_color color, t_color color2)
+{
+	t_color	*new_color;
+
+	new_color = int_color(color.r * color2.r / 255,
+			color.g * color2.g / 255,
+			color.b * color2.b / 255);
+	return (new_color);
+}
+
+t_color	*mult_color_d(t_color color, double d)
+{
+	t_color	*new_color;
+
+	new_color = int_color(color.r * d,
+			color.g * d,
+			color.b * d);
+	return (new_color);
 }

@@ -6,13 +6,13 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:54:43 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/11 18:00:13 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:25:13 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	quadratic_solver(t_vector3 point, double *a, double *b)
+bool	quadratic_solver(t_vector3 point, double *a, double *b)
 {
 	double	discriminant;
 	double	q;

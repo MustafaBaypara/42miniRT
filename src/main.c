@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/11 18:04:34 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/30 14:35:06 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	main(int argc, char **av)
 	scene = parse_scene(argc, av);
 	window = init_window(scene);
 	imaging(window, (t_camera *)scene->cameras->content, scene, NULL);
-
+	mlx_put_image_to_window(window->mlx, window->win, window->frame->img, 0, 0);
+	mlx_loop(window->mlx);
 
 	return (0);
 }

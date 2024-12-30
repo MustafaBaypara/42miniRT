@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/10 15:41:59 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:06:24 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 
 static t_scene	*init_scene(t_scene *scene)
 {
-	scene->al_color = (t_color){255, 255, 255};
-	scene->al_ratio = 0.9;
 	scene->res = (t_size){480, 480};
-	scene->cameras = NULL;
-	scene->lights = NULL;
-	scene->spheres = NULL;
-	scene->planes = NULL;
-	scene->cylinders = NULL;
+	scene->cameras = ft_lstnew(NULL);
+	scene->lights = ft_lstnew(NULL);
+	scene->spheres = ft_lstnew(NULL);
+	scene->planes = ft_lstnew(NULL);
+	scene->cylinders = ft_lstnew(NULL);
 	return (scene);
 }
 
@@ -36,16 +34,18 @@ static t_scene	*temp_scene(t_scene *scene)
 	camera->fov = 90;
 
 	light->position = (t_vector3){-20, 0, -10};
-	light->ratio = 0.8;
-	light->color = (t_color){255, 255, 255};
+	light->ratio = 0.8 * 255;
+	light->color = *mult_color_d((t_color){255, 255, 255}, light->ratio);
 
-	sphere->position = (t_vector3){0, 0, 5};
-	sphere->radius = 1;
+	sphere->position = (t_vector3){0, 0, -7};
+	sphere->radius = 3 * 3;
 	sphere->color = (t_color){255, 255, 255};
 
-	ft_lstadd_front(&scene->cameras, ft_lstnew(camera));
-	ft_lstadd_front(&scene->lights, ft_lstnew(light));
-	ft_lstadd_front(&scene->spheres, ft_lstnew(sphere));
+	scene->al_color = *mult_color_d((t_color){255, 255, 255}, 0.3);
+
+	ft_lstadd_front(&(scene->cameras), ft_lstnew(camera));
+	ft_lstadd_front(&(scene->lights), ft_lstnew(light));
+	ft_lstadd_front(&(scene->spheres), ft_lstnew(sphere));
 	return (scene);
 }
 

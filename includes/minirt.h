@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/27 17:03:19 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:05:52 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 # include "utils.h"
 # include "libft.h"
 # include "mlx.h"
+# include <math.h>
+# include <stdio.h>
+# include <stdbool.h>
 
 typedef struct s_scene
 {
 	t_size		res;
-	double		al_ratio;
 	t_color		al_color;
 	t_list		*cameras;
 	t_list		*lights;
@@ -42,7 +44,6 @@ typedef struct s_window
 {
 	void			*mlx;
 	void			*win;
-	unsigned char	*addr;
 	t_frame			*frame;
 	t_scene			*scene;
 }	t_window;
@@ -52,7 +53,7 @@ typedef struct s_window
 t_scene		*parse_scene(int argc, char **av);
 
 // Utils
-int			quadratic_solver(t_vector3 point, double *a, double *b);
+bool			quadratic_solver(t_vector3 point, double *a, double *b);
 void		error_exit(char *message, int error_code);
 
 // Utils tools
@@ -64,6 +65,7 @@ int			get_mini(int a, int b);
 // Frame
 
 void		imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp);
+t_impact	*check_objects(t_ray ray, t_scene *scene, void **object);
 
 // Vector
 t_vector3	new_vec3(double x, double y, double z);
@@ -81,10 +83,17 @@ void		plane_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 
 // Color
 int			color_int(t_color color);
-t_color		*set_color(int r, int g, int b);
+t_color		*int_color(int r, int g, int b);
 t_color		object_color(char *type, void *obj);
+t_color		*mult_color(t_color color, t_color color2);
+t_color		*mult_color_d(t_color color, double d);
+t_color		*add_color(t_color color, t_color color2);
+void		min_color(t_color *color);
 
 // Ray
 t_ray		new_ray(t_vector3 pos, t_vector3 dir);
+
+// Light
+t_color		*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel);
 
 #endif

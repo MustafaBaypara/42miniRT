@@ -6,6 +6,7 @@
         "limits": "c",
         "algorithm": "c",
         "math.h": "c",
-        "utils.h": "c"
+        "utils.h": "c",
+        "stdbool.h": "c"
     }
 }
