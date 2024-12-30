@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/30 17:05:52 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:51:46 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "mlx.h"
 # include <math.h>
 # include <stdio.h>
-# include <stdbool.h>
 
 typedef struct s_scene
 {
@@ -53,7 +52,7 @@ typedef struct s_window
 t_scene		*parse_scene(int argc, char **av);
 
 // Utils
-bool			quadratic_solver(t_vector3 point, double *a, double *b);
+int			quadratic_solver(t_vector3 point, double *a, double *b);
 void		error_exit(char *message, int error_code);
 
 // Utils tools

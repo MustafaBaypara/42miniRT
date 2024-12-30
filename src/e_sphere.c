@@ -6,13 +6,13 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:28:22 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/30 16:48:40 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:51:54 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
+static int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 {
 	t_vector3	vector;
 	double		a;
@@ -21,7 +21,9 @@ bool	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 	vector = new_vec3(ray.origin.x - sphere.position.x,
 			ray.origin.y - sphere.position.y,
 			ray.origin.z - sphere.position.z);
-	if (!quadratic_solver(new_vec3(dot_pd(ray.direction, ray.direction), 2 * dot_pd(ray.direction, vector), dot_pd(vector, vector) - sphere.radius), &a, &b))
+	if (!quadratic_solver(new_vec3(dot_pd(ray.direction, ray.direction),
+				2 * dot_pd(ray.direction, vector),
+				dot_pd(vector, vector) - sphere.radius), &a, &b))
 		return (0);
 	if ((a < 0 && b < 0) || (a > impact->distance && b > impact->distance))
 		return (0);

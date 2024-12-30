@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/30 17:12:56 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:05:39 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
 	}
 	diffuse = *mult_color_d(diffuse, ALBEDO);
 	*color = *mult_color(*add_color(sc->al_color, diffuse), *color);
+	//printf("Color: %d\n", color_int(*color));
 	min_color(color);
 	return (NULL);
 }
