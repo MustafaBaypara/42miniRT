@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/30 17:58:31 by mbaypara         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:18:35 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static t_scene	*temp_scene(t_scene *scene)
 	camera->position = (t_vector3){0, 0, 0};
 	camera->fov = 90;
 
-	light->position = (t_vector3){15, 0, 10};
+	light->position = (t_vector3){-20, 0, -10};
 	light->ratio = 0.8 * 255;
 	light->color = *mult_color_d((t_color){255, 255, 255}, light->ratio);
 
-	sphere->position = (t_vector3){0, 0, -7};
+	sphere->position = (t_vector3){0, 0, -5};
 	sphere->radius = 3 * 3;
 	sphere->color = (t_color){255, 255, 255};
 
