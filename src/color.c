@@ -14,7 +14,7 @@
 
 t_color	object_color(char *type, void *obj)
 {
-	if (!ft_strcmp(type, "sphere"))
+	if (!ft_strcmp(type, "sp"))
 		return (((t_sphere *)obj)->color);
 }
 

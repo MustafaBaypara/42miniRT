@@ -73,8 +73,8 @@ t_vector3	vec3_norm(t_vector3 v);
 t_vector3	vec3_add(t_vector3 v1, t_vector3 v2);
 t_vector3	vec3_sub(t_vector3 v1, t_vector3 v2);
 t_vector3	vec3_mult(t_vector3 v, double scalar);
+t_vector3	vec3_minus(t_vector3 v1);
 double		dot_pd(t_vector3 v1, t_vector3 v2);
-t_vector3	cross_product(t_vector3 v1, t_vector3 v2);
 
 // Elements
 void		sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);

@@ -51,7 +51,7 @@ void	sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj)
 		if (sphere_intersection(ray, *sphere, impact))
 		{
 			*obj = sphere;
-			impact->object = "sphere";
+			impact->object = "sp";
 		}
 		lst = lst->next;
 	}

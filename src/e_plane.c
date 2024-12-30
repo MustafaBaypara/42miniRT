@@ -47,7 +47,7 @@ void	plane_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj)
 		if (plane_intersection(ray, *plane, impact))
 		{
 			*obj = plane;
-			impact->object = "plane";
+			impact->object = "pl";
 		}
 		lst = lst->next;
 	}

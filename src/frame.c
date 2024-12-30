@@ -70,10 +70,10 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 	void		*objects;
 
 	pixels.height = -1;
-	while (++pixels.height < win->scene->res.height)
+	while (++pixels.height < sc->res.height)
 	{
 		pixels.width = -1;
-		while (++pixels.width < win->scene->res.width)
+		while (++pixels.width < sc->res.width)
 		{
 			color = int_color(0, 0, 0);
 			depth = 1;
@@ -87,8 +87,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 				{
 					*color = object_color(imp->object, objects);
 					if (dot_pd(imp->normal, ray.direction) >= 0)
-						imp->normal = new_vec3(-imp->normal.x,
-								-imp->normal.y, -imp->normal.z);
+						imp->normal = vec3_minus(imp->normal);
 					lighting(sc, imp, color, pixels);
 				}
 			}

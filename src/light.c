@@ -29,7 +29,9 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
 	{
 		obstacle = NULL;
 		light = (t_light *)lights->content;
+		//printf("Impact: %f %f %f\n", imp->point.x, imp->point.y, imp->point.z);
 		to_light = new_ray(imp->point, vec3_sub(light->position, imp->point));
+		//printf("to_light: %f %f %f\n", to_light.direction.x, to_light.direction.y, to_light.direction.z);
 		imp_objs = check_objects(to_light, sc, &obstacle);
 		if (imp_objs->distance > distance(imp->point, light->position))
 		{

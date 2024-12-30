@@ -12,7 +12,18 @@
 
 #include "minirt.h"
 
-t_window	*init_window(t_scene *scene)
+static int close_window(t_window *window)
+{
+	mlx_destroy_window(window->mlx, window->win);
+	mlx_destroy_image(window->mlx, window->frame->img);
+	free(window->frame);
+	free(window->scene);
+	free(window);
+	exit(0);
+	return (0);
+}
+
+static t_window	*init_window(t_scene *scene)
 {
 	t_window	*window;
 	t_size		res;
@@ -39,6 +50,7 @@ int	main(int argc, char **av)
 	window = init_window(scene);
 	imaging(window, (t_camera *)scene->cameras->content, scene, NULL);
 	mlx_put_image_to_window(window->mlx, window->win, window->frame->img, 0, 0);
+	mlx_hook(window->win, 17, 1L<<17, close_window, window);
 	mlx_loop(window->mlx);
 
 	return (0);

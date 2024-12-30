@@ -12,6 +12,15 @@
 
 #include "minirt.h"
 
+static void	func_swap(void *a, void *b)
+{
+	void	*tmp;
+
+	tmp = a;
+	a = b;
+	b = tmp;
+}
+
 int	quadratic_solver(t_vector3 point, double *a, double *b)
 {
 	double	discriminant;
@@ -27,16 +36,15 @@ int	quadratic_solver(t_vector3 point, double *a, double *b)
 	}
 	else
 	{
-		q = -0.5 * (point.y - sqrt(discriminant));
+		if (point.y > 0)
+			q = -0.5 * (point.y + sqrt(discriminant));
+		else
+			q = -0.5 * (point.y - sqrt(discriminant));
 		*a = q / point.x;
 		*b = point.z / q;
 	}
 	if (*a > *b)
-	{
-		q = *a;
-		*a = *b;
-		*b = q;
-	}
+		func_swap(a, b);
 	return (1);
 }
 
