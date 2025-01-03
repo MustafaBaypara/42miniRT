@@ -6,13 +6,42 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/03 19:06:25 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/03 20:46:20 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static double	intersection_side(t_ray ray, t_cylinder cyl)
+static double	isec_cap(t_ray ray, t_cylinder cyl, double d1, double d2)
+{
+	t_vector3	p1;
+	t_vector3	p2;
+	t_vector3	cap;
+
+	cap = vec3_add(cyl.position, vec3_mult(cyl.direction, cyl.height));
+	d1 = solve_pl(ray.origin, ray.dir, cyl.position, cyl.direction);
+	d2 = solve_pl(ray.origin, ray.dir, cap, cyl.direction);
+	if (d1 < INFINITY && d2 < INFINITY)
+	{
+		p1 = vec3_add(ray.origin, vec3_mult(ray.dir, d1));
+		p2 = vec3_add(ray.origin, vec3_mult(ray.dir, d2));
+		if ((d1 < INFINITY && distance(p1, cyl.position) <= cyl.radius)
+			&& (d2 < INFINITY && distance(p2, cap) <= cyl.radius))
+		{
+			if (d1 < d2)
+				return (d1);
+			else
+				return (d2);
+		}
+		else if (d1 < INFINITY && distance(p1, cyl.position) <= cyl.radius)
+			return (d1);
+		else if (d2 < INFINITY && distance(p2, cap) <= cyl.radius)
+			return (d2);
+	}
+	return (INFINITY);
+}
+
+static double	isec_side(t_ray ray, t_cylinder cyl)
 {
 	double	a[2];
 	double	d1;
@@ -36,11 +65,11 @@ static double	cylinder_intersection(t_ray ray, t_cylinder cyl, int *is_side)
 	double	cy_inter;
 	double	cap_inter;
 
-	cy_inter = intersection_side(ray, cyl);
+	cy_inter = isec_side(ray, cyl);
 	if (!cyl.is_closed)
 		cap_inter = INFINITY;
 	else
-		cap_inter = intersection_cap(ray, cyl, is_side);
+		cap_inter = isec_cap(ray, cyl, 0, 0);
 	if (cy_inter < INFINITY || cap_inter < INFINITY)
 	{
 		if (cy_inter < cap_inter)
@@ -70,7 +99,7 @@ static t_vector3	closest_point(t_vector3 A, t_vector3 B, t_vector3 P)
 	return (vec3_add(A, vec3_mult(a_b, t)));
 }
 
-void	cylinder_ray(t_ray ray, t_scene *sc, t_impact *imp, void **objs)
+void	cylinder_ray(t_ray r, t_scene *sc, t_impact *imp, void **objs)
 {
 	t_list		*lst;
 	t_cylinder	*cyl;
@@ -82,12 +111,12 @@ void	cylinder_ray(t_ray ray, t_scene *sc, t_impact *imp, void **objs)
 	{
 		is_side = 0;
 		cyl = (t_cylinder *)lst->content;
-		tmp = cylinder_intersection(ray, *cyl, &is_side);
+		tmp = cylinder_intersection(r, *cyl, &is_side);
 		if (tmp < imp->distance && tmp > 0)
 		{
 			*objs = cyl;
 			imp->distance = tmp;
-			imp->point = new_vec3(tmp * ray.dir.x, tmp * ray.dir.y, tmp * ray.dir.z);
+			imp->point = new_vec3(tmp * r.dir.x, tmp * r.dir.y, tmp * r.dir.z);
 			imp->normal = cyl->direction;
 			if (is_side)
 				imp->normal = vec3_sub(closest_point(cyl->position,
