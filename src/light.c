@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/30 18:05:39 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:19:24 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
 		imp_objs = check_objects(to_light, sc, &obstacle);
 		if (imp_objs->distance > distance(imp->point, light->position))
 		{
-			dot_light = get_maxf(dot_pd(imp->normal, to_light.direction), 0.0)
+			dot_light = get_maxf(dot_pd(imp->normal, to_light.dir), 0.0)
 				/ (distance(imp->point, light->position)
 					* distance(imp->point, light->position));
 			color_l = *mult_color_d(light->color, dot_light);

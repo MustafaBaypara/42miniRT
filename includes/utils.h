@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:58:48 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/30 14:44:27 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:19:24 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_vector3
 typedef struct s_ray
 {
 	t_vector3	origin;
-	t_vector3	direction;
+	t_vector3	dir;
 }	t_ray;
 
 typedef struct s_impact
@@ -79,6 +79,7 @@ typedef struct s_cylinder
 {
 	t_vector3	position;
 	t_vector3	position2;
+	t_vector3	direction;
 	double		radius;
 	double		height;
 	t_color		color;

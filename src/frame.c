@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/30 17:59:50 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:19:24 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_ray	new_ray(t_vector3 pos, t_vector3 direction)
 	t_ray	ray;
 
 	ray.origin = pos;
-	ray.direction = direction;
+	ray.dir = direction;
 	return (ray);
 }
 
@@ -86,7 +86,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 				if (objects)
 				{
 					*color = object_color(imp->object, objects);
-					if (dot_pd(imp->normal, ray.direction) >= 0)
+					if (dot_pd(imp->normal, ray.dir) >= 0)
 						imp->normal = vec3_minus(imp->normal);
 					lighting(sc, imp, color, pixels);
 				}

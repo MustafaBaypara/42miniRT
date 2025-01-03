@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:28:22 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/30 17:51:54 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:19:24 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 	vector = new_vec3(ray.origin.x - sphere.position.x,
 			ray.origin.y - sphere.position.y,
 			ray.origin.z - sphere.position.z);
-	if (!quadratic_solver(new_vec3(dot_pd(ray.direction, ray.direction),
-				2 * dot_pd(ray.direction, vector),
+	if (!quadratic_solver(new_vec3(dot_pd(ray.dir, ray.dir),
+				2 * dot_pd(ray.dir, vector),
 				dot_pd(vector, vector) - sphere.radius), &a, &b))
 		return (0);
 	if ((a < 0 && b < 0) || (a > impact->distance && b > impact->distance))
@@ -32,7 +32,7 @@ static int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 	else if (b <= 0.)
 		b = a;
 	impact->distance = get_minf(a, b);
-	vector = vec3_add(ray.origin, vec3_mult(ray.direction, b));
+	vector = vec3_add(ray.origin, vec3_mult(ray.dir, b));
 	impact->normal = vec3_norm(vec3_sub(vector, sphere.position));
 	impact->point = vec3_add(vector, vec3_mult(impact->normal, EPSILON));
 
