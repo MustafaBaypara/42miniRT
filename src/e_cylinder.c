@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 16:22:01 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:34:51 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,7 @@ static double	isec_cap(t_ray ray, t_cylinder cyl, double d1, double d2)
 		p2 = vec3_add(ray.origin, vec3_mult(ray.dir, d2));
 		if ((d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius)
 			&& (d2 < INFINITY && distance(p2, cap) <= cyl.radius))
-		{
-			if (d1 < d2)
-				return (d1);
-			else
-				return (d2);
-		}
+			return (get_minf(d1, d2));
 		else if (d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius)
 			return (d1);
 		else if (d2 < INFINITY && distance(p2, cap) <= cyl.radius)

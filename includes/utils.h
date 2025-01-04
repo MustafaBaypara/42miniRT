@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:58:48 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 15:58:44 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/04 19:16:17 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-	t_vector3	position;
+	t_vector3	pos;
 	double		radius;
 	t_color		color;
 }	t_sphere;
@@ -87,7 +87,7 @@ typedef struct s_cylinder
 
 typedef struct s_plane
 {
-	t_vector3	position;
+	t_vector3	pos;
 	t_vector3	normal;
 	t_color		color;
 }	t_plane;

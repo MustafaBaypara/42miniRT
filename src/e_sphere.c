@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:28:22 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/03 17:19:24 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/04 19:16:17 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 	double		a;
 	double		b;
 
-	vector = new_vec3(ray.origin.x - sphere.position.x,
-			ray.origin.y - sphere.position.y,
-			ray.origin.z - sphere.position.z);
+	vector = new_vec3(ray.origin.x - sphere.pos.x,
+			ray.origin.y - sphere.pos.y,
+			ray.origin.z - sphere.pos.z);
 	if (!quadratic_solver(new_vec3(dot_pd(ray.dir, ray.dir),
 				2 * dot_pd(ray.dir, vector),
 				dot_pd(vector, vector) - sphere.radius), &a, &b))
@@ -33,7 +33,7 @@ static int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 		b = a;
 	impact->distance = get_minf(a, b);
 	vector = vec3_add(ray.origin, vec3_mult(ray.dir, b));
-	impact->normal = vec3_norm(vec3_sub(vector, sphere.position));
+	impact->normal = vec3_norm(vec3_sub(vector, sphere.pos));
 	impact->point = vec3_add(vector, vec3_mult(impact->normal, EPSILON));
 
 	return (1);

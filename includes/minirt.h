@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 15:47:00 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:28:20 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void		plane_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		cyl_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		calc_normal(double a[2], t_cylinder cyl, double d1, double d2);
 int			solve_cyl(double a[2], t_ray ray, t_cylinder cyl);
-double		solve_pl(t_vector3 origin, t_vector3 dir, t_vector3 pos, t_vector3 n);
+double		solve_pl(t_vector3 origin, t_vector3 dir,
+				t_vector3 pos, t_vector3 n);
 
 // Color
 int			color_int(t_color color);

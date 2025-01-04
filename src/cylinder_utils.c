@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:30:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 16:05:27 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:38:08 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,5 @@ void	calc_normal(double a[2], t_cylinder cyl, double d1, double d2)
 		dist = d2;
 		i = a[1];
 	}
-	a[0] = dist;
-	
-	printf("dist: %f\n", dist);
-	printf("i: %f\n", i);
-	printf("d1: %f\n", d1);
-	printf("d2: %f\n", d2);
+	a[0] = i;
 }
