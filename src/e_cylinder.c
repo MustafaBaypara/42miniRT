@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/03 20:46:20 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/04 16:17:22 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static double	isec_cap(t_ray ray, t_cylinder cyl, double d1, double d2)
 	t_vector3	p2;
 	t_vector3	cap;
 
-	cap = vec3_add(cyl.position, vec3_mult(cyl.direction, cyl.height));
-	d1 = solve_pl(ray.origin, ray.dir, cyl.position, cyl.direction);
-	d2 = solve_pl(ray.origin, ray.dir, cap, cyl.direction);
+	cap = vec3_add(cyl.pos, vec3_mult(cyl.dir, cyl.height));
+	d1 = solve_pl(ray.origin, ray.dir, cyl.pos, cyl.dir);
+	d2 = solve_pl(ray.origin, ray.dir, cap, cyl.dir);
 	if (d1 < INFINITY && d2 < INFINITY)
 	{
 		p1 = vec3_add(ray.origin, vec3_mult(ray.dir, d1));
 		p2 = vec3_add(ray.origin, vec3_mult(ray.dir, d2));
-		if ((d1 < INFINITY && distance(p1, cyl.position) <= cyl.radius)
+		if ((d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius)
 			&& (d2 < INFINITY && distance(p2, cap) <= cyl.radius))
 		{
 			if (d1 < d2)
@@ -33,7 +33,7 @@ static double	isec_cap(t_ray ray, t_cylinder cyl, double d1, double d2)
 			else
 				return (d2);
 		}
-		else if (d1 < INFINITY && distance(p1, cyl.position) <= cyl.radius)
+		else if (d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius)
 			return (d1);
 		else if (d2 < INFINITY && distance(p2, cap) <= cyl.radius)
 			return (d2);
@@ -49,10 +49,10 @@ static double	isec_side(t_ray ray, t_cylinder cyl)
 
 	if (!solve_cyl(a, ray, cyl))
 		return (INFINITY);
-	d1 = dot_pd(cyl.direction, vec3_sub(vec3_mult(ray.dir, a[0]),
-				vec3_sub(cyl.position, ray.origin)));
-	d2 = dot_pd(cyl.direction, vec3_sub(vec3_mult(ray.dir, a[1]),
-				vec3_sub(cyl.position, ray.origin)));
+	d1 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[0]),
+				vec3_sub(cyl.pos, ray.origin)));
+	d2 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[1]),
+				vec3_sub(cyl.pos, ray.origin)));
 	if (!((d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON)
 			|| (d2 >= 0 && d2 <= cyl.height && a[0] > EPSILON)))
 		return (INFINITY);
@@ -62,21 +62,21 @@ static double	isec_side(t_ray ray, t_cylinder cyl)
 
 static double	cylinder_intersection(t_ray ray, t_cylinder cyl, int *is_side)
 {
-	double	cy_inter;
-	double	cap_inter;
+	double	d1;
+	double	d2;
 
-	cy_inter = isec_side(ray, cyl);
-	if (!cyl.is_closed)
-		cap_inter = INFINITY;
-	else
-		cap_inter = isec_cap(ray, cyl, 0, 0);
-	if (cy_inter < INFINITY || cap_inter < INFINITY)
+	d1 = INFINITY;
+	d2 = INFINITY;
+	*is_side = 0;
+	d1 = isec_cap(ray, cyl, d1, d2);
+	d2 = isec_side(ray, cyl);
+	if (d1 < d2)
 	{
-		if (cy_inter < cap_inter)
-			return (*is_side = 1, cy_inter);
-		return (cap_inter);
+		*is_side = 0;
+		return (d1);
 	}
-	return (INFINITY);
+	*is_side = 1;
+	return (d2);
 }
 
 static t_vector3	closest_point(t_vector3 A, t_vector3 B, t_vector3 P)
@@ -94,12 +94,12 @@ static t_vector3	closest_point(t_vector3 A, t_vector3 B, t_vector3 P)
 	t = ap / ab2;
 	if (t < 0)
 		t = 0;
-	if (t > 1)
+	else if (t > 1)
 		t = 1;
 	return (vec3_add(A, vec3_mult(a_b, t)));
 }
 
-void	cylinder_ray(t_ray r, t_scene *sc, t_impact *imp, void **objs)
+void	cyl_ray(t_ray r, t_scene *sc, t_impact *imp, void **objs)
 {
 	t_list		*lst;
 	t_cylinder	*cyl;
@@ -117,10 +117,10 @@ void	cylinder_ray(t_ray r, t_scene *sc, t_impact *imp, void **objs)
 			*objs = cyl;
 			imp->distance = tmp;
 			imp->point = new_vec3(tmp * r.dir.x, tmp * r.dir.y, tmp * r.dir.z);
-			imp->normal = cyl->direction;
+			imp->normal = cyl->dir;
 			if (is_side)
-				imp->normal = vec3_sub(closest_point(cyl->position,
-							cyl->position2, imp->point), imp->point);
+				imp->normal = vec3_sub(closest_point(cyl->pos,
+							cyl->pos2, imp->point), imp->point);
 			imp->normal = vec3_norm(imp->normal);
 			imp->object = "cy";
 		}
