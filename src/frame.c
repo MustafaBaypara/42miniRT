@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/06 15:05:30 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:55:34 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_impact	*check_objects(t_ray ray, t_scene *scene, void **object)
 	impact = ft_calloc(1, sizeof(t_impact));
 	impact->object = ft_calloc(3, sizeof(char));
 	impact->distance = INFINITY;
-	plane_ray(ray, scene, impact, object);
 	sphere_ray(ray, scene, impact, object);
 	cyl_ray(ray, scene, impact, object);
 	return (impact);
