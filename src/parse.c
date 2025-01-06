@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 19:20:07 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:03:23 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static t_scene	*init_scene(t_scene *scene)
 {
-	scene->res = (t_size){1280, 1280};
+	scene->res = (t_size){480, 480};
 	scene->cameras = ft_lstnew(NULL);
 	scene->lights = ft_lstnew(NULL);
 	scene->spheres = ft_lstnew(NULL);
@@ -35,7 +35,7 @@ static t_scene	*temp_scene(t_scene *scene)
 	camera->position = (t_vector3){0, 0, 0};
 	camera->fov = 90;
 
-	light->position = (t_vector3){-55, 0, 0};
+	light->position = (t_vector3){-55, 20, 0};
 	light->ratio = 0.9 * 255;
 	light->color = *mult_color_d((t_color){255, 255, 255}, light->ratio);
 
@@ -51,11 +51,11 @@ static t_scene	*temp_scene(t_scene *scene)
 	cylinder->radius = cylinder->radius * cylinder->radius;
 	cylinder->height = 5;
 	cylinder->pos2 = vec3_add(cylinder->pos, vec3_mult(cylinder->dir, cylinder->height));
-	cylinder->color = (t_color){10, 0, 255};
+	cylinder->color = (t_color){0, 0, 255};
 
 	plane->pos = (t_vector3){0, -5, 0};
-	plane->normal = vec3_norm((t_vector3){0, 0.1, 0});
-	plane->color = (t_color){255, 255, 255};
+	plane->normal = vec3_norm((t_vector3){0, 1, 0.1});
+	plane->color = (t_color){255, 155, 100};
 
 	ft_lstadd_front(&(scene->cameras), ft_lstnew(camera));
 	ft_lstadd_front(&(scene->lights), ft_lstnew(light));

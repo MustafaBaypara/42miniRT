@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 18:40:18 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:10:20 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
 	{
 		obstacle = NULL;
 		light = (t_light *)lights->content;
-		//printf("Impact: %f %f %f\n", imp->point.x, imp->point.y, imp->point.z);
 		to_light = new_ray(imp->point, vec3_sub(light->position, imp->point));
-		//printf("to_light: %f %f %f\n", to_light.dir.x, to_light.dir.y, to_light.dir.z);
 		imp_objs = check_objects(to_light, sc, &obstacle);
 		if (imp_objs->distance > distance(imp->point, light->position))
 		{
-			dot_light = get_maxf(dot_pd(imp->normal, to_light.dir), 0.0)
+			dot_light = get_maxf(dot_pd(imp->normal, to_light.dir), 0)
 				/ (distance(imp->point, light->position)
 					* distance(imp->point, light->position));
 			color_l = *mult_color_d(light->color, dot_light);
@@ -45,7 +43,6 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
 	}
 	diffuse = *mult_color_d(diffuse, ALBEDO);
 	*color = *mult_color(*add_color(sc->al_color, diffuse), *color);
-	//printf("Color: %d\n", color_int(*color));
 	min_color(color);
 	return (NULL);
 }
