@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+         #
+#    By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 14:57:54 by mbaypara          #+#    #+#              #
-#    Updated: 2024/12/06 17:23:09 by mbaypara         ###   ########.fr        #
+#    Updated: 2025/01/06 13:47:46 by abakirca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_split.c \
 					ft_toupper.c ft_calloc.c  ft_isdigit.c ft_memchr.c  ft_memset.c  \
 					ft_putstr_fd.c  ft_strjoin.c ft_strmapi.c ft_strtrim.c ft_striteri.c \
 					ft_strndup.c ft_strappend.c ft_strcmp.c get_next_line.c get_next_line_utils.c \
+					ft_split_set.c ft_in_charset.c
 
 OBJS			= $(SRCS:.c=.o)
 BONUS = ft_lstnew_bonus.c \
