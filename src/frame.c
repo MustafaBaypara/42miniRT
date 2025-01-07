@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/06 19:55:34 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:17:05 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,50 @@ t_ray	new_ray(t_vector3 pos, t_vector3 direction)
 	return (ray);
 }
 
+// A helper to rotate v_dir by the camera->orientation (pitch, yaw, roll).
+t_vector3	rotate_by_orientation(t_vector3 dir, t_vector3 orient)
+{
+	double pitch = orient.x;
+	double yaw   = orient.y;
+	double roll  = orient.z;
+
+	double cp = cos(pitch), sp = sin(pitch);
+	double cy = cos(yaw),   sy = sin(yaw);
+	double cr = cos(roll),  sr = sin(roll);
+
+	// Rotate around X (pitch)
+	double ny = dir.y * cp - dir.z * sp;
+	double nz = dir.y * sp + dir.z * cp;
+	dir.y = ny; dir.z = nz;
+
+	// Rotate around Y (yaw)
+	double nx = dir.x * cy + dir.z * sy;
+	nz = -dir.x * sy + dir.z * cy;
+	dir.x = nx; dir.z = nz;
+
+	// Rotate around Z (roll)
+	nx = dir.x * cr - dir.y * sr;
+	ny = dir.x * sr + dir.y * cr;
+	dir.x = nx; dir.y = ny;
+
+	return (dir);
+}
+
+// Modify generate_ray so it applies the camera orientation
 t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 {
 	t_vector3	v_dir;
 	int			x;
 
-	v_dir.x = j + 0.5 - (res.width) * 0.5;
-	v_dir.y = i + 0.5 - (res.height) * 0.5;
-
-	if (res.width > res.height)
-		x = res.width;
-	else
-		x = res.height;
-
-	v_dir.z = x / (2 * tan((camera->fov * M_PI * 0.5) / 180.0));
+	v_dir.x = j + 0.5 - res.width  * 0.5;
+	v_dir.y = i + 0.5 - res.height * 0.5;
+	x = (res.width > res.height) ? res.width : res.height;
+	v_dir.z = x / (2.0 * tan((camera->fov * M_PI * 0.5) / 180.0));
+	v_dir.y = -v_dir.y;
 	v_dir.z = -v_dir.z;
+
+	v_dir = rotate_by_orientation(v_dir, camera->orientation);
+
 	return (new_ray(camera->position, vec3_norm(v_dir)));
 }
 
