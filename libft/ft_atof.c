@@ -6,12 +6,11 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:11:33 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/07 17:22:53 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:52:18 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <math.h>
 
 float	ft_atof(const char *str)
 {
@@ -36,7 +35,7 @@ float	ft_atof(const char *str)
 	while (ft_in_charset(str[decimal_size], "0123456789"))
 		decimal_size++;
 	if (decimal_size)
-		nb += ft_atol(str) / (pow(10, decimal_size)); // ft_pow vardi.
+		nb += ft_atol(str) / (ft_pow(10, decimal_size));
 	else
 		return (nb * sign);
 	return (nb * sign);

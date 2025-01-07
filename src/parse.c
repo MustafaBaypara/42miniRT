@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 17:24:18 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:54:56 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	set_ambient_light(t_scene *scene, char **data)
 	if (!(ambient_light = malloc(sizeof(ambient_light))))
 		error_exit("Malloc failed", 1);
 	ratio = ft_atof(data[1]);
-	ambient_light = mult_color_d(str_to_rgb(data[2]), ratio);
+	*ambient_light = str_to_rgb(data[2]);
 	scene->al_color = ambient_light;
 }
 

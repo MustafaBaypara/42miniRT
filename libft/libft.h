@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:45:01 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 17:21:44 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:52:37 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ char				**ft_split_set(const char *str, char *charset);
 int					ft_tab_size(char **tab);
 float				ft_atof(const char *str);
 long				ft_atol(const char *nptr);
+double				ft_pow(double nb, double pow);
 
 
 #endif

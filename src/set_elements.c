@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:57:48 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/07 17:31:15 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:50:43 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	set_light(t_scene *scene, char **data)
 		error_exit("Malloc failed", 1);
 	light->position = str_to_vect(data[1]);
 	ratio = ft_atof(data[2]) * 255;
-	light->color = *mult_color_d(str_to_rgb(data[3]), ratio);
+	light->color = str_to_rgb(data[3]);
 	ft_lstadd_front(&(scene->lights), ft_lstnew(light));
 }
 
