@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 17:48:54 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:34:25 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static int close_window(t_window *window)
 {
 	mlx_destroy_window(window->mlx, window->win);
 	mlx_destroy_image(window->mlx, window->frame->img);
-	free(window->frame);
-	free(window->scene);
-	free(window);
+	
+	clear_garbage();
+	printf("Window closed\n");
 	exit(0);
 	return (0);
 }

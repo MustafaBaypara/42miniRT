@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 17:40:11 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:13:28 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
-static void	put_pixel(unsigned char *addr, t_size pos, int color, t_size res)
+static void	put_pixel(char *addr, t_size pos, int color, t_size res) // flags unsigned char
 {
 	int		offset;
 
@@ -92,7 +92,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 				}
 			}
 			put_pixel(win->frame->addr, pixels, color_int(*color), sc->res);
-			free(color);
+			gfree(color);
 		}
 	}
 }

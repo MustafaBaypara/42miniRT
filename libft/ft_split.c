@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:01:34 by mbaypara          #+#    #+#             */
-/*   Updated: 2023/12/20 13:04:10 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:25:13 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ char	**ft_split(char const *s, char c)
 		i = 0;
 		while (strs[i])
 		{
-			free(strs[i]);
+			gfree(strs[i]);
 			i++;
 		}
-		free(strs);
+		gfree(strs);
 		return (NULL);
 	}
 	return (strs);

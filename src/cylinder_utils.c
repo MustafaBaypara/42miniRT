@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:30:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 18:38:08 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:14:56 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,28 @@ int	solve_cyl(double a[2], t_ray ray, t_cylinder cyl)
 
 void	calc_normal(double a[2], t_cylinder cyl, double d1, double d2)
 {
-	double	dist;
+	// double	dist; // flags
 	double	i;
 
 	if ((d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON)
 		&& (d2 >= 0 && d2 <= cyl.height && a[1] > EPSILON))
 	{
-		dist = d2;
+		// dist = d2;
 		i = a[1];
 		if (a[0] < a[1])
 		{
-			dist = d1;
+			// dist = d1;
 			i = a[0];
 		}
 	}
 	else if (d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON)
 	{
-		dist = d1;
+		// dist = d1;
 		i = a[0];
 	}
 	else
 	{
-		dist = d2;
+		// dist = d2;
 		i = a[1];
 	}
 	a[0] = i;

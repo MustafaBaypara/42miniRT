@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 12:51:45 by mbaypara          #+#    #+#             */
-/*   Updated: 2023/12/14 17:45:38 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:25:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 	if (lst)
 	{
 		(*del)(lst->content);
-		free(lst);
+		gfree(lst);
 	}
 }

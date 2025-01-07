@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:48:54 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/06 14:09:37 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:20:48 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	fill_tab(char **tab, int *words_len, const char *str, char *charset)
 	words_count = count_words(str, charset);
 	while (d1 < words_count && str[i_str])
 	{
-		tab[d1] = malloc((words_len[d1] + 1) * sizeof(char));
+		tab[d1] = galloc((words_len[d1] + 1) * sizeof(char));
 		if (!tab[d1])
 			return (0);
 		while (ft_in_charset(str[i_str], charset))
@@ -103,11 +103,11 @@ char	**ft_split_set(const char *str, char *charset)
 	if (!str)
 		return (0);
 	words_count = count_words(str, charset);
-	words_len = malloc((words_count) * sizeof(int));
+	words_len = galloc((words_count) * sizeof(int));
 	if (!words_len)
 		return (0);
 	words_count = count_words(str, charset);
-	tab = malloc((words_count + 1) * sizeof(char *));
+	tab = galloc((words_count + 1) * sizeof(char *));
 	if (!tab)
 		return (0);
 	i = 0;

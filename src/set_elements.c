@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:57:48 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/07 17:50:43 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:54:02 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	set_camera(t_scene *scene, char **data)
 {
 	t_camera	*camera;
 
-	if (!(camera = malloc(sizeof(*camera))))
+	if (!(camera = galloc(sizeof(*camera))))
 		error_exit("Malloc failed", 1);
 	camera->position = str_to_vect(data[1]);
 	camera->orientation = vec3_norm(str_to_vect(data[2]));
@@ -29,11 +29,12 @@ void	set_light(t_scene *scene, char **data)
 	t_light		*light;
 	double		ratio;
 
-	if (!(light = malloc(sizeof(*light))))
+	if (!(light = galloc(sizeof(*light))))
 		error_exit("Malloc failed", 1);
 	light->position = str_to_vect(data[1]);
 	ratio = ft_atof(data[2]) * 255;
-	light->color = str_to_rgb(data[3]);
+	light->color = *mult_color_d(str_to_rgb(data[3]), ratio);
+	light->ratio = ratio;
 	ft_lstadd_front(&(scene->lights), ft_lstnew(light));
 }
 
@@ -42,7 +43,7 @@ void	set_sphere(t_scene *scene, char **strs)
 	t_sphere	*sphere;
 	double		radius;
 
-	if (!(sphere = malloc(sizeof(*sphere))))
+	if (!(sphere = galloc(sizeof(*sphere))))
 		error_exit("Malloc failed", 1);
 	sphere->pos = str_to_vect(strs[1]);
 	radius = ft_atof(strs[2]);
@@ -55,7 +56,7 @@ void	set_plane(t_scene *scene, char **strs)
 {
 	t_plane		*plane;
 
-	if (!(plane = malloc(sizeof(*plane))))
+	if (!(plane = galloc(sizeof(*plane))))
 		error_exit("Malloc failed", 1);
 	plane->pos = str_to_vect(strs[1]);
 	plane->normal = vec3_norm(str_to_vect(strs[2]));
@@ -68,7 +69,7 @@ void	set_cylinder(t_scene *scene, char **strs)
 	t_cylinder	*cy;
 	double		radius;
 
-	if (!(cy = malloc(sizeof(*cy))))
+	if (!(cy = galloc(sizeof(*cy))))
 		error_exit("Malloc failed", 1);
 	cy->pos = str_to_vect(strs[1]);
 	cy->dir = vec3_norm(str_to_vect(strs[2]));

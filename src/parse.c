@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 17:54:56 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:16:27 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static t_scene	*init_scene(t_scene *scene)
 {
-	scene->res = (t_size){1280, 1280};
+	scene->res = (t_size){800, 600};
 	scene->cameras = ft_lstnew(NULL);
 	scene->lights = ft_lstnew(NULL);
 	scene->spheres = ft_lstnew(NULL);
@@ -82,11 +82,12 @@ static void	set_ambient_light(t_scene *scene, char **data)
 	t_color	*ambient_light;
 	double			ratio;
 
-	if (!(ambient_light = malloc(sizeof(ambient_light))))
+	if (!(ambient_light = galloc(sizeof(*ambient_light))))
 		error_exit("Malloc failed", 1);
 	ratio = ft_atof(data[1]);
-	*ambient_light = str_to_rgb(data[2]);
+	*ambient_light = *mult_color_d(str_to_rgb(data[2]), ratio);
 	scene->al_color = ambient_light;
+	scene->al_ratio = ratio;
 }
 
 int	check_line(const char *line, char **data, char *type, const int nb_elements)
@@ -105,14 +106,14 @@ t_scene	*parse(int fd)
 	char	*line;
 	char	**data;
 
-	if (!(scene = malloc(sizeof(*scene))))
+	if (!(scene = galloc(sizeof(*scene))))
 		error_exit("Malloc failed", 1);
 	if (!(init_scene(scene)))
 		return (NULL);
 	while ((line = get_next_line(fd)))
 	{
 		data = ft_split_set(line, " \t");
-		if (check_line(line, data, "A", 3) && !scene->al_ratio)
+		if (check_line(line, data, "A", 3))
 			set_ambient_light(scene, data);
 		else if (check_line(line, data, "C", 4))
 			set_camera(scene, data);

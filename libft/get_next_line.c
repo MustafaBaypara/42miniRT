@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:05:33 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 17:20:20 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:25:25 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	*free_stash(char **stash, int cline)
 	{
 		if (*stash)
 		{
-			free(*stash);
+			gfree(*stash);
 			*stash = NULL;
 		}
 		return (NULL);
@@ -50,7 +50,7 @@ static void	*free_stash(char **stash, int cline)
 	else if (cline == 1)
 	{
 		line = ft_strdup(*stash);
-		free(*stash);
+		gfree(*stash);
 		*stash = NULL;
 		return (line);
 	}
@@ -68,7 +68,7 @@ static char	*line_extract(char *stash)
 		return (0);
 	while (stash[i] != '\n')
 		i++;
-	nl = malloc(i + 2);
+	nl = galloc(i + 2);
 	if (!nl)
 		return (0);
 	j = 0;

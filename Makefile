@@ -25,7 +25,7 @@ $(LIBFTA):
 					@make -C $(LIBFT)
 $(OBJ_DIR)%.o:      $(SRC_DIR)%.c
 					@mkdir -p $(@D)
-					@$(CC) -I $(MLX_DIR) -I $(LIBFT) -I $(INC) -c $< -o $@
+					@$(CC) $(CFLAGS) -I $(MLX_DIR) -I $(LIBFT) -I $(INC) -c $< -o $@
 
 $(MLX):
 					@make -C $(MLX_DIR)

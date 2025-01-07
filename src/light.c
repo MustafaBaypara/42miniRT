@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 17:25:49 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:13:07 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
 	double		dot_light;
 	t_color		color_l;
 
+	(void)pixel; // Flags
 	diffuse = *int_color(0, 0, 0);
 	lights = sc->lights;
 	while (lights->next)

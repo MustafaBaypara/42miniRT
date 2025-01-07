@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:54:43 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 17:08:39 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:55:16 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	error_exit(char *message, int error_code)
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(message, 2);
 	ft_putstr_fd("\n", 2);
+	clear_garbage();
 	exit(error_code);
 }
 
