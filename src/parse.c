@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/06 13:43:17 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:24:18 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,19 @@ static t_scene	*init_scene(t_scene *scene)
 // }
 
 
-int	check_line(const char *line, char **data, const char *type, const int nb_elements)
+static void	set_ambient_light(t_scene *scene, char **data)
+{
+	t_color	*ambient_light;
+	double			ratio;
+
+	if (!(ambient_light = malloc(sizeof(ambient_light))))
+		error_exit("Malloc failed", 1);
+	ratio = ft_atof(data[1]);
+	ambient_light = mult_color_d(str_to_rgb(data[2]), ratio);
+	scene->al_color = ambient_light;
+}
+
+int	check_line(const char *line, char **data, char *type, const int nb_elements)
 {
 	if (!ft_strcmp(data[0], type))
 	{
@@ -91,42 +103,27 @@ t_scene	*parse(int fd)
 {
 	t_scene	*scene;
 	char	*line;
-	int		ret;
 	char	**data;
 
 	if (!(scene = malloc(sizeof(*scene))))
-		print_err_and_exit("Malloc failed", 1);
+		error_exit("Malloc failed", 1);
 	if (!(init_scene(scene)))
 		return (NULL);
-	while ((ret = get_next_line(&line, fd)) == 1)
+	while ((line = get_next_line(fd)))
 	{
-		data = ft_split_set((*line ? line : "iamcheating"), WHITE_SPACES);
-		if (check_line(line, data, "R", NB_ELEM_RESOLUTION) && !scene->resolution.w)
-			set_resolution(scene, data);
-		else if (check_line(line, data, "A", NB_ELEM_AL) && !scene->al.ratio)
+		data = ft_split_set(line, " \t");
+		if (check_line(line, data, "A", 3) && !scene->al_ratio)
 			set_ambient_light(scene, data);
-		else if (check_line(line, data, "c", NB_ELEM_CAMERA))
+		else if (check_line(line, data, "C", 4))
 			set_camera(scene, data);
-		else if (check_line(line, data, "l", NB_ELEM_LIGHT))
+		else if (check_line(line, data, "L", 4))
 			set_light(scene, data);
-		else if (check_line(line, data, "sp", NB_ELEM_SPHERE))
+		else if (check_line(line, data, "sp", 4))
 			set_sphere(scene, data);
-		else if (check_line(line, data, "pl", NB_ELEM_PLANE))
+		else if (check_line(line, data, "pl", 4))
 			set_plane(scene, data);
-		else if (check_line(line, data, "sq", NB_ELEM_SQUARE))
-			set_square(scene, data);
-		else if (check_line(line, data, "cy", NB_ELEM_CYLINDER) || check_line(line, data, "cy", NB_ELEM_CYLINDER + 1))
+		else if (check_line(line, data, "cy", 6))
 			set_cylinder(scene, data);
-		else if (check_line(line, data, "tr", NB_ELEM_TRIANGLE))
-			set_triangle(scene, data);
-		else if (!ft_is_from_charset(line, WHITE_SPACES))
-		{
-			free(line);
-			free(data);
-			print_err_and_exit("Parse error", PARSE_ERROR);
-		}
-		free(line);
-		free(data);
 	}
 	return (scene);
 }
@@ -144,5 +141,5 @@ t_scene	*parse_scene(int argc, char **av)
 	fd = open(av[1], O_RDONLY);
 	if ((fd) < 0)
 		error_exit("Failed to open scene file", 1);
-	return (parsing(fd));
+	return (parse(fd));
 }

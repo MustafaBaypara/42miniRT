@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 13:15:03 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/06 14:07:26 by abakirca         ###   ########.fr       */
+/*   Created: 2025/01/07 17:21:26 by abakirca          #+#    #+#             */
+/*   Updated: 2025/01/07 17:21:28 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	have_nl(char *s)
+long	ft_atol(const char *nptr)
 {
-	size_t	i;
+	long	res;
+	int		sign;
 
-	if (!s)
-		return (0);
-	i = -1;
-	while (s[++i] != '\0')
-		if (s[i] == '\n')
-			return (1);
-	return (0);
+	res = 0;
+	sign = 1;
+	while ((*nptr >= '\t' && *nptr <= '\r') || *nptr == ' ')
+		nptr++;
+	if (*nptr == '+' || *nptr == '-')
+	{
+		if (*nptr++ == '-')
+			sign *= -1;
+	}
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		res *= 10;
+		res += *nptr++ - '0';
+	}
+	return (res * sign);
 }

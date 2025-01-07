@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 18:40:18 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:25:49 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
 		lights = lights->next;
 	}
 	diffuse = *mult_color_d(diffuse, ALBEDO);
-	*color = *mult_color(*add_color(sc->al_color, diffuse), *color);
+	*color = *mult_color(*add_color(*sc->al_color, diffuse), *color);
 	//printf("Color: %d\n", color_int(*color));
 	min_color(color);
 	return (NULL);

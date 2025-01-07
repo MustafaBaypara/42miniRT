@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 18:28:20 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:19:08 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 typedef struct s_scene
 {
 	t_size		res;
-	t_color		al_color;
+	t_color		*al_color;
+	double		al_ratio;
 	t_list		*cameras;
 	t_list		*lights;
 	t_list		*spheres;
@@ -50,10 +51,17 @@ typedef struct s_window
 // Parsing
 
 t_scene		*parse_scene(int argc, char **av);
+void		set_camera(t_scene *scene, char **data);
+void		set_light(t_scene *scene, char **data);
+void		set_sphere(t_scene *scene, char **strs);
+void		set_plane(t_scene *scene, char **strs);
+void		set_cylinder(t_scene *scene, char **strs);
 
 // Utils
 int			quadratic_solver(t_vector3 point, double *a, double *b);
 void		error_exit(char *message, int error_code);
+t_vector3	str_to_vect(const char *str);
+t_color		str_to_rgb(const char *str);
 
 // Utils tools
 float		get_maxf(float a, float b);

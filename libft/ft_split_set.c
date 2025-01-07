@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:48:54 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/06 13:48:55 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:09:37 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,6 @@ static int	fill_tab(char **tab, int *words_len, const char *str, char *charset)
 	return (1);
 }
 
-/*
-** split str into a char ** each time there is a char from charset
-** @param str		"sentence" that will be splited
-** @param charset	set of "delimiters" that will delimits the "words"
-** @return			a tab of "words"
-*/
 char	**ft_split_set(const char *str, char *charset)
 {
 	char	**tab;

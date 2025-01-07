@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:54:43 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 18:11:50 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:08:39 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,28 @@ void	error_exit(char *message, int error_code)
 	ft_putstr_fd(message, 2);
 	ft_putstr_fd("\n", 2);
 	exit(error_code);
+}
+
+t_vector3	str_to_vect(const char *str)
+{
+	char		**tab;
+	t_vector3	vect;
+
+	tab = ft_split(str, ',');
+	vect.x = ft_atof(tab[0]);
+	vect.y = ft_atof(tab[1]);
+	vect.z = ft_atof(tab[2]);
+	return (vect);
+}
+
+t_color	str_to_rgb(const char *str)
+{
+	char	**tab;
+	t_color	rgb;
+
+	tab = ft_split(str, ',');
+	rgb.r = ft_atoi(tab[0]);
+	rgb.g = ft_atoi(tab[1]);
+	rgb.b = ft_atoi(tab[2]);
+	return (rgb);
 }

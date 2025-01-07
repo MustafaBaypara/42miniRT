@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   garbage_collector_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 13:15:03 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/06 14:07:26 by abakirca         ###   ########.fr       */
+/*   Created: 2024/07/04 16:49:30 by abakirca          #+#    #+#             */
+/*   Updated: 2024/07/08 13:45:21 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	have_nl(char *s)
+t_list	**getgarbage(void)
 {
-	size_t	i;
+	static t_list	*collector;
 
-	if (!s)
-		return (0);
-	i = -1;
-	while (s[++i] != '\0')
-		if (s[i] == '\n')
-			return (1);
-	return (0);
+	return (&collector);
 }

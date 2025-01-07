@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_tab_size.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 13:15:03 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/06 14:07:26 by abakirca         ###   ########.fr       */
+/*   Created: 2025/01/06 20:10:25 by abakirca          #+#    #+#             */
+/*   Updated: 2025/01/06 20:12:40 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	have_nl(char *s)
+int	ft_tab_size(char **tab)
 {
-	size_t	i;
+    int i;
 
-	if (!s)
-		return (0);
-	i = -1;
-	while (s[++i] != '\0')
-		if (s[i] == '\n')
-			return (1);
-	return (0);
+    if (!tab)
+        return (0);
+    i = 0;
+    while (tab[i])
+        i++;
+    return (i);
 }

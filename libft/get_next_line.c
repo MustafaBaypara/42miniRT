@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:05:33 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/06 17:20:13 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:20:20 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <unistd.h>
+
+static void	*free_stash(char **stash, int cline);
 
 static char	*copy_stash(char *stash, char *buffer)
 {
@@ -30,17 +32,29 @@ static char	*copy_stash(char *stash, char *buffer)
 	return (res);
 }
 
-static int	have_nl(char *s)
+static void	*free_stash(char **stash, int cline)
 {
-	size_t	i;
+	char	*line;
 
-	if (!s)
-		return (0);
-	i = -1;
-	while (s[++i] != '\0')
-		if (s[i] == '\n')
-			return (1);
-	return (0);
+	if (!*stash)
+		return (NULL);
+	if (cline == 0)
+	{
+		if (*stash)
+		{
+			free(*stash);
+			*stash = NULL;
+		}
+		return (NULL);
+	}
+	else if (cline == 1)
+	{
+		line = ft_strdup(*stash);
+		free(*stash);
+		*stash = NULL;
+		return (line);
+	}
+	return (NULL);
 }
 
 static char	*line_extract(char *stash)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:58:48 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 19:16:17 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:14:58 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_impact
 typedef struct s_camera
 {
 	t_vector3	position;
+	t_vector3	orientation;
 	double		fov;
 }	t_camera;
 

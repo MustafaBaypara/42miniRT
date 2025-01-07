@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:45:01 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/06 17:18:54 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:21:44 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@
 #  define BUFFER_SIZE 42
 # endif
 
+# define GARBAGE_COLLECTOR 1
+
 # include <stdlib.h>
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
+	struct s_list	*prev;
 }					t_list;
 
 char				*get_next_line(int fd);
-void				*free_stash(char **stash, int cline);
+int					have_nl(char *s);
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t count, size_t size);
@@ -75,5 +78,16 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
+t_list				**getgarbage(void);
+void				*galloc(size_t size);
+void				*addgarbage(void *address);
+void				clear_garbage(void);
+void				gfree(void *address);
+int					ft_in_charset(char const c, char const *charset);
+char				**ft_split_set(const char *str, char *charset);
+int					ft_tab_size(char **tab);
+float				ft_atof(const char *str);
+long				ft_atol(const char *nptr);
+
 
 #endif
