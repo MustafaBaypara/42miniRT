@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 19:16:27 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:34:38 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,20 @@ static t_scene	*init_scene(t_scene *scene)
 {
 	scene->res = (t_size){800, 600};
 	scene->cameras = ft_lstnew(NULL);
+	if (!scene->cameras)
+		return (NULL);
 	scene->lights = ft_lstnew(NULL);
+	if (!scene->lights)
+		return (NULL);
 	scene->spheres = ft_lstnew(NULL);
+	if (!scene->spheres)
+		return (NULL);
 	scene->planes = ft_lstnew(NULL);
+	if (!scene->planes)
+		return (NULL);
 	scene->cylinders = ft_lstnew(NULL);
+	if (!scene->cylinders)
+		return (NULL);
 	return (scene);
 }
 
@@ -100,6 +110,67 @@ int	check_line(const char *line, char **data, char *type, const int nb_elements)
 	return (0);
 }
 
+static int ctrl_data_ext(char **data)
+{
+	if (ft_strcmp(data[0], "A") == 0)
+		return (al_parser(data), 3);
+	else if (ft_strcmp(data[0], "C") == 0)
+		return (c_parser(data), 4);
+	else if (ft_strcmp(data[0], "L") == 0)
+		return (l_parser(data), 4);
+	else if (ft_strcmp(data[0], "sp") == 0)
+		return (sp_parser(data), 4);
+	else if (ft_strcmp(data[0], "pl") == 0)
+		return (pl_parser(data), 4);
+	else if (ft_strcmp(data[0], "cy") == 0)
+		return (cy_parser(data), 6);
+	else 
+		return (1);
+}
+
+static int ctrl_data(char **data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (data[i])
+	{
+		while (data[i][j])
+		{
+			if (ft_strchr("ACLplscy,.+-0123456789\n", data[i][j]))
+				j++;
+			else
+				return (1);
+		}
+		i++;
+		j = 0;
+	}
+	return (ctrl_data_ext(data));
+}
+
+static int parse_ext(char **data, t_scene *scene, char *line)
+{
+	data = ft_split_set(line, " \t");
+	if (!data)
+		error_exit("Malloc failed", 1);
+	else if (ctrl_data(data))
+		return (NULL);
+	else if (check_line(line, data, "A", 3))
+		set_ambient_light(scene, data);
+	else if (check_line(line, data, "C", 4))
+		set_camera(scene, data);
+	else if (check_line(line, data, "L", 4))
+		set_light(scene, data);
+	else if (check_line(line, data, "sp", 4))
+		set_sphere(scene, data);
+	else if (check_line(line, data, "pl", 4))
+		set_plane(scene, data);
+	else if (check_line(line, data, "cy", 6))
+		set_cylinder(scene, data);
+}
+
 t_scene	*parse(int fd)
 {
 	t_scene	*scene;
@@ -112,19 +183,8 @@ t_scene	*parse(int fd)
 		return (NULL);
 	while ((line = get_next_line(fd)))
 	{
-		data = ft_split_set(line, " \t");
-		if (check_line(line, data, "A", 3))
-			set_ambient_light(scene, data);
-		else if (check_line(line, data, "C", 4))
-			set_camera(scene, data);
-		else if (check_line(line, data, "L", 4))
-			set_light(scene, data);
-		else if (check_line(line, data, "sp", 4))
-			set_sphere(scene, data);
-		else if (check_line(line, data, "pl", 4))
-			set_plane(scene, data);
-		else if (check_line(line, data, "cy", 6))
-			set_cylinder(scene, data);
+		if (!parse_ext(data, scene, line))
+			return (NULL);
 	}
 	return (scene);
 }
