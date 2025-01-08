@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 19:34:25 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:49:28 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int close_window(t_window *window)
 {
 	mlx_destroy_window(window->mlx, window->win);
 	mlx_destroy_image(window->mlx, window->frame->img);
-	
+	mlx_destroy_display(window->mlx);
 	clear_garbage();
 	printf("Window closed\n");
 	exit(0);
@@ -31,7 +31,7 @@ static t_window	*init_window(t_scene *scene)
 
 	res = scene->res;
 	window = ft_calloc(1, sizeof(t_window));
-	window->mlx = mlx_init();
+	window->mlx = addgarbage(mlx_init());
 	window->win = mlx_new_window(window->mlx, res.width, res.height, "miniRT");
 	window->scene = scene;
 	window->frame = ft_calloc(1, sizeof(t_frame));
