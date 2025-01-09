@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 19:17:05 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:22:46 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 	t_vector3	v_dir;
 	int			x;
 
-	v_dir.x = j + 0.5 - res.width  * 0.5;
+	v_dir.x = j + 0.5 - res.width * 0.5;
 	v_dir.y = i + 0.5 - res.height * 0.5;
 	x = (res.width > res.height) ? res.width : res.height;
 	v_dir.z = x / (2.0 * tan((camera->fov * M_PI * 0.5) / 180.0));
