@@ -6,13 +6,13 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/06 19:10:20 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:42:07 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
+t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color)
 {
 	t_list		*lights;
 	t_light		*light;

@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/09 18:22:46 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:43:24 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,16 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 		while (++pixels.width < sc->res.width)
 		{
 			color = int_color(0, 0, 0);
-			depth = 1;
 			objects = NULL;
 			imp = NULL;
-			while (depth--)
+			ray = generate_ray(cam, sc->res, pixels.height, pixels.width);
+			imp = check_objects(ray, sc, &objects);
+			if (objects)
 			{
-				ray = generate_ray(cam, sc->res, pixels.height, pixels.width);
-				imp = check_objects(ray, sc, &objects);
-				if (objects)
-				{
-					*color = object_color(imp->object, objects);
-					if (dot_pd(imp->normal, ray.dir) >= 0)
-						imp->normal = vec3_minus(imp->normal);
-					lighting(sc, imp, color, pixels);
-				}
+				*color = object_color(imp->object, objects);
+				if (dot_pd(imp->normal, ray.dir) >= 0)
+					imp->normal = vec3_minus(imp->normal);
+				lighting(sc, imp, color);
 			}
 			put_pixel(win->frame->addr, pixels, color_int(*color), sc->res);
 			free(color);

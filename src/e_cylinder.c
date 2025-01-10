@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/06 15:35:39 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:50:36 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,21 @@ static double	isec_side(t_ray ray, t_cylinder cyl)
 
 static double	cylinder_intersection(t_ray ray, t_cylinder cyl, int *is_side)
 {
-	double	cy_inter;
-	double	cap_inter;
+	double	d1;
+	double	d2;
 
-	cy_inter = isec_side(ray, cyl);
-	cap_inter = isec_cap(ray, cyl, 0, 0);
-	if (cy_inter < INFINITY || cap_inter < INFINITY)
+	d1 = INFINITY;
+	d2 = INFINITY;
+	*is_side = 0;
+	d1 = isec_cap(ray, cyl, d1, d2);
+	d2 = isec_side(ray, cyl);
+	if (d1 < d2)
 	{
-		if (cy_inter < cap_inter)
-			return (*is_side = 1, cy_inter);
-		return (cap_inter);
+		*is_side = 0;
+		return (d1);
 	}
-	return (INFINITY);
+	*is_side = 1;
+	return (d2);
 }
 
 static t_vector3	closest_point(t_vector3 A, t_vector3 B, t_vector3 P)

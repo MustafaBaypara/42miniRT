@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 18:28:20 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:43:32 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void		min_color(t_color *color);
 t_ray		new_ray(t_vector3 pos, t_vector3 dir);
 
 // Light
-t_color		*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel);
+t_color		*lighting(t_scene *sc, t_impact *imp, t_color *color);
 
 #endif
