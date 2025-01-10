@@ -15,6 +15,7 @@ MAIN_DIR         = $(SRC_DIR)main.c $(SRC_DIR)parse.c $(SRC_DIR)utils.c \
 					$(SRC_DIR)e_sphere.c $(SRC_DIR)vector2.c $(SRC_DIR)e_plane.c \
 					$(SRC_DIR)e_cylinder.c $(SRC_DIR)color.c $(SRC_DIR)color2.c \
 					$(SRC_DIR)light.c $(SRC_DIR)cylinder_utils.c $(SRC_DIR)set_elements.c \
+					$(SRC_DIR)parse_utils.c $(SRC_DIR)parse_utils2.c \
 
 SRCS                = $(MAIN_DIR)
 OBJ                 = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))

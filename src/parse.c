@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/08 17:34:38 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:45:05 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ static int parse_ext(char **data, t_scene *scene, char *line)
 	if (!data)
 		error_exit("Malloc failed", 1);
 	else if (ctrl_data(data))
-		return (NULL);
+		return (1);
 	else if (check_line(line, data, "A", 3))
 		set_ambient_light(scene, data);
 	else if (check_line(line, data, "C", 4))
@@ -169,6 +169,7 @@ static int parse_ext(char **data, t_scene *scene, char *line)
 		set_plane(scene, data);
 	else if (check_line(line, data, "cy", 6))
 		set_cylinder(scene, data);
+	return (0);
 }
 
 t_scene	*parse(int fd)
@@ -181,9 +182,10 @@ t_scene	*parse(int fd)
 		error_exit("Malloc failed", 1);
 	if (!(init_scene(scene)))
 		return (NULL);
+	data = NULL;
 	while ((line = get_next_line(fd)))
 	{
-		if (!parse_ext(data, scene, line))
+		if (parse_ext(data, scene, line))
 			return (NULL);
 	}
 	return (scene);

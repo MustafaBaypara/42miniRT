@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 17:46:16 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:40:59 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ void		set_light(t_scene *scene, char **data);
 void		set_sphere(t_scene *scene, char **strs);
 void		set_plane(t_scene *scene, char **strs);
 void		set_cylinder(t_scene *scene, char **strs);
+int 		float_checker(char *str);
+int 		rgb_checker(char *str);
+int 		al_parser(char **data);
+int 		c_parser(char **data);
+int 		l_parser(char **data);
+int		 	sp_parser(char **data);
+int		 	pl_parser(char **data);
+int			cy_parser(char **data);
 
 // Utils
 int			quadratic_solver(t_vector3 point, double *a, double *b);
