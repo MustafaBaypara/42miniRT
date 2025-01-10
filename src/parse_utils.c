@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 17:27:20 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/10 15:12:01 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:59:39 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int float_checker(char *str)
 	dot = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	while (str[i] != '\n')
+	while (str[i] && str[i] != '\n')
 	{
 		if (str[i] == '.')
 			dot++;
@@ -43,11 +43,10 @@ int rgb_checker(char *str)
 	i = -1;
 	comma = 0;
 	num = 0;
-	while (str[++i] != '\n')
+	while (str[++i] && str[i] != '\n')
 	{
-		printf("str[%d] = %c\n", i, str[i]);
 		if (!ft_isdigit(str[i]) && str[i] != ',')
-			return (printf("here\n"), 1);
+			return (1);
 		if (str[i] == ',')
 		{
 			comma++;
@@ -87,10 +86,10 @@ int c_parser(char **data)
 	strs = ft_split(data[2], ',');
 	i = -1;
 	while (strs[++i])
-		if (float_checker(strs[i]) && (ft_atof(strs[i]) < 0 || ft_atof(strs[i]) > 1))
+		if (float_checker(strs[i]) || (ft_atof(strs[i]) < -1 || ft_atof(strs[i]) > 1))
 			return (1);
 	i = -1;
-	while (data[3][++i])
+	while (data[3][++i] && data[3][i] != '\n')
 		if (!ft_isdigit(data[3][i]))
 			return (1);
 	if (ft_atoi(data[3]) < 0 || ft_atoi(data[3]) > 180)
@@ -108,7 +107,7 @@ int l_parser(char **data)
 	while (strs[++i])
 		if (float_checker(strs[i]))
 			return (1);
-	if (float_checker(data[2]) && (ft_atof(data[2]) < 0 || ft_atof(data[2]) > 1))
+	if (float_checker(data[2]) || (ft_atof(data[2]) < -1 || ft_atof(data[2]) > 1))
 		return (1);
 	if (rgb_checker(data[3]))
 		return (1);

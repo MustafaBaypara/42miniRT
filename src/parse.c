@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/10 14:45:05 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:54:40 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,19 +113,19 @@ int	check_line(const char *line, char **data, char *type, const int nb_elements)
 static int ctrl_data_ext(char **data)
 {
 	if (ft_strcmp(data[0], "A") == 0)
-		return (al_parser(data), 3);
+		return (al_parser(data));
 	else if (ft_strcmp(data[0], "C") == 0)
-		return (c_parser(data), 4);
+		return (c_parser(data));
 	else if (ft_strcmp(data[0], "L") == 0)
-		return (l_parser(data), 4);
+		return (l_parser(data));
 	else if (ft_strcmp(data[0], "sp") == 0)
-		return (sp_parser(data), 4);
+		return (sp_parser(data));
 	else if (ft_strcmp(data[0], "pl") == 0)
-		return (pl_parser(data), 4);
+		return (pl_parser(data));
 	else if (ft_strcmp(data[0], "cy") == 0)
-		return (cy_parser(data), 6);
+		return (cy_parser(data));
 	else 
-		return (1);
+		return (0);
 }
 
 static int ctrl_data(char **data)
@@ -152,12 +152,13 @@ static int ctrl_data(char **data)
 
 static int parse_ext(char **data, t_scene *scene, char *line)
 {
+	line = ft_strtrim(line, " \t\n");
 	data = ft_split_set(line, " \t");
 	if (!data)
 		error_exit("Malloc failed", 1);
-	else if (ctrl_data(data))
+	if (ctrl_data(data))
 		return (1);
-	else if (check_line(line, data, "A", 3))
+	if (check_line(line, data, "A", 3))
 		set_ambient_light(scene, data);
 	else if (check_line(line, data, "C", 4))
 		set_camera(scene, data);
@@ -169,6 +170,8 @@ static int parse_ext(char **data, t_scene *scene, char *line)
 		set_plane(scene, data);
 	else if (check_line(line, data, "cy", 6))
 		set_cylinder(scene, data);
+	else
+		return (1);
 	return (0);
 }
 
@@ -185,6 +188,8 @@ t_scene	*parse(int fd)
 	data = NULL;
 	while ((line = get_next_line(fd)))
 	{
+		if (line[0] == '\0' || line[0] == '\n')
+			continue ;
 		if (parse_ext(data, scene, line))
 			return (NULL);
 	}
