@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:30:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/10 18:55:13 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/10 19:56:43 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,11 @@ void	calc_normal(double a[2], t_cylinder cyl, double d1, double d2)
 	{
 		i = a[1];
 		if (a[0] < a[1])
-		{
 			i = a[0];
-		}
 	}
 	else if (d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON)
-	{
 		i = a[0];
-	}
 	else
-	{
 		i = a[1];
-	}
 	a[0] = i;
 }
