@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 19:13:28 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/10 19:04:39 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 					*color = object_color(imp->object, objects);
 					if (dot_pd(imp->normal, ray.dir) >= 0)
 						imp->normal = vec3_minus(imp->normal);
-					lighting(sc, imp, color, pixels);
+					lighting(sc, imp, color);
 				}
 			}
 			put_pixel(win->frame->addr, pixels, color_int(*color), sc->res);

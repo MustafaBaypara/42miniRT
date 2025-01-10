@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/10 14:40:59 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/10 19:04:36 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ void		min_color(t_color *color);
 t_ray		new_ray(t_vector3 pos, t_vector3 dir);
 
 // Light
-t_color		*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel);
+t_color		*lighting(t_scene *sc, t_impact *imp, t_color *color);
 
 #endif

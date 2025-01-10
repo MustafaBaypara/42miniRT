@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 19:13:07 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/10 19:04:18 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
+double	dot_light_func(t_impact *imp, t_light *light, t_ray to_light)
+{
+	double	dot_light;
+
+	dot_light = get_maxf(dot_pd(imp->normal, to_light.dir), 0.0)
+		/ (distance(imp->point, light->position)
+			* distance(imp->point, light->position));
+	return (dot_light);
+}
+
+t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color)
 {
 	t_list		*lights;
 	t_light		*light;
@@ -23,22 +33,17 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
 	double		dot_light;
 	t_color		color_l;
 
-	(void)pixel; // Flags
 	diffuse = *int_color(0, 0, 0);
 	lights = sc->lights;
 	while (lights->next)
 	{
 		obstacle = NULL;
 		light = (t_light *)lights->content;
-		//printf("Impact: %f %f %f\n", imp->point.x, imp->point.y, imp->point.z);
 		to_light = new_ray(imp->point, vec3_sub(light->position, imp->point));
-		//printf("to_light: %f %f %f\n", to_light.dir.x, to_light.dir.y, to_light.dir.z);
 		imp_objs = check_objects(to_light, sc, &obstacle);
 		if (imp_objs->distance > distance(imp->point, light->position))
 		{
-			dot_light = get_maxf(dot_pd(imp->normal, to_light.dir), 0.0)
-				/ (distance(imp->point, light->position)
-					* distance(imp->point, light->position));
+			dot_light = dot_light_func(imp, light, to_light);
 			color_l = *mult_color_d(light->color, dot_light);
 			diffuse = *add_color(diffuse, color_l);
 		}
@@ -46,7 +51,6 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color, t_size pixel)
 	}
 	diffuse = *mult_color_d(diffuse, ALBEDO);
 	*color = *mult_color(*add_color(*sc->al_color, diffuse), *color);
-	//printf("Color: %d\n", color_int(*color));
 	min_color(color);
 	return (NULL);
 }
