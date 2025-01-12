@@ -6,14 +6,14 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/10 19:04:39 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/12 03:08:36 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
-static void	put_pixel(char *addr, t_size pos, int color, t_size res) // flags unsigned char
+static void	put_pixel(char *addr, t_size pos, int color, t_size res)
 {
 	int		offset;
 
@@ -65,7 +65,6 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 {
 	t_size		pixels;
 	t_ray		ray;
-	int			depth;
 	t_color		*color;
 	void		*objects;
 
@@ -76,20 +75,16 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 		while (++pixels.width < sc->res.width)
 		{
 			color = int_color(0, 0, 0);
-			depth = 1;
 			objects = NULL;
 			imp = NULL;
-			while (depth--)
+			ray = generate_ray(cam, sc->res, pixels.height, pixels.width);
+			imp = check_objects(ray, sc, &objects);
+			if (objects)
 			{
-				ray = generate_ray(cam, sc->res, pixels.height, pixels.width);
-				imp = check_objects(ray, sc, &objects);
-				if (objects)
-				{
-					*color = object_color(imp->object, objects);
-					if (dot_pd(imp->normal, ray.dir) >= 0)
-						imp->normal = vec3_minus(imp->normal);
-					lighting(sc, imp, color);
-				}
+				*color = object_color(imp->object, objects);
+				if (dot_pd(imp->normal, ray.dir) >= 0)
+					imp->normal = vec3_minus(imp->normal);
+				lighting(sc, imp, color);
 			}
 			put_pixel(win->frame->addr, pixels, color_int(*color), sc->res);
 			gfree(color);

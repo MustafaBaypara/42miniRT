@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/10 20:43:32 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/12 02:21:40 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,10 @@ void	cyl_ray(t_ray r, t_scene *sc, t_impact *imp, void **objs)
 			imp->point = new_vec3(tmp * r.dir.x, tmp * r.dir.y, tmp * r.dir.z);
 			imp->normal = cyl->dir;
 			if (is_side)
-				imp->normal = vec3_sub(closest_point(cyl->pos,
-							cyl->pos2, imp->point), imp->point);
+				imp->normal = vec3_norm(vec3_sub(imp->point,
+							closest_point(cyl->pos, vec3_add(cyl->pos,
+									vec3_mult(cyl->dir, cyl->height)), imp->point)));
+
 			imp->normal = vec3_norm(imp->normal);
 			imp->object = "cy";
 		}

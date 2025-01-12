@@ -6,17 +6,17 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/10 20:31:50 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/12 03:25:18 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	dot_light_func(t_impact *imp, t_light *light, t_ray to_light)
+static double	dot_light_func(t_impact *imp, t_light *light, t_ray to_light)
 {
 	double	dot_light;
 
-	dot_light = get_maxf(dot_pd(imp->normal, to_light.dir), 0.0)
+	dot_light = get_maxf(dot_pd(imp->normal, to_light.dir), 0)
 		/ (distance(imp->point, light->position)
 			* distance(imp->point, light->position));
 	return (dot_light);
@@ -40,6 +40,7 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color)
 		obstacle = NULL;
 		light = (t_light *)lights->content;
 		to_light = new_ray(imp->point, vec3_sub(light->position, imp->point));
+		to_light.dir = vec3_norm(to_light.dir);
 		imp_objs = check_objects(to_light, sc, &obstacle);
 		if (imp_objs->distance > distance(imp->point, light->position))
 		{

@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 19:18:30 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 19:16:12 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/12 03:01:19 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	plane_intersection(t_ray ray, t_plane plane, t_impact *impact)
 	double	t;
 
 	denom = dot_pd(plane.normal, ray.dir);
-	if (fabs(denom) > 0)
+	if (fabs(denom) > EPSILON)
 	{
 		t = dot_pd(vec3_sub(plane.pos, ray.origin), plane.normal) / denom;
 		if (t > EPSILON && t < impact->distance)
