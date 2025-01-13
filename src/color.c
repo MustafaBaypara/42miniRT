@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:49:41 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/12 03:15:07 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/13 20:29:09 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_color	*mult_color(t_color color, t_color color2)
 {
 	t_color	*new_color;
 
-	new_color = int_color(color.r * (color2.r / 255),
-			color.g * (color2.g / 255),
-			color.b * (color2.b / 255));
+	new_color = int_color(color.r * (color2.r / 255.),
+			color.g * (color2.g / 255.),
+			color.b * (color2.b / 255.));
 	return (new_color);
 }
 

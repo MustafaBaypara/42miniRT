@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/10 19:04:36 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/13 20:34:38 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ void		set_light(t_scene *scene, char **data);
 void		set_sphere(t_scene *scene, char **strs);
 void		set_plane(t_scene *scene, char **strs);
 void		set_cylinder(t_scene *scene, char **strs);
-int 		float_checker(char *str);
-int 		rgb_checker(char *str);
-int 		al_parser(char **data);
-int 		c_parser(char **data);
-int 		l_parser(char **data);
-int		 	sp_parser(char **data);
-int		 	pl_parser(char **data);
+int			float_checker(char *str);
+int			rgb_checker(char *str);
+int			al_parser(char **data);
+int			c_parser(char **data);
+int			l_parser(char **data);
+int			sp_parser(char **data);
+int			pl_parser(char **data);
 int			cy_parser(char **data);
 
 // Utils
