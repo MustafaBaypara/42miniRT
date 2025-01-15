@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/12 03:25:18 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:23:34 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color)
 		obstacle = NULL;
 		light = (t_light *)lights->content;
 		to_light = new_ray(imp->point, vec3_sub(light->position, imp->point));
+		to_light.origin = vec3_add(to_light.origin, vec3_mult(to_light.dir, EPSILON));
 		to_light.dir = vec3_norm(to_light.dir);
 		imp_objs = check_objects(to_light, sc, &obstacle);
 		if (imp_objs->distance > distance(imp->point, light->position))
