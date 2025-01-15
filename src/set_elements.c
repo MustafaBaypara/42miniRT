@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:57:48 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/10 17:04:46 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:54:30 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_camera(t_scene *scene, char **data)
 	if (!(camera = galloc(sizeof(*camera))))
 		error_exit("Malloc failed", 1);
 	camera->position = str_to_vect(data[1]);
-	camera->orientation = vec3_norm(str_to_vect(data[2]));
+	camera->orientation = (str_to_vect(data[2]));
 	camera->fov = ft_atof(data[3]);
 	ft_lstadd_front(&(scene->cameras), ft_lstnew(camera));
 }
