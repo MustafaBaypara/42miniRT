@@ -13,4 +13,4 @@ white light, red green blue lights and no light just ambient light
   
 Room with planes, multiple lights and multiple objects  
   
-![room](https://github.com/user-attachments/assets/9b9f9f88-9ed7-42ef-8882-2e4e07cdf7dd)  
+![room](https://github.com/user-attachments/assets/167531b1-f5bb-4cf8-a496-4f698c622acf)  
