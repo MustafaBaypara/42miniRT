@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:30:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/11 18:51:56 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:39:59 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,47 @@ void	calc_normal(double a[2], t_cylinder cyl, double d1, double d2)
 	else
 		i = a[1];
 	a[0] = i;
+}
+
+double	isec_cap(t_ray ray, t_cylinder cyl, double d1, double d2)
+{
+	t_vector3	p1;
+	t_vector3	p2;
+	t_vector3	cap;
+
+	cap = vec3_add(cyl.pos, vec3_mult(cyl.dir, cyl.height));
+	d1 = solve_pl(ray.origin, ray.dir, cyl.pos, cyl.dir);
+	d2 = solve_pl(ray.origin, ray.dir, cap, cyl.dir);
+	if (d1 < INFINITY && d2 < INFINITY)
+	{
+		p1 = vec3_add(ray.origin, vec3_mult(ray.dir, d1));
+		p2 = vec3_add(ray.origin, vec3_mult(ray.dir, d2));
+		if ((d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius)
+			&& (d2 < INFINITY && distance(p2, cap) <= cyl.radius))
+			return (get_minf(d1, d2));
+		else if (d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius)
+			return (d1);
+		else if (d2 < INFINITY && distance(p2, cap) <= cyl.radius)
+			return (d2);
+	}
+	return (INFINITY);
+}
+
+double	isec_side(t_ray ray, t_cylinder cyl)
+{
+	double	a[2];
+	double	d1;
+	double	d2;
+
+	if (!solve_cyl(a, ray, cyl))
+		return (INFINITY);
+	d1 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[0]),
+				vec3_sub(cyl.pos, ray.origin)));
+	d2 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[1]),
+				vec3_sub(cyl.pos, ray.origin)));
+	if (!((d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON)
+			|| (d2 >= 0 && d2 <= cyl.height && a[0] > EPSILON)))
+		return (INFINITY);
+	calc_normal(a, cyl, d1, d2);
+	return (a[0]);
 }

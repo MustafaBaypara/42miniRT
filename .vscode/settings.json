@@ -7,6 +7,7 @@
         "algorithm": "c",
         "math.h": "c",
         "utils.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "cmath": "c"
     }
 }

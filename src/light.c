@@ -6,11 +6,22 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/16 18:27:38 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:30:40 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static t_ray	to_light(t_impact *imp, t_light *light)
+{
+	t_ray	to_light;
+
+	to_light = new_ray(imp->point, vec3_sub(light->position, imp->point));
+	to_light.origin = vec3_add(to_light.origin, vec3_mult(to_light.dir, EPSILON));
+	to_light.dir = vec3_norm(to_light.dir);
+	return (to_light);
+}
+
 
 static double	dot_light_func(t_impact *imp, t_light *light, t_ray to_light)
 {
@@ -26,7 +37,7 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color)
 {
 	t_list		*lights;
 	t_light		*light;
-	t_ray		to_light;
+	t_ray		ray_to_light;
 	void		*obstacle;
 	t_impact	*imp_objs;
 	t_color		diffuse;
@@ -39,13 +50,11 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color)
 	{
 		obstacle = NULL;
 		light = (t_light *)lights->content;
-		to_light = new_ray(imp->point, vec3_sub(light->position, imp->point));
-		to_light.origin = vec3_add(to_light.origin, vec3_mult(to_light.dir, EPSILON));
-		to_light.dir = vec3_norm(to_light.dir);
-		imp_objs = check_objects(to_light, sc, &obstacle);
+		ray_to_light = to_light(imp, light);
+		imp_objs = check_objects(ray_to_light, sc, &obstacle);
 		if (imp_objs->distance > distance(imp->point, light->position))
 		{
-			dot_light = dot_light_func(imp, light, to_light);
+			dot_light = dot_light_func(imp, light, ray_to_light);
 			color_l = *mult_color_d(light->color, dot_light);
 			diffuse = *add_color(diffuse, color_l);
 		}

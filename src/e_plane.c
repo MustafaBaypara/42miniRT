@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 19:18:30 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/15 12:39:55 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:41:56 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ static int	plane_intersection(t_ray ray, t_plane plane, t_impact *impact)
 		if (t > EPSILON && t < impact->distance)
 		{
 			impact->distance = t;
-			impact->normal = (denom < 0) ? vec3_norm(plane.normal)
-										 : vec3_norm(vec3_mult(plane.normal, -1));
+			if (denom < 0)
+				impact->normal = vec3_norm(plane.normal);
+			else
+				impact->normal = vec3_norm(vec3_mult(plane.normal, -1));
 			impact->point = vec3_add(ray.origin, vec3_mult(ray.dir, t));
 			impact->point = vec3_add(impact->point,
 					vec3_mult(impact->normal, EPSILON));

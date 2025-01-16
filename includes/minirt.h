@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/13 20:34:38 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:46:09 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void		calc_normal(double a[2], t_cylinder cyl, double d1, double d2);
 int			solve_cyl(double a[2], t_ray ray, t_cylinder cyl);
 double		solve_pl(t_vector3 origin, t_vector3 dir,
 				t_vector3 pos, t_vector3 n);
+double		isec_cap(t_ray ray, t_cylinder cyl, double d1, double d2);
+double		isec_side(t_ray ray, t_cylinder cyl);
 
 // Color
 int			color_int(t_color color);
@@ -112,6 +114,7 @@ void		min_color(t_color *color);
 
 // Ray
 t_ray		new_ray(t_vector3 pos, t_vector3 dir);
+t_ray		generate_ray(t_camera *camera, t_size res, int i, int j);
 
 // Light
 t_color		*lighting(t_scene *sc, t_impact *imp, t_color *color);
