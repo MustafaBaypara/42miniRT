@@ -13,7 +13,8 @@
   
 - Room with planes, multiple lights and multiple objects with shadow  
   
-![room](https://github.com/user-attachments/assets/167531b1-f5bb-4cf8-a496-4f698c622acf)  
+![image](https://github.com/user-attachments/assets/24cfecf2-6ac7-4e5d-a5f5-f8bb7789aba8)  
+ 
 
 ### Cylinder & Sphere  
 
