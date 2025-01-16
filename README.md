@@ -14,3 +14,7 @@ white light, red green blue lights and no light just ambient light
 Room with planes, multiple lights and multiple objects with shadow  
   
 ![room](https://github.com/user-attachments/assets/167531b1-f5bb-4cf8-a496-4f698c622acf)  
+
+### Cylinder & Sphere  
+  
+ ![cylinder sphere](https://github.com/user-attachments/assets/16edb406-b483-44fe-b00e-7a2bd890fb60)  
