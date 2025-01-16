@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/10 17:07:23 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:07:43 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_window	*init_window(t_scene *scene)
 	if (!window)
 		return (NULL);
 	window->mlx = addgarbage(mlx_init());
-	window->win = mlx_new_window(window->mlx, res.width, res.height, "miniRT");
+	window->win = mlx_new_window(window->mlx, res.width, res.height, "minirt");
 	if (!window->win || !window->mlx)
 		return (NULL);
 	window->scene = scene;
