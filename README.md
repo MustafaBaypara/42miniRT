@@ -1,6 +1,7 @@
 # MINIRT
 - MiniRT is a project that aims to create a basic ray tracing engine using MinilibX. The project has a minimalist structure and is ideal for those who want to understand how various graphical features work.  
 
+=============  
   
 ### POKEBALL  
 
