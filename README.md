@@ -26,6 +26,6 @@
 
   Obj models with triangles ([Converter](https://github.com/matboivin/minirt_mesh_converter))  
   
- ![cat](https://github.com/user-attachments/assets/ff34a14e-4574-454a-9129-a5d3c2db11d7)
-
+![cat](https://github.com/user-attachments/assets/ff34a14e-4574-454a-9129-a5d3c2db11d7)
 ![car](https://github.com/user-attachments/assets/75ed8165-2cf4-41f0-bf90-b3891d742ead)
+![home](https://github.com/user-attachments/assets/e4b94c3c-6d04-4593-949f-74208fbdf01d)
