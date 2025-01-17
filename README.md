@@ -24,6 +24,7 @@
 
 ### 3D Model  
 
-  Obj model with triangles ([Converter](https://github.com/matboivin/minirt_mesh_converter))  
+  Obj models with triangles ([Converter](https://github.com/matboivin/minirt_mesh_converter))  
   
-![cat](https://github.com/user-attachments/assets/40d11753-8026-4fb9-b3f4-85fe71b5bc46)
+![cat](https://github.com/user-attachments/assets/40d11753-8026-4fb9-b3f4-85fe71b5bc46)  
+![car](https://github.com/user-attachments/assets/75ed8165-2cf4-41f0-bf90-b3891d742ead)
