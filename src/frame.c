@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/16 20:58:49 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/17 05:58:11 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ t_impact	*check_objects(t_ray ray, t_scene *scene, void **object)
 	sphere_ray(ray, scene, impact, object);
 	plane_ray(ray, scene, impact, object);
 	cyl_ray(ray, scene, impact, object);
+	triangle_ray(ray, scene, impact, object);
 	return (impact);
 }
 
-static void	init_clr_obj(t_color *color, void **objects)
+static void	init_clr_obj(t_color **color, void **objects)
 {
-	*color = *int_color(0, 0, 0);
+	*color = int_color(0, 0, 0);
 	*objects = NULL;
 }
 
@@ -53,7 +54,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 		pixels.width = -1;
 		while (++pixels.width < sc->res.width)
 		{
-			init_clr_obj(color, &objects);
+			init_clr_obj(&color, &objects);
 			ray = generate_ray(cam, sc->res, pixels.height, pixels.width);
 			imp = check_objects(ray, sc, &objects);
 			if (objects)
@@ -65,6 +66,9 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 			}
 			put_pixel(win->frame->addr, pixels, color_int(*color), sc->res);
 			gfree(color);
+			printf("Loading frame: %d%%\r",
+				(int)((pixels.height * sc->res.width + pixels.width)
+					* 100 / (sc->res.width * sc->res.height)));
 		}
 	}
 }

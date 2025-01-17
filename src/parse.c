@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/16 20:12:41 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/17 06:04:08 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ static t_scene	*init_scene(t_scene *scene)
 	scene->cylinders = ft_lstnew(NULL);
 	if (!scene->cylinders)
 		return (NULL);
+	scene->triangles = ft_lstnew(NULL);
+	if (!scene->triangles)
+		return (NULL);
 	return (scene);
 }
 
@@ -48,17 +51,17 @@ static void	set_ambient_light(t_scene *scene, char **data)
 	scene->al_ratio = ratio;
 }
 
-int	check_line(const char *line, char **data, char *type, const int nb_elements)
+static int	check_line(const char *l, char **data, char *type, const int nb_e)
 {
 	if (!ft_strcmp(data[0], type))
 	{
-		if (ft_in_charset(line[ft_strlen(type)], " \t"))
-			return (ft_tab_size(data) == nb_elements);
+		if (ft_in_charset(l[ft_strlen(type)], " \t"))
+			return (ft_tab_size(data) == nb_e);
 	}
 	return (0);
 }
 
-static int ctrl_data_ext(char **data)
+static int	ctrl_data_ext(char **data)
 {
 	if (ft_strcmp(data[0], "A") == 0)
 		return (al_parser(data));
@@ -72,11 +75,13 @@ static int ctrl_data_ext(char **data)
 		return (pl_parser(data));
 	else if (ft_strcmp(data[0], "cy") == 0)
 		return (cy_parser(data));
-	else 
+	else if (ft_strcmp(data[0], "tr") == 0)
+		return (tr_parser(data));
+	else
 		return (0);
 }
 
-static int ctrl_data(char **data)
+static int	ctrl_data(char **data)
 {
 	int	i;
 	int	j;
@@ -87,7 +92,7 @@ static int ctrl_data(char **data)
 	{
 		while (data[i][j])
 		{
-			if (ft_strchr("ACLplscy,.+-0123456789\n", data[i][j]))
+			if (ft_strchr("ACLplscytr,.+-0123456789\n", data[i][j]))
 				j++;
 			else
 				return (1);
@@ -98,7 +103,7 @@ static int ctrl_data(char **data)
 	return (ctrl_data_ext(data));
 }
 
-static int parse_ext(char **data, t_scene *scene, char *line)
+static int	parse_ext(char **data, t_scene *scene, char *line)
 {
 	line = ft_strtrim(line, " \t\n");
 	data = ft_split_set(line, " \t");
@@ -118,6 +123,8 @@ static int parse_ext(char **data, t_scene *scene, char *line)
 		set_plane(scene, data);
 	else if (check_line(line, data, "cy", 6))
 		set_cylinder(scene, data);
+	else if (check_line(line, data, "tr", 5))
+		set_triangle(scene, data);
 	else
 		return (1);
 	return (0);
@@ -129,17 +136,23 @@ t_scene	*parse(int fd)
 	char	*line;
 	char	**data;
 
-	if (!(scene = galloc(sizeof(*scene))))
+	scene = galloc(sizeof(*scene));
+	if (!scene)
 		error_exit("Malloc failed", 1);
 	if (!(init_scene(scene)))
 		return (NULL);
 	data = NULL;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		if (line[0] == '\0' || line[0] == '\n')
+		{
+			line = get_next_line(fd);
 			continue ;
+		}
 		if (parse_ext(data, scene, line))
 			return (NULL);
+		line = get_next_line(fd);
 	}
 	return (scene);
 }

@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:49:41 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/13 20:29:09 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/17 02:04:51 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_color	object_color(char *type, void *obj)
 		return (((t_plane *)obj)->color);
 	if (!ft_strcmp(type, "cy"))
 		return (((t_cylinder *)obj)->color);
-	return ((t_color){0, 0, 255});
+	if (!ft_strcmp(type, "tr"))
+		return (((t_triangle *)obj)->color);
+	return ((t_color){0, 0, 0});
 }
 
 int	color_int(t_color color)

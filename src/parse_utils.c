@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 17:27:20 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/10 16:59:39 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/01/17 02:10:31 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int float_checker(char *str)
+int	float_checker(char *str)
 {
-	int i;
-	int dot;
+	int	i;
+	int	dot;
 
 	i = 0;
 	dot = 0;
@@ -34,11 +34,11 @@ int float_checker(char *str)
 	return (0);
 }
 
-int rgb_checker(char *str)
+int	rgb_checker(char *str)
 {
-	int i;
-	int comma;
-	int num;
+	int	i;
+	int	comma;
+	int	num;
 
 	i = -1;
 	comma = 0;
@@ -62,7 +62,7 @@ int rgb_checker(char *str)
 	return (0);
 }
 
-int al_parser(char **data)
+int	al_parser(char **data)
 {
 	if (float_checker(data[1]))
 		return (1);
@@ -70,23 +70,24 @@ int al_parser(char **data)
 		return (1);
 	if (ft_atof(data[1]) < 0 || ft_atof(data[1]) > 1)
 		return (1);
-	return (0);	
+	return (0);
 }
 
-int c_parser(char **data)
+int	c_parser(char **data)
 {
-	int 	i;
-	char **strs;
+	int		i;
+	char	**strs;
 
 	i = -1;
 	strs = ft_split(data[1], ',');
 	while (strs[++i])
 		if (float_checker(strs[i]))
-			return (1);	
+			return (1);
 	strs = ft_split(data[2], ',');
 	i = -1;
 	while (strs[++i])
-		if (float_checker(strs[i]) || (ft_atof(strs[i]) < -1 || ft_atof(strs[i]) > 1))
+		if (float_checker(strs[i]) || (ft_atof(strs[i]) < -1
+				|| ft_atof(strs[i]) > 1))
 			return (1);
 	i = -1;
 	while (data[3][++i] && data[3][i] != '\n')
@@ -97,17 +98,18 @@ int c_parser(char **data)
 	return (0);
 }
 
-int l_parser(char **data)
+int	l_parser(char **data)
 {
-	int i;
-	char **strs;
+	int		i;
+	char	**strs;
 
 	i = -1;
 	strs = ft_split(data[1], ',');
 	while (strs[++i])
 		if (float_checker(strs[i]))
 			return (1);
-	if (float_checker(data[2]) || (ft_atof(data[2]) < -1 || ft_atof(data[2]) > 1))
+	if (float_checker(data[2]) || (ft_atof(data[2]) < -1
+			|| ft_atof(data[2]) > 1))
 		return (1);
 	if (rgb_checker(data[3]))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:57:48 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/15 11:54:30 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/17 01:48:51 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,17 @@ void	set_cylinder(t_scene *scene, char **strs)
 	cy->pos2 = vec3_add(cy->pos, vec3_mult(cy->dir, cy->height));
 	cy->color = str_to_rgb(strs[5]);
 	ft_lstadd_front(&(scene->cylinders), ft_lstnew(cy));
+}
+
+void	set_triangle(t_scene *scene, char **strs)
+{
+	t_triangle	*tr;
+
+	if (!(tr = galloc(sizeof(*tr))))
+		error_exit("Malloc failed", 1);
+	tr->v0 = str_to_vect(strs[1]);
+	tr->v1 = str_to_vect(strs[2]);
+	tr->v2 = str_to_vect(strs[3]);
+	tr->color = str_to_rgb(strs[4]);
+	ft_lstadd_front(&(scene->triangles), ft_lstnew(tr));
 }
