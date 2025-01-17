@@ -21,3 +21,9 @@
 - Camera orientation and shadow testing
     
  ![cylinder sphere](https://github.com/user-attachments/assets/16edb406-b483-44fe-b00e-7a2bd890fb60)  
+
+### 3D Model  
+
+  Obj model with triangles ([Converter](https://github.com/matboivin/minirt_mesh_converter))
+  
+![image](https://github.com/user-attachments/assets/bf306803-65cc-418e-900b-ea0d060af48f)
