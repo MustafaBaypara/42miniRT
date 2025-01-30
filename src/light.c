@@ -17,11 +17,11 @@ static t_ray	to_light(t_impact *imp, t_light *light)
 	t_ray	to_light;
 
 	to_light = new_ray(imp->point, vec3_sub(light->position, imp->point));
-	to_light.origin = vec3_add(to_light.origin, vec3_mult(to_light.dir, EPSILON));
+	to_light.origin = vec3_add(to_light.origin,
+			vec3_mult(to_light.dir, EPSILON));
 	to_light.dir = vec3_norm(to_light.dir);
 	return (to_light);
 }
-
 
 static double	dot_light_func(t_impact *imp, t_light *light, t_ray to_light)
 {
@@ -33,35 +33,37 @@ static double	dot_light_func(t_impact *imp, t_light *light, t_ray to_light)
 	return (dot_light);
 }
 
+static void	do_somethings(t_scene *sc, t_color *color, t_color *diffuse)
+{
+	*diffuse = *mult_color_d(*diffuse, ALBEDO);
+	*color = *mult_color(*add_color(*sc->al_color, *diffuse), *color);
+	min_color(color);
+}
+
 t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color)
 {
 	t_list		*lights;
 	t_light		*light;
-	t_ray		ray_to_light;
-	void		*obstacle;
 	t_impact	*imp_objs;
-	t_color		diffuse;
-	double		dot_light;
-	t_color		color_l;
+	t_lighting	*l;
 
-	diffuse = *int_color(0, 0, 0);
+	l = (t_lighting *)galloc(sizeof(t_lighting));
+	l->diffuse = *int_color(0, 0, 0);
 	lights = sc->lights;
 	while (lights->next)
 	{
-		obstacle = NULL;
+		l->obstacle = NULL;
 		light = (t_light *)lights->content;
-		ray_to_light = to_light(imp, light);
-		imp_objs = check_objects(ray_to_light, sc, &obstacle);
+		l->ray_to_light = to_light(imp, light);
+		imp_objs = check_objects(l->ray_to_light, sc, &l->obstacle);
 		if (imp_objs->distance > distance(imp->point, light->position))
 		{
-			dot_light = dot_light_func(imp, light, ray_to_light);
-			color_l = *mult_color_d(light->color, dot_light);
-			diffuse = *add_color(diffuse, color_l);
+			l->dot_light = dot_light_func(imp, light, l->ray_to_light);
+			l->color_l = *mult_color_d(light->color, l->dot_light);
+			l->diffuse = *add_color(l->diffuse, l->color_l);
 		}
 		lights = lights->next;
 	}
-	diffuse = *mult_color_d(diffuse, ALBEDO);
-	*color = *mult_color(*add_color(*sc->al_color, diffuse), *color);
-	min_color(color);
+	do_somethings(sc, color, &l->diffuse);
 	return (NULL);
 }

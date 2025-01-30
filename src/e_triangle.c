@@ -12,6 +12,20 @@
 
 #include "minirt.h"
 
+void	set_triangle(t_scene *scene, char **strs)
+{
+	t_triangle	*tr;
+
+	tr = galloc(sizeof(*tr));
+	if (!(tr))
+		error_exit("Malloc failed", 1);
+	tr->v0 = str_to_vect(strs[1]);
+	tr->v1 = str_to_vect(strs[2]);
+	tr->v2 = str_to_vect(strs[3]);
+	tr->color = str_to_rgb(strs[4]);
+	ft_lstadd_front(&(scene->triangles), ft_lstnew(tr));
+}
+
 static t_vector3	cross_pd(t_vector3 v1, t_vector3 v2)
 {
 	t_vector3	result;
@@ -24,7 +38,6 @@ static t_vector3	cross_pd(t_vector3 v1, t_vector3 v2)
 
 static int	tri_isec(t_ray ray, t_triangle tri, t_impact *imp)
 {
-
 	tri.edge1 = vec3_sub(tri.v1, tri.v0);
 	tri.edge2 = vec3_sub(tri.v2, tri.v0);
 	tri.h = cross_pd(ray.dir, tri.edge2);

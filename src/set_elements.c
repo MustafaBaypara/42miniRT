@@ -16,7 +16,8 @@ void	set_camera(t_scene *scene, char **data)
 {
 	t_camera	*camera;
 
-	if (!(camera = galloc(sizeof(*camera))))
+	camera = galloc(sizeof(*camera));
+	if (!(camera))
 		error_exit("Malloc failed", 1);
 	camera->position = str_to_vect(data[1]);
 	camera->orientation = (str_to_vect(data[2]));
@@ -29,7 +30,8 @@ void	set_light(t_scene *scene, char **data)
 	t_light		*light;
 	double		ratio;
 
-	if (!(light = galloc(sizeof(*light))))
+	light = galloc(sizeof(*light));
+	if (!(light))
 		error_exit("Malloc failed", 1);
 	light->position = str_to_vect(data[1]);
 	ratio = ft_atof(data[2]) * 255;
@@ -43,7 +45,8 @@ void	set_sphere(t_scene *scene, char **strs)
 	t_sphere	*sphere;
 	double		radius;
 
-	if (!(sphere = galloc(sizeof(*sphere))))
+	sphere = galloc(sizeof(*sphere));
+	if (!(sphere))
 		error_exit("Malloc failed", 1);
 	sphere->pos = str_to_vect(strs[1]);
 	radius = ft_atof(strs[2]);
@@ -56,7 +59,8 @@ void	set_plane(t_scene *scene, char **strs)
 {
 	t_plane		*plane;
 
-	if (!(plane = galloc(sizeof(*plane))))
+	plane = galloc(sizeof(*plane));
+	if (!(plane))
 		error_exit("Malloc failed", 1);
 	plane->pos = str_to_vect(strs[1]);
 	plane->normal = vec3_norm(str_to_vect(strs[2]));
@@ -69,7 +73,8 @@ void	set_cylinder(t_scene *scene, char **strs)
 	t_cylinder	*cy;
 	double		radius;
 
-	if (!(cy = galloc(sizeof(*cy))))
+	cy = galloc(sizeof(*cy));
+	if (!(cy))
 		error_exit("Malloc failed", 1);
 	cy->pos = str_to_vect(strs[1]);
 	cy->dir = vec3_norm(str_to_vect(strs[2]));
@@ -79,17 +84,4 @@ void	set_cylinder(t_scene *scene, char **strs)
 	cy->pos2 = vec3_add(cy->pos, vec3_mult(cy->dir, cy->height));
 	cy->color = str_to_rgb(strs[5]);
 	ft_lstadd_front(&(scene->cylinders), ft_lstnew(cy));
-}
-
-void	set_triangle(t_scene *scene, char **strs)
-{
-	t_triangle	*tr;
-
-	if (!(tr = galloc(sizeof(*tr))))
-		error_exit("Malloc failed", 1);
-	tr->v0 = str_to_vect(strs[1]);
-	tr->v1 = str_to_vect(strs[2]);
-	tr->v2 = str_to_vect(strs[3]);
-	tr->color = str_to_rgb(strs[4]);
-	ft_lstadd_front(&(scene->triangles), ft_lstnew(tr));
 }

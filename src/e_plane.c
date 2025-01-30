@@ -38,7 +38,6 @@ static int	plane_intersection(t_ray ray, t_plane plane, t_impact *impact)
 	return (0);
 }
 
-
 void	plane_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj)
 {
 	t_list	*lst;

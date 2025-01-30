@@ -41,6 +41,14 @@ static void	init_clr_obj(t_color **color, void **objects)
 	*objects = NULL;
 }
 
+static void	do_somethings(t_scene *sc, t_color *color, t_size px, t_window *win)
+{
+	put_pixel(win->frame->addr, px, color_int(*color), sc->res);
+	gfree(color);
+	printf("Loading frame: %d%%\r", (int)((px.height * sc->res.width + px.width)
+			* 100 / (sc->res.width * sc->res.height)));
+}
+
 void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 {
 	t_size		pixels;
@@ -64,11 +72,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 					imp->normal = vec3_minus(imp->normal);
 				lighting(sc, imp, color);
 			}
-			put_pixel(win->frame->addr, pixels, color_int(*color), sc->res);
-			gfree(color);
-			printf("Loading frame: %d%%\r",
-				(int)((pixels.height * sc->res.width + pixels.width)
-					* 100 / (sc->res.width * sc->res.height)));
+			do_somethings(sc, color, pixels, win);
 		}
 	}
 }

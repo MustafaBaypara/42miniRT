@@ -12,12 +12,12 @@
 
 int	ft_tab_size(char **tab)
 {
-    int i;
+	int	i;
 
-    if (!tab)
-        return (0);
-    i = 0;
-    while (tab[i])
-        i++;
-    return (i);
+	if (!tab)
+		return (0);
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }

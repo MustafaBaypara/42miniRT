@@ -45,20 +45,16 @@ static t_vector3	rotate_by_orientation(t_vector3 dir, t_vector3 orient)
 	temp.y = dir.x * roll.y + dir.y * roll.x;
 	dir.x = temp.x;
 	dir.y = temp.y;
-
 	temp.y = dir.y * pitch.x - dir.z * pitch.y;
 	temp.z = dir.y * pitch.y + dir.z * pitch.x;
 	dir.y = temp.y;
 	dir.z = temp.z;
-
 	temp.x = dir.x * yaw.x + dir.z * yaw.y;
 	temp.z = -dir.x * yaw.y + dir.z * yaw.x;
 	dir.x = temp.x;
 	dir.z = temp.z;
-
 	return (dir);
 }
-
 
 t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 {
@@ -75,6 +71,5 @@ t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 	v_dir.y = -v_dir.y;
 	v_dir.z = -v_dir.z;
 	v_dir = rotate_by_orientation(v_dir, camera->orientation);
-
 	return (new_ray(camera->position, vec3_norm(v_dir)));
 }

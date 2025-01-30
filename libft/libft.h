@@ -90,5 +90,4 @@ float				ft_atof(const char *str);
 long				ft_atol(const char *nptr);
 double				ft_pow(double nb, double pow);
 
-
 #endif

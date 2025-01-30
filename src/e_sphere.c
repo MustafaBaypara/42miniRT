@@ -35,7 +35,6 @@ static int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 	vector = vec3_add(ray.origin, vec3_mult(ray.dir, b));
 	impact->normal = vec3_norm(vec3_sub(vector, sphere.pos));
 	impact->point = vec3_add(vector, vec3_mult(impact->normal, EPSILON));
-
 	return (1);
 }
 

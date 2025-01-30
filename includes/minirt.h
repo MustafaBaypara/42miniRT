@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/17 02:00:48 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/01/30 19:15:44 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,19 @@ typedef struct s_window
 	t_scene			*scene;
 }	t_window;
 
+typedef struct s_lighting
+{
+	t_ray		ray_to_light;
+	void		*obstacle;
+	double		dot_light;
+	t_color		color_l;
+	t_color		diffuse;
+}	t_lighting;
+
 // Parsing
 
 t_scene		*parse_scene(int argc, char **av);
+int			parse_ext(char **data, t_scene *scene, char *line);
 void		set_camera(t_scene *scene, char **data);
 void		set_light(t_scene *scene, char **data);
 void		set_sphere(t_scene *scene, char **strs);
@@ -96,7 +106,8 @@ t_vector3	vec3_minus(t_vector3 v1);
 double		dot_pd(t_vector3 v1, t_vector3 v2);
 
 // Elements
-void		triangle_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
+void		triangle_ray(t_ray ray, t_scene *scene,
+				t_impact *impact, void **obj);
 void		sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		plane_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		cyl_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);

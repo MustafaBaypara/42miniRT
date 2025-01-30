@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static int close_window(t_window *window)
+static int	close_window(t_window *window)
 {
 	mlx_destroy_window(window->mlx, window->win);
 	mlx_destroy_image(window->mlx, window->frame->img);
@@ -64,6 +64,5 @@ int	main(int argc, char **av)
 	mlx_put_image_to_window(window->mlx, window->win, window->frame->img, 0, 0);
 	mlx_hook(window->win, 17, 1L << 17, close_window, window);
 	mlx_loop(window->mlx);
-
 	return (0);
 }
