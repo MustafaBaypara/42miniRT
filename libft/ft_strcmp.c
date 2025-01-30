@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pow.c                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:52:25 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/07 17:52:27 by abakirca         ###   ########.fr       */
+/*   Created: 2024/10/16 14:58:16 by mbaypara          #+#    #+#             */
+/*   Updated: 2024/10/16 14:58:21 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	ft_pow(double nb, double pow)
+#include "libft.h"
+
+int	ft_strcmp(char *s1, char *s2)
 {
-	if (pow < 0)
-		return (0);
-	if (pow == 0)
-		return (1);
-	return (nb * ft_pow(nb, pow - 1));
+	size_t	i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

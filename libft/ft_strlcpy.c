@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   garbage_collector_utils.c                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/04 16:49:30 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/08 13:45:21 by abakirca         ###   ########.fr       */
+/*   Created: 2023/12/06 14:36:13 by mbaypara          #+#    #+#             */
+/*   Updated: 2023/12/14 14:15:12 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	**getgarbage(void)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	static t_list	*collector;
+	size_t	i;
+	size_t	strlen;
 
-	return (&collector);
+	i = 0;
+	strlen = ft_strlen(src);
+	if (dstsize != 0)
+	{
+		while (src[i] != '\0' && i < dstsize - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (strlen);
 }

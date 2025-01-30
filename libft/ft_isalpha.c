@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pow.c                                           :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:52:25 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/07 17:52:27 by abakirca         ###   ########.fr       */
+/*   Created: 2023/12/05 14:40:51 by mbaypara          #+#    #+#             */
+/*   Updated: 2023/12/20 13:40:24 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	ft_pow(double nb, double pow)
+int	ft_isalpha(int c)
 {
-	if (pow < 0)
-		return (0);
-	if (pow == 0)
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 		return (1);
-	return (nb * ft_pow(nb, pow - 1));
+	else
+		return (0);
 }

@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pow.c                                           :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:52:25 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/07 17:52:27 by abakirca         ###   ########.fr       */
+/*   Created: 2023/12/05 14:17:50 by mbaypara          #+#    #+#             */
+/*   Updated: 2023/12/20 14:03:21 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	ft_pow(double nb, double pow)
+#include "libft.h"
+
+size_t	ft_strlen(const char *s)
 {
-	if (pow < 0)
-		return (0);
-	if (pow == 0)
-		return (1);
-	return (nb * ft_pow(nb, pow - 1));
+	size_t	counter;
+
+	counter = 0;
+	while (s[counter])
+		counter++;
+	return (counter);
 }

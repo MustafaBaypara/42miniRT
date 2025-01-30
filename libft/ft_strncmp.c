@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pow.c                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:52:25 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/07 17:52:27 by abakirca         ###   ########.fr       */
+/*   Created: 2023/12/07 11:56:26 by mbaypara          #+#    #+#             */
+/*   Updated: 2023/12/21 12:27:53 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	ft_pow(double nb, double pow)
+#include "libft.h"
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (pow < 0)
+	size_t	i;
+
+	i = 0;
+	if (!n)
 		return (0);
-	if (pow == 0)
-		return (1);
-	return (nb * ft_pow(nb, pow - 1));
+	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pow.c                                           :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:52:25 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/07 17:52:27 by abakirca         ###   ########.fr       */
+/*   Created: 2023/12/13 16:19:33 by mbaypara          #+#    #+#             */
+/*   Updated: 2023/12/13 17:36:42 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	ft_pow(double nb, double pow)
+#include "libft.h"
+
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (pow < 0)
-		return (0);
-	if (pow == 0)
-		return (1);
-	return (nb * ft_pow(nb, pow - 1));
+	new ->next = *lst;
+	*lst = new;
 }

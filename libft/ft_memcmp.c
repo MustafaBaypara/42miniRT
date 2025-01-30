@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_in_charset.c                                    :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 13:48:47 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/06 13:48:48 by abakirca         ###   ########.fr       */
+/*   Created: 2023/12/06 17:24:27 by mbaypara          #+#    #+#             */
+/*   Updated: 2023/12/20 13:57:43 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_in_charset(char const c, char const *charset)
-{
-	int	i_charset;
+#include <stdlib.h>
 
-	i_charset = 0;
-	while (charset[i_charset])
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
 	{
-		if (c == charset[i_charset++])
-			return (1);
+		if (*(unsigned char *)(s1 + i) != *(unsigned char *)(s2 + i))
+			return (*(unsigned char *)(s1 + i) - *(unsigned char *)(s2 + i));
+		i++;
 	}
 	return (0);
 }
