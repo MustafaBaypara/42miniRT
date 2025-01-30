@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   garbage_collector_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 12:51:45 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 19:25:09 by abakirca         ###   ########.fr       */
+/*   Created: 2024/07/04 16:49:30 by abakirca          #+#    #+#             */
+/*   Updated: 2024/07/08 13:45:21 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+t_list	**getgarbage(void)
 {
-	if (!del)
-		return ;
-	if (lst)
-	{
-		(*del)(lst->content);
-		gfree(lst);
-	}
+	static t_list	*collector;
+
+	return (&collector);
 }

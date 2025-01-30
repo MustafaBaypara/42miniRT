@@ -1,64 +1,42 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/07 15:21:23 by abakirca          #+#    #+#              #
-#    Updated: 2024/11/07 15:32:05 by abakirca         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 MAKEFLAGS 			+= --no-print-directory
-NAME                = cub3d
-CC                  = cc
-CFLAGS              = -Wall -Werror -Wextra
+NAME                = miniRT
+LIBFT               = ./libft/
+LIBFTA              = $(LIBFT)libft.a
 SRC_DIR             = src/
 OBJ_DIR             = obj/
-HEADER_DIR          = -I includes/
+INC         		= ./includes/
 MLX_DIR             = ./mlx/
-GNL_DIR				= get_next_line/
-LIBFT               = ./libft/libft.a
-MLX				  	= $(MLX_DIR)libmlx_Linux.a
-RM                  = rm -rf
+MLX				   	= $(MLX_DIR)libmlx_Linux.a
+CC                  = cc
+CFLAGS              = -Wall -Werror -Wextra -g
+RM                  = rm -f
+MAIN_DIR         = $(SRC_DIR)main.c $(SRC_DIR)parse.c $(SRC_DIR)utils.c \
+					$(SRC_DIR)frame.c $(SRC_DIR)vector.c $(SRC_DIR)utils2.c \
+					$(SRC_DIR)e_sphere.c $(SRC_DIR)vector2.c $(SRC_DIR)e_plane.c \
+					$(SRC_DIR)e_cylinder.c $(SRC_DIR)color.c $(SRC_DIR)color2.c \
+					$(SRC_DIR)light.c $(SRC_DIR)cylinder_utils.c $(SRC_DIR)set_elements.c \
+					$(SRC_DIR)parse_utils.c $(SRC_DIR)parse_utils2.c $(SRC_DIR)ray.c \
+					$(SRC_DIR)e_triangle.c \
 
-SRCS                = $(GNL_DIR)get_next_line.c $(GNL_DIR)get_next_line_utils.c $(SRC_DIR)main.c
-
+SRCS                = $(MAIN_DIR)
 OBJ                 = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
-
-RED					= \033[31m
-GREEN				= \033[32m
-YELLOW				= \033[33m
-BLUE				= \033[34m
-MAGENTA				= \033[35m
-CYAN				= \033[36m
-RESET				= \033[0m
-
 all:                $(NAME)
-
-$(NAME):           	$(OBJ) $(LIBFT) $(MLX) 
-					@$(CC) $(CFLAGS) $(HEADER_DIR) $(OBJ) $(LIBFT) -I $(MLX_DIR) -L $(MLX_DIR) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-
+$(NAME):           	$(LIBFTA) $(OBJ) $(MLX) 
+					@$(CC) $(CFLAGS) $(OBJ) $(LIBFTA) -I $(MLX_DIR) -L $(MLX_DIR) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+$(LIBFTA):
+					@make -C $(LIBFT)
 $(OBJ_DIR)%.o:      $(SRC_DIR)%.c
 					@mkdir -p $(@D)
-					@$(CC) $(CFLAGS) $(HEADER_DIR) -I $(MLX_DIR) -O3 $(INC) -c $< -o $@
-
-$(LIBFT):
-					@make -C ./libft
+					@$(CC) $(CFLAGS) -I $(MLX_DIR) -I $(LIBFT) -I $(INC) -c $< -o $@
 
 $(MLX):
 					@make -C $(MLX_DIR)
-
 clean:
 					@$(RM) -r $(OBJ_DIR)
-					@make clean -C ./libft
+					@make clean -C $(LIBFT)
 					@make clean -C $(MLX_DIR)
-
 fclean:             clean
 					@$(RM) $(NAME)
-					@$(RM) $(LIBFT)
-
+					@$(RM) $(LIBFTA)
 re:                 fclean all
-
 .PHONY:             all clean fclean re

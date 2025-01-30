@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strappend.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 15:02:42 by abakirca          #+#    #+#             */
-/*   Updated: 2023/12/20 12:40:45 by abakirca         ###   ########.fr       */
+/*   Created: 2024/10/13 17:35:42 by marvin            #+#    #+#             */
+/*   Updated: 2025/01/07 19:25:17 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	sign;
-	int	res;
+#include "libft.h"
 
-	i = 0;
-	sign = 1;
-	res = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res = (str[i] - '0') + (res * 10);
-		i++;
-	}
-	return (res * sign);
+char	*ft_strappend(char *s1, char *s2, size_t len)
+{
+	char	*s3;
+	int		i;
+	int		j;
+
+	j = len;
+	i = ft_strlen(s1);
+	s3 = (char *)galloc(i + j + 1);
+	if (s3 == NULL)
+		return (gfree(s1), NULL);
+	ft_memcpy(s3, s1, i);
+	ft_memcpy(s3 + i, s2, j);
+	s3[i + j] = '\0';
+	return (s3);
 }

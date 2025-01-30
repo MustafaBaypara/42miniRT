@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/11/07 15:23:55 by abakirca         ###   ########.fr       */
+/*   Created: 2024/01/18 13:15:03 by mbaypara          #+#    #+#             */
+/*   Updated: 2025/01/06 14:07:26 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include "../libft/inc/libft.h"
+int	have_nl(char *s)
+{
+	size_t	i;
 
-#endif
+	if (!s)
+		return (0);
+	i = -1;
+	while (s[++i] != '\0')
+		if (s[i] == '\n')
+			return (1);
+	return (0);
+}

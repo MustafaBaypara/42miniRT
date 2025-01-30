@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   ft_tab_size.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 12:51:45 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 19:25:09 by abakirca         ###   ########.fr       */
+/*   Created: 2025/01/06 20:10:25 by abakirca          #+#    #+#             */
+/*   Updated: 2025/01/06 20:12:40 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+int	ft_tab_size(char **tab)
 {
-	if (!del)
-		return ;
-	if (lst)
-	{
-		(*del)(lst->content);
-		gfree(lst);
-	}
+    int i;
+
+    if (!tab)
+        return (0);
+    i = 0;
+    while (tab[i])
+        i++;
+    return (i);
 }

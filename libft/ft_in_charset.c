@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   ft_in_charset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 12:51:45 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 19:25:09 by abakirca         ###   ########.fr       */
+/*   Created: 2025/01/06 13:48:47 by abakirca          #+#    #+#             */
+/*   Updated: 2025/01/06 13:48:48 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+int	ft_in_charset(char const c, char const *charset)
 {
-	if (!del)
-		return ;
-	if (lst)
+	int	i_charset;
+
+	i_charset = 0;
+	while (charset[i_charset])
 	{
-		(*del)(lst->content);
-		gfree(lst);
+		if (c == charset[i_charset++])
+			return (1);
 	}
+	return (0);
 }

@@ -1,29 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 16:35:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/07 19:21:23 by abakirca         ###   ########.fr       */
+/*   Created: 2023/12/12 15:34:47 by mbaypara          #+#    #+#             */
+/*   Updated: 2025/01/07 19:21:59 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-char	*ft_strndup(const char *str, size_t n)
+static int	len_int(int n)
 {
-	size_t	len;
-	char	*copy;
+	int	len;
 
 	len = 0;
-	while (len < n && str[len])
+	if (n <= 0)
 		len++;
-	copy = galloc(len + 1);
-	if (copy == NULL)
+	while (n)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_itoa(int n)
+{
+	int		len;
+	int		i;
+	char	*res;
+
+	i = 0;
+	len = len_int(n);
+	res = galloc(sizeof(char) * (len + 1));
+	if (!res)
 		return (NULL);
-	ft_memcpy(copy, str, len);
-	copy[len] = '\0';
-	return (copy);
+	res[len] = '\0';
+	if (n < 0)
+	{
+		res[0] = '-';
+		i = 1;
+	}
+	while (len-- > i)
+	{
+		if (n < 0)
+			res[len] = '0' + n % 10 * (-1);
+		else
+			res[len] = '0' + n % 10;
+		n = n / 10;
+	}
+	return (res);
 }

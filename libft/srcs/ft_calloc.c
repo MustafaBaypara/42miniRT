@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 15:03:29 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/08 13:48:23 by abakirca         ###   ########.fr       */
+/*   Created: 2023/12/07 11:43:06 by mbaypara          #+#    #+#             */
+/*   Updated: 2025/01/07 19:20:30 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft.h"
+#include "libft.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -19,9 +19,6 @@ void	*ft_calloc(size_t count, size_t size)
 	ptr = (void *)galloc(count * size);
 	if (!ptr)
 		return (NULL);
-	if (size == 1)
-		ft_bzero(ptr, size * count);
-	else
-		ft_memset(ptr, 0, size * count);
+	ft_bzero(ptr, count * size);
 	return (ptr);
 }

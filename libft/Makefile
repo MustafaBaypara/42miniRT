@@ -5,59 +5,53 @@
 #                                                     +:+ +:+         +:+      #
 #    By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/18 16:24:56 by abakirca          #+#    #+#              #
-#    Updated: 2024/11/07 15:14:46 by abakirca         ###   ########.fr        #
+#    Created: 2023/12/06 14:57:54 by mbaypara          #+#    #+#              #
+#    Updated: 2025/01/07 17:52:44 by abakirca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME				= libft.a
-INC					= inc/
-SRC_DIR				= srcs/
-OBJ_DIR				= obj/
-CC					= gcc
-CFLAGS				= -Wall -Werror -Wextra -I
-RM					= rm -rf
-AR					= ar rcs
 
-LIBFT_DIR			=	$(SRC_DIR)ft_atoi.c $(SRC_DIR)ft_bzero.c $(SRC_DIR)ft_calloc.c $(SRC_DIR)ft_isalnum.c $(SRC_DIR)ft_isalpha.c \
-						$(SRC_DIR)ft_isascii.c $(SRC_DIR)ft_isdigit.c $(SRC_DIR)ft_isprint.c $(SRC_DIR)ft_itoa.c $(SRC_DIR)ft_memchr.c \
-						$(SRC_DIR)ft_memcmp.c $(SRC_DIR)ft_memcpy.c $(SRC_DIR)ft_memmove.c $(SRC_DIR)ft_memset.c $(SRC_DIR)ft_putchar_fd.c \
-						$(SRC_DIR)ft_putendl_fd.c $(SRC_DIR)ft_putnbr_fd.c $(SRC_DIR)ft_putstr_fd.c $(SRC_DIR)ft_split.c $(SRC_DIR)ft_strchr.c \
-						$(SRC_DIR)ft_strdup.c $(SRC_DIR)ft_striteri.c $(SRC_DIR)ft_strjoin.c $(SRC_DIR)ft_strlcat.c $(SRC_DIR)ft_strlcpy.c \
-						$(SRC_DIR)ft_strlen.c $(SRC_DIR)ft_strmapi.c $(SRC_DIR)ft_strncmp.c $(SRC_DIR)ft_strnstr.c $(SRC_DIR)ft_strrchr.c \
-						$(SRC_DIR)ft_strtrim.c $(SRC_DIR)ft_substr.c $(SRC_DIR)ft_tolower.c $(SRC_DIR)ft_toupper.c  \
-						$(SRC_DIR)ft_lstadd_back_bonus.c $(SRC_DIR)ft_lstadd_front_bonus.c $(SRC_DIR)ft_lstclear_bonus.c \
-						$(SRC_DIR)ft_lstdelone_bonus.c $(SRC_DIR)ft_lstiter_bonus.c $(SRC_DIR)ft_lstlast_bonus.c \
-						$(SRC_DIR)ft_lstnew_bonus.c $(SRC_DIR)ft_lstsize_bonus.c $(SRC_DIR)ft_isspace.c $(SRC_DIR)garbage_collector.c $(SRC_DIR)garbage_collector_utils.c
+SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_split.c \
+					ft_strlcat.c ft_strncmp.c ft_substr.c ft_atoi.c ft_isalpha.c \
+					ft_itoa.c ft_memcpy.c  ft_putendl_fd.c ft_strchr.c  ft_strlcpy.c \
+					ft_strnstr.c ft_tolower.c ft_bzero.c   ft_isascii.c ft_memcpy.c \
+					ft_memmove.c ft_putnbr_fd.c  ft_strdup.c  ft_strlen.c  ft_strrchr.c \
+					ft_toupper.c ft_calloc.c  ft_isdigit.c ft_memchr.c  ft_memset.c  \
+					ft_putstr_fd.c  ft_strjoin.c ft_strmapi.c ft_strtrim.c ft_striteri.c \
+					ft_strndup.c ft_strappend.c ft_strcmp.c get_next_line.c get_next_line_utils.c \
+					ft_split_set.c ft_in_charset.c garbage_collector.c garbage_collector_utils.c \
+					ft_tab_size.c ft_atof.c ft_atol.c ft_pow.c
 
-SRC 				= $(LIBFT_DIR)
+OBJS			= $(SRCS:.c=.o)
+BONUS = ft_lstnew_bonus.c \
+			ft_lstadd_front_bonus.c \
+			ft_lstsize_bonus.c \
+			ft_lstlast_bonus.c \
+			ft_lstadd_back_bonus.c \
+			ft_lstdelone_bonus.c \
+			ft_lstclear_bonus.c \
+			ft_lstiter_bonus.c \
+			ft_lstmap_bonus.c \
 
-OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
+BONUS_OBJS		= $(BONUS:.c=.o)
 
-RED					= \033[31m
-GREEN				= \033[32m
-YELLOW				= \033[33m
-BLUE				= \033[34m
-MAGENTA				= \033[35m
-CYAN				= \033[36m
-RESET				= \033[0m
+CC				= @cc
+RM				= @rm -f
+CFLAGS			= -Wall -Wextra -Werror -I.
 
-all: 			$(NAME)
+NAME			= libft.a
 
-$(NAME): 		$(OBJ)
-				@$(AR) $(NAME) $(OBJ)
-				@echo "$(CYAN)Libft		$(GREEN)[ready]$(RESET)"
+all:			$(NAME)
 
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
-				@mkdir -p $(@D)
-				@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+$(NAME):		$(OBJS) $(BONUS_OBJS)
+				@ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
 
 clean:
-				@$(RM) $(OBJ_DIR)
+				$(RM) $(OBJS) $(BONUS_OBJS)
+			
+fclean:			clean
+				$(RM) $(NAME)
 
-fclean: 		clean
-				@$(RM) $(NAME)
+re:				fclean $(NAME)
 
-re: 			fclean all
-
-.PHONY: 		all clean fclean re
+.PHONY:			all clean fclean re bonus
