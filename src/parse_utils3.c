@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:10:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/30 19:14:27 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:21:08 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static void	set_ambient_light(t_scene *scene, char **data)
 	t_color	*ambient_light;
 	double	ratio;
 
-	ambient_light = galloc(sizeof(*ambient_light));
-	if (!ambient_light)
-		error_exit("Malloc failed", 1);
+	ambient_light = ft_malloc(sizeof(*ambient_light));
 	ratio = ft_atof(data[1]);
 	*ambient_light = *mult_color_d(str_to_rgb(data[2]), ratio);
 	scene->al_color = ambient_light;

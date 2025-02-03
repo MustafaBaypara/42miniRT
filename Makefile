@@ -8,7 +8,7 @@ INC         		= ./includes/
 MLX_DIR             = ./mlx/
 MLX				   	= $(MLX_DIR)libmlx_Linux.a
 CC                  = cc
-CFLAGS              = -Wall -Werror -Wextra -g
+CFLAGS              = -g
 RM                  = rm -f
 MAIN_DIR         = $(SRC_DIR)main.c $(SRC_DIR)parse.c $(SRC_DIR)utils.c \
 					$(SRC_DIR)frame.c $(SRC_DIR)vector.c $(SRC_DIR)utils2.c \
@@ -16,7 +16,7 @@ MAIN_DIR         = $(SRC_DIR)main.c $(SRC_DIR)parse.c $(SRC_DIR)utils.c \
 					$(SRC_DIR)e_cylinder.c $(SRC_DIR)color.c $(SRC_DIR)color2.c \
 					$(SRC_DIR)light.c $(SRC_DIR)cylinder_utils.c $(SRC_DIR)set_elements.c \
 					$(SRC_DIR)parse_utils.c $(SRC_DIR)parse_utils2.c $(SRC_DIR)ray.c \
-					$(SRC_DIR)e_triangle.c $(SRC_DIR)parse_utils3.c \
+					$(SRC_DIR)e_triangle.c $(SRC_DIR)parse_utils3.c $(SRC_DIR)malloc.c\
 
 SRCS                = $(MAIN_DIR)
 OBJ                 = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))

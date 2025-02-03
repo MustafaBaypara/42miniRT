@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:54:43 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/07 18:55:16 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:52:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,22 @@ int	quadratic_solver(t_vector3 point, double *a, double *b)
 
 void	error_exit(char *message, int error_code)
 {
+	t_window	*win;
+
+	win = getwindow();
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(message, 2);
 	ft_putstr_fd("\n", 2);
+	if (win->mlx)
+	{
+		if (win->win)
+		{
+			mlx_destroy_window(win->mlx, win->win);
+			if (win->frame->img)
+				mlx_destroy_image(win->mlx, win->frame->img);
+		}
+		mlx_destroy_display(win->mlx);
+	}
 	clear_garbage();
 	exit(error_code);
 }

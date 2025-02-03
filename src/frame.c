@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 16:42:33 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:35:59 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ t_impact	*check_objects(t_ray ray, t_scene *scene, void **object)
 {
 	t_impact	*impact;
 
-	impact = ft_calloc(1, sizeof(t_impact));
+	impact = ft_gcalloc(1, sizeof(t_impact));
 	if (!impact)
 		error_exit("Malloc failed", 1);
-	impact->object = ft_calloc(3, sizeof(char));
+	impact->object = ft_gcalloc(3, sizeof(char));
 	if (!impact->object)
 		error_exit("Malloc failed", 1);
 	impact->distance = INFINITY;

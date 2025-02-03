@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:49:41 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/17 02:04:51 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:35:55 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_color	*int_color(int r, int g, int b)
 {
 	t_color	*color;
 
-	color = ft_calloc(1, sizeof(t_color));
+	color = ft_gcalloc(1, sizeof(t_color));
 	color->r = r;
 	color->g = g;
 	color->b = b;
