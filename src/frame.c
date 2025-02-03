@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/17 05:58:11 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/03 15:10:11 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 			do_somethings(sc, color, pixels, win);
 		}
 	}
+	printf("\033[KScene Loaded Successfully!\n");
 }
