@@ -31,6 +31,10 @@ $(OBJ_DIR)%.o:      $(SRC_DIR)%.c
 
 $(MLX):
 					@make -C $(MLX_DIR)
+
+norm:
+					@norminette  $(INC) $(SRC_DIR) $(LIBFT)
+
 clean:
 					@$(RM) -r $(OBJ_DIR)
 					@make clean -C $(LIBFT)
