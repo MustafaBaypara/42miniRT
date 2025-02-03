@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 15:10:11 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:42:33 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ t_impact	*check_objects(t_ray ray, t_scene *scene, void **object)
 	t_impact	*impact;
 
 	impact = ft_calloc(1, sizeof(t_impact));
+	if (!impact)
+		error_exit("Malloc failed", 1);
 	impact->object = ft_calloc(3, sizeof(char));
+	if (!impact->object)
+		error_exit("Malloc failed", 1);
 	impact->distance = INFINITY;
 	sphere_ray(ray, scene, impact, object);
 	plane_ray(ray, scene, impact, object);
