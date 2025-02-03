@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:56:49 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/16 20:57:11 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:34:32 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 	t_vector3	v_dir;
 	int			x;
 
-	printf("i: %d, j: %d\n", i, j);
 	v_dir.x = j + 0.5 - res.width * 0.5;
 	v_dir.y = i + 0.5 - res.height * 0.5;
-	printf("v_dir.x: %f, v_dir.y: %f\n", v_dir.x, v_dir.y);
 	if (res.width > res.height)
 		x = res.width;
 	else
