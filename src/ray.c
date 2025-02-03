@@ -21,6 +21,7 @@ t_ray	new_ray(t_vector3 pos, t_vector3 dir)
 	return (ray);
 }
 
+// initialize the pitch, yaw and roll vectors
 static void	init_vectors(t_vector3 *p, t_vector3 *y, t_vector3 *r, t_vector3 o)
 {
 	r->x = cos(o.z * M_PI);
@@ -33,6 +34,7 @@ static void	init_vectors(t_vector3 *p, t_vector3 *y, t_vector3 *r, t_vector3 o)
 	p->y = sin(o.x * M_PI);
 }
 
+// ray direction is rotated by the orientation of the camera
 static t_vector3	rotate_by_orientation(t_vector3 dir, t_vector3 orient)
 {
 	t_vector3	pitch;
@@ -61,8 +63,10 @@ t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 	t_vector3	v_dir;
 	int			x;
 
+	printf("i: %d, j: %d\n", i, j);
 	v_dir.x = j + 0.5 - res.width * 0.5;
 	v_dir.y = i + 0.5 - res.height * 0.5;
+	printf("v_dir.x: %f, v_dir.y: %f\n", v_dir.x, v_dir.y);
 	if (res.width > res.height)
 		x = res.width;
 	else
