@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/30 19:18:11 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:21:16 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ t_scene	*parse(int fd)
 	char	*line;
 	char	**data;
 
-	scene = galloc(sizeof(*scene));
-	if (!scene)
-		error_exit("Malloc failed", 1);
+	scene = ft_malloc(sizeof(*scene));
 	if (!(init_scene(scene)))
 		return (NULL);
 	data = NULL;

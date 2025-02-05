@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 17:27:20 by abakirca          #+#    #+#             */
-/*   Updated: 2025/01/17 02:10:31 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:27:32 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,14 @@ int	c_parser(char **data)
 
 	i = -1;
 	strs = ft_split(data[1], ',');
+	if (!strs)
+		return (1);
 	while (strs[++i])
 		if (float_checker(strs[i]))
 			return (1);
 	strs = ft_split(data[2], ',');
+	if (!strs)
+		return (1);
 	i = -1;
 	while (strs[++i])
 		if (float_checker(strs[i]) || (ft_atof(strs[i]) < -1
@@ -105,6 +109,8 @@ int	l_parser(char **data)
 
 	i = -1;
 	strs = ft_split(data[1], ',');
+	if (!strs)
+		return (1);
 	while (strs[++i])
 		if (float_checker(strs[i]))
 			return (1);

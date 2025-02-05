@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/30 19:15:44 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:51:57 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ int			quadratic_solver(t_vector3 point, double *a, double *b);
 void		error_exit(char *message, int error_code);
 t_vector3	str_to_vect(const char *str);
 t_color		str_to_rgb(const char *str);
+t_window	*getwindow(void);
+void		*ft_malloc(size_t size);
+void		*ft_gcalloc(size_t count, size_t size);
 
 // Utils tools
 float		get_maxf(float a, float b);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_triangle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 01:43:47 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/17 05:55:13 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:44:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 void	set_triangle(t_scene *scene, char **strs)
 {
 	t_triangle	*tr;
+	t_list		*new;
 
-	tr = galloc(sizeof(*tr));
-	if (!(tr))
-		error_exit("Malloc failed", 1);
+	tr = ft_malloc(sizeof(*tr));
 	tr->v0 = str_to_vect(strs[1]);
 	tr->v1 = str_to_vect(strs[2]);
 	tr->v2 = str_to_vect(strs[3]);
 	tr->color = str_to_rgb(strs[4]);
-	ft_lstadd_front(&(scene->triangles), ft_lstnew(tr));
+	new = ft_lstnew(tr);
+	if (!new)
+		error_exit("Malloc failed", 1);
+	ft_lstadd_front(&(scene->triangles), new);
 }
 
 static t_vector3	cross_pd(t_vector3 v1, t_vector3 v2)

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 16:37:59 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:18:55 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ static int	close_window(t_window *window)
 
 static t_window	*init_window(t_scene *scene, t_frame *img)
 {
-	t_window	*window;
 	t_size		res;
+	t_window	*window;
 
+	window = getwindow();
 	res = scene->res;
-	window = ft_calloc(1, sizeof(t_window));
-	if (!window)
-		return (NULL);
 	window->mlx = addgarbage(mlx_init());
 	if (!window->mlx)
 		return (NULL);
@@ -39,9 +37,7 @@ static t_window	*init_window(t_scene *scene, t_frame *img)
 	if (!window->win)
 		return (NULL);
 	window->scene = scene;
-	window->frame = ft_calloc(1, sizeof(t_frame));
-	if (!window->frame)
-		return (NULL);
+	window->frame = ft_gcalloc(1, sizeof(t_frame));
 	img = window->frame;
 	img->img = mlx_new_image(window->mlx, res.width, res.height);
 	if (!img->img)

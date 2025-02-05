@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/16 20:30:40 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:37:24 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color)
 	t_impact	*imp_objs;
 	t_lighting	*l;
 
-	l = (t_lighting *)galloc(sizeof(t_lighting));
+	l = (t_lighting *)ft_malloc(sizeof(t_lighting));
 	l->diffuse = *int_color(0, 0, 0);
 	lights = sc->lights;
 	while (lights->next)
