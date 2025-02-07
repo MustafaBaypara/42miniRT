@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:10:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 18:21:08 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:25:40 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,17 @@ int	parse_ext(char **data, t_scene *scene, char *line)
 		return (1);
 	if (check_line(line, data, "A", 3))
 		set_ambient_light(scene, data);
-	else if (check_line(line, data, "C", 4))
+	else if (check_line(line, data, "C", 4) && check_comma(data, 2))
 		set_camera(scene, data);
-	else if (check_line(line, data, "L", 4))
+	else if (check_line(line, data, "L", 4) && check_comma(data, 1))
 		set_light(scene, data);
-	else if (check_line(line, data, "sp", 4))
+	else if (check_line(line, data, "sp", 4) && check_comma(data, 1))
 		set_sphere(scene, data);
-	else if (check_line(line, data, "pl", 4))
+	else if (check_line(line, data, "pl", 4) && check_comma(data, 2))
 		set_plane(scene, data);
-	else if (check_line(line, data, "cy", 6))
+	else if (check_line(line, data, "cy", 6) && check_comma(data, 2))
 		set_cylinder(scene, data);
-	else if (check_line(line, data, "tr", 5))
+	else if (check_line(line, data, "tr", 5) && check_comma(data, 3))
 		set_triangle(scene, data);
 	else
 		return (1);

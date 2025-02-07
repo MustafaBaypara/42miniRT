@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 18:51:57 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:16:24 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_color		str_to_rgb(const char *str);
 t_window	*getwindow(void);
 void		*ft_malloc(size_t size);
 void		*ft_gcalloc(size_t count, size_t size);
+int			check_comma(char **data, int flag);
 
 // Utils tools
 float		get_maxf(float a, float b);

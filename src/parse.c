@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 18:21:16 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:24:54 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,30 @@ t_scene	*parse_scene(int argc, char **av)
 	if ((fd) < 0)
 		error_exit("Failed to open scene file", 1);
 	return (parse(fd));
+}
+
+int	check_comma(char **data, int flag)
+{
+	int	i;
+	int	j;
+	int	comma;
+
+	i = 1;
+	j = 0;
+	comma = 0;
+	while (i < flag + 1)
+	{
+		while (data[i][j])
+		{
+			if (data[i][j] == ',')
+				comma++;
+			j++;
+		}
+		if (comma != 2)
+			return (0);
+		i++;
+		j = 0;
+		comma = 0;
+	}
+	return (1);
 }
