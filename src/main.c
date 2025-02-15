@@ -6,11 +6,12 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 18:18:55 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:08:08 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 
 static int	close_window(t_window *window)
 {
@@ -20,6 +21,13 @@ static int	close_window(t_window *window)
 	clear_garbage();
 	printf("Window closed\n");
 	exit(0);
+	return (0);
+}
+
+static int key_hook(int keycode, t_window *window)
+{
+	if (keycode == 65307)
+		close_window(window);
 	return (0);
 }
 
@@ -62,6 +70,7 @@ int	main(int argc, char **av)
 	imaging(window, (t_camera *)scene->cameras->content, scene, NULL);
 	mlx_put_image_to_window(window->mlx, window->win, window->frame->img, 0, 0);
 	mlx_hook(window->win, 17, 1L << 17, close_window, window);
+	mlx_key_hook(window->win, key_hook, window);
 	mlx_loop(window->mlx);
 	return (0);
 }
