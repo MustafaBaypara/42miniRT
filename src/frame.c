@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/04 13:39:03 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:55:32 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
+#include <time.h>
 
 static void	put_pixel(char *addr, t_size pos, int color, t_size res)
 {
@@ -55,7 +56,10 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 	t_ray		ray;
 	t_color		*color;
 	void		*objects;
+	clock_t baslangic, bitis;
+    double sure;
 
+	baslangic = clock();
 	pixels.height = -1;
 	while (++pixels.height < sc->res.height)
 	{
@@ -75,5 +79,8 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 			do_somethings(sc, color, pixels, win);
 		}
 	}
+	bitis = clock();
+	sure = (double)(bitis - baslangic) / CLOCKS_PER_SEC;
+	printf("\033[KRendering Time: %.2f seconds\n", sure);
 	printf("\033[KScene Loaded Successfully!\n");
 }

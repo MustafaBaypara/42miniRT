@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/07 14:24:54 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/15 19:35:53 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static t_scene	*init_scene(t_scene *scene)
 {
-	scene->res = (t_size){720, 720};
+	scene->res = (t_size){720, 480};
 	scene->cameras = ft_lstnew(NULL);
 	if (!scene->cameras)
 		return (NULL);

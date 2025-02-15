@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:56:49 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 19:34:32 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:42:25 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,16 @@ t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 	t_vector3	v_dir;
 	int			x;
 
-	v_dir.x = j + 0.5 - res.width * 0.5;
+	printf("i: %d, j: %d\n", i, j);
+	v_dir.x = j + 0.5 - res.width * 0.5; // ekranin ortasini 0,0 olarak alma toplam pixel sayisinin yarisini alip cikartiyor
 	v_dir.y = i + 0.5 - res.height * 0.5;
-	if (res.width > res.height)
+	if (res.width > res.height) // hangi taraf daha uzunsa onu ortaliyor
 		x = res.width;
 	else
 		x = res.height;
-	v_dir.z = x / (2.0 * tan((camera->fov * M_PI * 0.5) / 180.0));
+	v_dir.z = x / (2.0 * tan((camera->fov * M_PI * 0.5) / 180.0)); // fov degerine gore kameranin onune ne kadar uzaklikta olacagini hesapliyor
 	v_dir.y = -v_dir.y;
 	v_dir.z = -v_dir.z;
-	v_dir = rotate_by_orientation(v_dir, camera->orientation);
+	v_dir = rotate_by_orientation(v_dir, camera->orientation); // kameranin yonune gore ray'i donduruyor
 	return (new_ray(camera->position, vec3_norm(v_dir)));
 }
