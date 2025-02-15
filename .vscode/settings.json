@@ -8,6 +8,7 @@
         "math.h": "c",
         "utils.h": "c",
         "stdbool.h": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "fcntl.h": "c"
     }
 }
