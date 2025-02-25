@@ -6,12 +6,11 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/15 17:08:08 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:39:12 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 static int	close_window(t_window *window)
 {
@@ -24,7 +23,7 @@ static int	close_window(t_window *window)
 	return (0);
 }
 
-static int key_hook(int keycode, t_window *window)
+static int	key_hook(int keycode, t_window *window)
 {
 	if (keycode == 65307)
 		close_window(window);
