@@ -6,12 +6,13 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:54:43 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 18:52:09 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/02/25 21:12:17 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+// func_swap swaps the values of two pointers
 static void	func_swap(void *a, void *b)
 {
 	void	*tmp;
@@ -21,29 +22,30 @@ static void	func_swap(void *a, void *b)
 	b = tmp;
 }
 
+// quadratic_solver solves the quadratic equation that is used for the intersection of the ray and the object
 int	quadratic_solver(t_vector3 point, double *a, double *b)
 {
 	double	discriminant;
 	double	q;
 
-	discriminant = point.y * point.y - 4 * point.x * point.z;
-	if (discriminant < 0)
+	discriminant = point.y * point.y - 4 * point.x * point.z; // calculate the discriminant
+	if (discriminant < 0) // if the discriminant is less than 0, return 0
 		return (0);
-	else if (discriminant == 0)
+	else if (discriminant == 0) // if the discriminant is 0, set a and b to the same value		
 	{
 		*a = -0.5 * point.y / point.x;
 		*b = -0.5 * point.y / point.x;
 	}
-	else
+	else // if the discriminant is greater than 0, solve the quadratic equation
 	{
-		if (point.y > 0)
+		if (point.y > 0) // if the y value of the point is greater than 0, set q to the negative of the y value plus the square root of the discriminant
 			q = -0.5 * (point.y + sqrt(discriminant));
-		else
+		else // if the y value of the point is less than 0, set q to the negative of the y value minus the square root of the discriminant
 			q = -0.5 * (point.y - sqrt(discriminant));
-		*a = q / point.x;
-		*b = point.z / q;
+		*a = q / point.x; // set a to q divided by the x value of the point
+		*b = point.z / q; // set b to the z value of the point divided by q
 	}
-	if (*a > *b)
+	if (*a > *b) // if a is greater than b, swap the values of a and b
 		func_swap(a, b);
 	return (1);
 }
