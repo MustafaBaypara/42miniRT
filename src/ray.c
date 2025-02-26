@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:56:49 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/27 01:03:50 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/27 01:54:32 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 		x = res.width;
 	else
 		x = res.height;
+	// burayi obje isik uzayi olarak dusunme ekran projeksiyonu yapiliyor
 	v_dir.z = x / (2.0 * tan((camera->fov * 0.5) * M_PI / 180.0)); // fov degerine gore kameranin onune ne kadar uzaklikta olacagini hesapliyor
-	// tan fonksiyonu radyan istiyor hesaplamamizda derece oldugu icin pi ile radyana ceviriyoruz ve 2 radyanin yarisini 180e bolerek aliyoruz
+	// tan fonksiyonu radyan istiyor hesaplamamizda derece oldugu icin derece * pi / 180 seklinde radyana ceviriyoruz 0.5 45 dereceyi temsil ediyor 2 ile carpmamiz 90 dereceyi temsil ediyor 
+	// tan 90 derece sonsuz oldugu icin 90 dereceyi gecen degerlerde hata aliriz
+	// x ile bolumu ekranin yarisi icin hesaplandigindan genisligin tamamini boluyoruz (x/2 yani 45 derece)
 	v_dir.y = -v_dir.y;
 	v_dir.z = -v_dir.z;
 	v_dir = rotate_by_orientation(v_dir, camera->orientation); // kameranin yonune gore ray'i donduruyor
