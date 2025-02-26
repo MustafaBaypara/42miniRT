@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:56:49 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/25 23:29:17 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/02/27 01:03:50 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ static void	init_vectors(t_vector3 *p, t_vector3 *y, t_vector3 *r, t_vector3 o)
 	r->x = cos(o.z * M_PI); // donme egim
 	r->y = sin(o.z * M_PI);
 	r->z = 0;
-	y->x = cos(o.y * M_PI); // sag sol egim
-	y->y = sin(o.y * M_PI);
+	y->x = cos(o.x * M_PI); // sag sol egim
+	y->y = sin(o.x * M_PI);
 	y->z = 0;
-	p->x = cos(o.x * M_PI); // yukari asagi egim
-	p->y = sin(o.x * M_PI);
+	p->x = cos(o.y * M_PI); // yukari asagi egim
+	p->y = sin(o.y * M_PI);
+	p->z = 0;
 }
 
 // ray direction is rotated by the orientation of the camera
@@ -69,7 +70,8 @@ t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 		x = res.width;
 	else
 		x = res.height;
-	v_dir.z = x / (2.0 * tan((camera->fov * M_PI * 0.5) / 180.0)); // fov degerine gore kameranin onune ne kadar uzaklikta olacagini hesapliyor
+	v_dir.z = x / (2.0 * tan((camera->fov * 0.5) * M_PI / 180.0)); // fov degerine gore kameranin onune ne kadar uzaklikta olacagini hesapliyor
+	// tan fonksiyonu radyan istiyor hesaplamamizda derece oldugu icin pi ile radyana ceviriyoruz ve 2 radyanin yarisini 180e bolerek aliyoruz
 	v_dir.y = -v_dir.y;
 	v_dir.z = -v_dir.z;
 	v_dir = rotate_by_orientation(v_dir, camera->orientation); // kameranin yonune gore ray'i donduruyor
