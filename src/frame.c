@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/27 01:42:42 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/01 23:27:40 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void	do_somethings(t_scene *sc, t_color *color, t_size px, t_window *win)
 {
 	put_pixel(win->frame->addr, px, color_int(*color), sc->res);
 	gfree(color);
-	printf("Loading frame: %d%%\r", (int)((px.height * sc->res.width + px.width)
-			* 100 / (sc->res.width * sc->res.height)));
+	//printf("Loading frame: %d%%\r", (int)((px.height * sc->res.width + px.width)
+	//		* 100 / (sc->res.width * sc->res.height)));
 }
 
 void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)

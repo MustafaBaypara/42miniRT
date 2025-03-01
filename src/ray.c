@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:56:49 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/27 10:26:09 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/01 15:26:16 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static t_vector3	rotate_by_orientation(t_vector3 dir, t_vector3 orient)
 	t_vector3	roll;
 	t_vector3	temp;
 
+	// donusum matrisi
 	init_vectors(&pitch, &yaw, &roll, orient);
 	temp.x = dir.x * roll.x - dir.y * roll.y;
 	temp.y = dir.x * roll.y + dir.y * roll.x;

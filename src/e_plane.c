@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_plane.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 19:18:30 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/16 20:41:56 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/01 23:19:12 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,27 @@ static int	plane_intersection(t_ray ray, t_plane plane, t_impact *impact)
 	double	denom;
 	double	t;
 
-	denom = dot_pd(plane.normal, ray.dir);
-	if (fabs(denom) > EPSILON)
+	denom = dot_pd(plane.normal, ray.dir); // 0 ise isin ve duzlem paralel
+	
+	if (fabs(denom) > EPSILON) // mutlak degeri epsilon dan buyukse ise paralel degil
 	{
 		t = dot_pd(vec3_sub(plane.pos, ray.origin), plane.normal) / denom;
+		// kesisim mesafesi hesaplaniyor. isinin duzleme mesafesi
+		
+		// kesisim kameranin onundemi ve kameraya en yakin kesisim alinir
 		if (t > EPSILON && t < impact->distance)
 		{
+			// kesisim noktasi uygunsa impacta atanir
 			impact->distance = t;
-			if (denom < 0)
+			if (denom < 0) // isin duzlemin on yuzune carparsa
 				impact->normal = vec3_norm(plane.normal);
-			else
+			else // isin duzlemin arka yuzune carparsa
 				impact->normal = vec3_norm(vec3_mult(plane.normal, -1));
+			
+			// kesisim noktasi hesaplanir ve epsilon ile kaydirilir
 			impact->point = vec3_add(ray.origin, vec3_mult(ray.dir, t));
+
+			// kesisim noktasi normali ile epsilon ile kaydirilir
 			impact->point = vec3_add(impact->point,
 					vec3_mult(impact->normal, EPSILON));
 			return (1);
