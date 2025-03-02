@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:30:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/16 20:39:59 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/02 23:17:00 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ double	solve_pl(t_vector3 origin, t_vector3 dir, t_vector3 pos, t_vector3 n)
 	double	denom;
 	double	t;
 
-	denom = dot_pd(n, dir);
+	denom = dot_pd(n, dir); // isin ve duzlem arasindaki aci
 	if (denom == 0)
-		return (INFINITY);
-	t = dot_pd(n, vec3_sub(pos, origin)) / denom;
-	if (t > EPSILON)
+		return (INFINITY); // isin ve duzlem paralel ise kesisim yok
+	t = dot_pd(n, vec3_sub(pos, origin)) / denom; // isin ve duzlem arasindaki mesafe kesisim mesafesi
+	if (t > EPSILON) // kesisim mesafesi varsa
 		return (t);
-	return (INFINITY);
+	return (INFINITY); // kesisim yoksa
 }
 
 int	solve_cyl(double a[2], t_ray ray, t_cylinder cyl)
@@ -72,22 +72,22 @@ double	isec_cap(t_ray ray, t_cylinder cyl, double d1, double d2)
 	t_vector3	p2;
 	t_vector3	cap;
 
-	cap = vec3_add(cyl.pos, vec3_mult(cyl.dir, cyl.height));
-	d1 = solve_pl(ray.origin, ray.dir, cyl.pos, cyl.dir);
-	d2 = solve_pl(ray.origin, ray.dir, cap, cyl.dir);
-	if (d1 < INFINITY && d2 < INFINITY)
+	cap = vec3_add(cyl.pos, vec3_mult(cyl.dir, cyl.height)); // alt capin pozisyonu icin yon ve uzunluk carpilir pozisyona eklenir
+	d1 = solve_pl(ray.origin, ray.dir, cyl.pos, cyl.dir); // ust cap kesisim mesafesi hesaplaniyor
+	d2 = solve_pl(ray.origin, ray.dir, cap, cyl.dir); // alt cap kesisim mesafesi hesaplaniyor
+	if (d1 < INFINITY && d2 < INFINITY) // iki cap varsa
 	{
-		p1 = vec3_add(ray.origin, vec3_mult(ray.dir, d1));
-		p2 = vec3_add(ray.origin, vec3_mult(ray.dir, d2));
-		if ((d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius)
+		p1 = vec3_add(ray.origin, vec3_mult(ray.dir, d1)); // kesisim noktasi hesaplaniyor
+		p2 = vec3_add(ray.origin, vec3_mult(ray.dir, d2)); // kesisim mesaesi ile isin yonu carpilir ve isin baslangic noktasina eklenir
+		if ((d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius) // kesisim noktasi ile cap yaricapi icinde mi kontrolu
 			&& (d2 < INFINITY && distance(p2, cap) <= cyl.radius))
-			return (get_minf(d1, d2));
-		else if (d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius)
+			return (get_minf(d1, d2)); // ikisi de kesisiyorsa en yakin olan alinir
+		else if (d1 < INFINITY && distance(p1, cyl.pos) <= cyl.radius) // sadece ust
 			return (d1);
-		else if (d2 < INFINITY && distance(p2, cap) <= cyl.radius)
+		else if (d2 < INFINITY && distance(p2, cap) <= cyl.radius) // sadece alt
 			return (d2);
 	}
-	return (INFINITY);
+	return (INFINITY); // kesisim yoksa
 }
 
 double	isec_side(t_ray ray, t_cylinder cyl)
@@ -96,7 +96,7 @@ double	isec_side(t_ray ray, t_cylinder cyl)
 	double	d1;
 	double	d2;
 
-	if (!solve_cyl(a, ray, cyl))
+	if (!solve_cyl(a, ray, cyl)) // ikinci dereceden denklemi cozer
 		return (INFINITY);
 	d1 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[0]),
 				vec3_sub(cyl.pos, ray.origin)));

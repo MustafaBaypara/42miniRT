@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_cylinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/16 20:40:39 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/02 18:24:02 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static double	cylinder_intersection(t_ray ray, t_cylinder cyl, int *is_side)
 	double	cy_inter;
 	double	cap_inter;
 
-	cy_inter = isec_side(ray, cyl);
-	cap_inter = isec_cap(ray, cyl, 0, 0);
-	if (cy_inter < INFINITY || cap_inter < INFINITY)
+	cy_inter = isec_side(ray, cyl); // silindirin yan yuzeyi ile isin kesisimi
+	cap_inter = isec_cap(ray, cyl, 0, 0); // silindirin kapak yuzeyi ile isin kesisimi
+	if (cy_inter < INFINITY || cap_inter < INFINITY) // kesisim varsa 
 	{
-		if (cy_inter < cap_inter)
+		if (cy_inter < cap_inter) // yan yuzey kesisimi kapak kesisiminden kucukse daha yakindir
 			return (*is_side = 1, cy_inter);
-		return (cap_inter);
+		return (cap_inter); // degilse kapak kesisimi dondurulur
 	}
-	return (INFINITY);
-}
+	return (INFINITY); // kesisim yoksa
+} 
 
 static t_vector3	closest_point(t_vector3 A, t_vector3 B, t_vector3 P)
 {
@@ -67,12 +67,12 @@ void	cyl_ray(t_ray r, t_scene *sc, t_impact *imp, void **objs)
 	{
 		is_side = 0;
 		cyl = (t_cylinder *)lst->content;
-		tmp = cylinder_intersection(r, *cyl, &is_side);
-		if (tmp < imp->distance && tmp > 0)
+		tmp = cylinder_intersection(r, *cyl, &is_side); // silindirin kesisim noktasi
+		if (tmp < imp->distance && tmp > 0) // kesisim noktasi en kisa mesafeden kucuk ve pozitifse
 		{
 			*objs = cyl;
 			init_imp(imp, tmp, cyl, r);
-			if (is_side)
+			if (is_side) // 
 				imp->normal = vec3_norm(vec3_sub(imp->point,
 							closest_point(cyl->pos, vec3_add(cyl->pos,
 									vec3_mult(cyl->dir, cyl->height)),
