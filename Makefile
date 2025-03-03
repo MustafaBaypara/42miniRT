@@ -44,3 +44,5 @@ fclean:             clean
 					@$(RM) $(LIBFTA)
 re:                 fclean all
 .PHONY:             all clean fclean re
+
+# https://chatgpt.com/c/67c5d695-f574-800c-8f01-60375da82354

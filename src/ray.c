@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:56:49 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/01 15:26:16 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/03 23:16:07 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_ray	generate_ray(t_camera *camera, t_size res, int i, int j)
 
 	v_dir.x = j + 0.5 - res.width * 0.5; // ekranin ortasini 0,0 olarak alma toplam pixel sayisinin yarisini alip cikartiyor
 	v_dir.y = i + 0.5 - res.height * 0.5;
-	if (res.width > res.height) // hangi taraf daha uzunsa onu ortaliyor
+	if (res.width > res.height) // hangi taraf daha uzunsa onu ortaliyor cerceve boyu
 		x = res.width;
 	else
 		x = res.height;
