@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   e_cylinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/16 20:40:39 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:05:54 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 static double	cylinder_intersection(t_ray ray, t_cylinder cyl, int *is_side)
 {

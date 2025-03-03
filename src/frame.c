@@ -6,11 +6,12 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/04 13:39:03 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:15:21 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <stdio.h>
 #include <math.h>
 
 static void	put_pixel(char *addr, t_size pos, int color, t_size res)
@@ -31,7 +32,6 @@ t_impact	*check_objects(t_ray ray, t_scene *scene, void **object)
 	sphere_ray(ray, scene, impact, object);
 	plane_ray(ray, scene, impact, object);
 	cyl_ray(ray, scene, impact, object);
-	triangle_ray(ray, scene, impact, object);
 	return (impact);
 }
 
@@ -41,7 +41,7 @@ static void	init_clr_obj(t_color **color, void **objects)
 	*objects = NULL;
 }
 
-static void	do_somethings(t_scene *sc, t_color *color, t_size px, t_window *win)
+static void	imaging_ext(t_scene *sc, t_color *color, t_size px, t_window *win)
 {
 	put_pixel(win->frame->addr, px, color_int(*color), sc->res);
 	gfree(color);
@@ -72,7 +72,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 					imp->normal = vec3_minus(imp->normal);
 				lighting(sc, imp, color);
 			}
-			do_somethings(sc, color, pixels, win);
+			imaging_ext(sc, color, pixels, win);
 		}
 	}
 	printf("\033[KScene Loaded Successfully!\n");

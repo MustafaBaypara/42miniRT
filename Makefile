@@ -6,7 +6,7 @@
 #    By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/25 14:38:20 by abakirca          #+#    #+#              #
-#    Updated: 2025/02/25 14:44:26 by abakirca         ###   ########.fr        #
+#    Updated: 2025/03/03 19:41:16 by abakirca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ MAIN_DIR			=	$(SRC_DIR)main.c $(SRC_DIR)parse.c $(SRC_DIR)utils.c \
 						$(SRC_DIR)e_cylinder.c $(SRC_DIR)color.c $(SRC_DIR)color2.c \
 						$(SRC_DIR)light.c $(SRC_DIR)cylinder_utils.c $(SRC_DIR)set_elements.c \
 						$(SRC_DIR)parse_utils.c $(SRC_DIR)parse_utils2.c $(SRC_DIR)ray.c \
-						$(SRC_DIR)e_triangle.c $(SRC_DIR)parse_utils3.c $(SRC_DIR)malloc.c\
+						$(SRC_DIR)parse_utils3.c $(SRC_DIR)malloc.c\
 
 SRCS				= $(MAIN_DIR)
 OBJ					= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))

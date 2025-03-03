@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:58:48 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/17 05:53:47 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/03 19:41:40 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,5 @@ typedef struct s_plane
 	t_vector3	normal;
 	t_color		color;
 }	t_plane;
-
-typedef struct s_triangle
-{
-	t_vector3	v0;
-	t_vector3	v1;
-	t_vector3	v2;
-	t_color		color;
-	t_vector3	h;
-	t_vector3	s;
-	t_vector3	q;
-	t_vector3	edge1;
-	t_vector3	edge2;
-	t_vector3	utls;
-}	t_triangle;
 
 #endif

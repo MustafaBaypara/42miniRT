@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/07 14:24:54 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/03 19:42:13 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ static t_scene	*init_scene(t_scene *scene)
 		return (NULL);
 	scene->cylinders = ft_lstnew(NULL);
 	if (!scene->cylinders)
-		return (NULL);
-	scene->triangles = ft_lstnew(NULL);
-	if (!scene->triangles)
 		return (NULL);
 	return (scene);
 }

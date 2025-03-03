@@ -6,11 +6,13 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/25 14:39:12 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:08:04 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <stdio.h>
+#include "../mlx/mlx.h"
 
 static int	close_window(t_window *window)
 {

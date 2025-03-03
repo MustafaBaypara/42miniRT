@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:58:56 by mbaypara          #+#    #+#             */
-/*   Updated: 2024/12/25 14:27:13 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:10:21 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 t_vector3	new_vec3(double x, double y, double z)
 {

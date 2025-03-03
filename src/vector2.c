@@ -6,12 +6,11 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 18:54:30 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 15:01:08 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:10:29 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <math.h>
 
 t_vector3	vec3_norm(t_vector3 v)
 {

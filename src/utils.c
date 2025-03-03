@@ -6,11 +6,13 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:54:43 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 18:52:09 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:10:56 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "../mlx/mlx.h"
+#include <math.h>
 
 static void	func_swap(void *a, void *b)
 {

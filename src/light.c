@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 17:37:24 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:13:27 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static double	dot_light_func(t_impact *imp, t_light *light, t_ray to_light)
 	return (dot_light);
 }
 
-static void	do_somethings(t_scene *sc, t_color *color, t_color *diffuse)
+static void	light_ext(t_scene *sc, t_color *color, t_color *diffuse)
 {
 	*diffuse = *mult_color_d(*diffuse, ALBEDO);
 	*color = *mult_color(*add_color(*sc->al_color, *diffuse), *color);
@@ -64,6 +64,6 @@ t_color	*lighting(t_scene *sc, t_impact *imp, t_color *color)
 		}
 		lights = lights->next;
 	}
-	do_somethings(sc, color, &l->diffuse);
+	light_ext(sc, color, &l->diffuse);
 	return (NULL);
 }

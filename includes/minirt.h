@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/07 14:16:24 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:04:53 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "utils.h"
 # include "libft.h"
-# include "mlx.h"
-# include <math.h>
-# include <stdio.h>
 
 typedef struct s_scene
 {
@@ -29,7 +26,6 @@ typedef struct s_scene
 	t_list		*spheres;
 	t_list		*planes;
 	t_list		*cylinders;
-	t_list		*triangles;
 }	t_scene;
 
 typedef struct s_frame
@@ -67,7 +63,6 @@ void		set_light(t_scene *scene, char **data);
 void		set_sphere(t_scene *scene, char **strs);
 void		set_plane(t_scene *scene, char **strs);
 void		set_cylinder(t_scene *scene, char **strs);
-void		set_triangle(t_scene *scene, char **strs);
 int			float_checker(char *str);
 int			rgb_checker(char *str);
 int			al_parser(char **data);
@@ -76,7 +71,6 @@ int			l_parser(char **data);
 int			sp_parser(char **data);
 int			pl_parser(char **data);
 int			cy_parser(char **data);
-int			tr_parser(char **data);
 
 // Utils
 int			quadratic_solver(t_vector3 point, double *a, double *b);
@@ -110,8 +104,6 @@ t_vector3	vec3_minus(t_vector3 v1);
 double		dot_pd(t_vector3 v1, t_vector3 v2);
 
 // Elements
-void		triangle_ray(t_ray ray, t_scene *scene,
-				t_impact *impact, void **obj);
 void		sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		plane_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		cyl_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);

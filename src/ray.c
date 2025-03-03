@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:56:49 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 19:34:32 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/03 20:09:47 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 t_ray	new_ray(t_vector3 pos, t_vector3 dir)
 {
@@ -21,7 +22,6 @@ t_ray	new_ray(t_vector3 pos, t_vector3 dir)
 	return (ray);
 }
 
-// initialize the pitch, yaw and roll vectors
 static void	init_vectors(t_vector3 *p, t_vector3 *y, t_vector3 *r, t_vector3 o)
 {
 	r->x = cos(o.z * M_PI);
@@ -34,7 +34,6 @@ static void	init_vectors(t_vector3 *p, t_vector3 *y, t_vector3 *r, t_vector3 o)
 	p->y = sin(o.x * M_PI);
 }
 
-// ray direction is rotated by the orientation of the camera
 static t_vector3	rotate_by_orientation(t_vector3 dir, t_vector3 orient)
 {
 	t_vector3	pitch;
