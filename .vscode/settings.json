@@ -10,5 +10,12 @@
         "stdbool.h": "c",
         "cmath": "c",
         "fcntl.h": "c"
-    }
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/mbaypara/Desktop/42miniRT",
+            "binaryPath": "/home/mbaypara/Desktop/42miniRT/miniRT",
+            "binaryArgs": []
+        }
+    ]
 }

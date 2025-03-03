@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/02 18:24:02 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:11:57 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static double	cylinder_intersection(t_ray ray, t_cylinder cyl, int *is_side)
 		return (cap_inter); // degilse kapak kesisimi dondurulur
 	}
 	return (INFINITY); // kesisim yoksa
-} 
+}
 
 static t_vector3	closest_point(t_vector3 A, t_vector3 B, t_vector3 P)
 {
@@ -36,10 +36,10 @@ static t_vector3	closest_point(t_vector3 A, t_vector3 B, t_vector3 P)
 	double		ap;
 	double		t;
 
-	a_b = vec3_sub(B, A);
-	ab2 = dot_pd(a_b, a_b);
-	a_p = vec3_sub(P, A);
-	ap = dot_pd(a_p, a_b);
+	a_b = vec3_sub(B, A); // A ve B noktalari arasindaki vektor a ust b alt
+	ab2 = dot_pd(a_b, a_b); // karesi
+	a_p = vec3_sub(P, A); // A ve P noktalari arasindaki vektor a ust p kesisim noktasi
+	ap = dot_pd(a_p, a_b); // a ve p arasindaki vektorun a ust b vektoru ile dot productu
 	t = ap / ab2;
 	if (t < 0)
 		t = 0;
@@ -72,11 +72,11 @@ void	cyl_ray(t_ray r, t_scene *sc, t_impact *imp, void **objs)
 		{
 			*objs = cyl;
 			init_imp(imp, tmp, cyl, r);
-			if (is_side) // 
+			if (is_side) // kesisim yan yuzeydeyse
 				imp->normal = vec3_norm(vec3_sub(imp->point,
 							closest_point(cyl->pos, vec3_add(cyl->pos,
 									vec3_mult(cyl->dir, cyl->height)),
-								imp->point)));
+								imp->point))); // kesisim noktasi ile silindirin ekseni arasindaki en yakin nokta arasindaki vektor
 			imp->normal = vec3_norm(imp->normal);
 			imp->object = "cy";
 		}

@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:30:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/02 23:17:00 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/03 02:26:56 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,35 @@ int	solve_cyl(double a[2], t_ray ray, t_cylinder cyl)
 	double		j;
 	double		k;
 
-	v = vec3_mult(cyl.dir, dot_pd(ray.dir, cyl.dir));
-	v = vec3_sub(ray.dir, v);
-	u = vec3_mult(cyl.dir, dot_pd(vec3_sub(ray.origin, cyl.pos), cyl.dir));
-	u = vec3_sub(vec3_sub(ray.origin, cyl.pos), u);
-	i = dot_pd(v, v);
-	j = 2 * dot_pd(v, u);
-	k = dot_pd(u, u) - pow(cyl.radius, 2);
-	a[0] = (-j + sqrt(pow(j, 2) - 4 * i * k)) / (2 * i);
-	a[1] = (-j - sqrt(pow(j, 2) - 4 * i * k)) / (2 * i);
-	if (a[0] < EPSILON && a[1] < EPSILON)
+	// İkinci dereceden bir denklem (it² + jt + k = 0) oluşturulur ve çözülür.
+	v = vec3_mult(cyl.dir, dot_pd(ray.dir, cyl.dir)); // isin yonu silindir eksenine paralel olan kisim
+	v = vec3_sub(ray.dir, v); // isin yonu silindir eksenine paralel olmayan kisim
+	u = vec3_mult(cyl.dir, dot_pd(vec3_sub(ray.origin, cyl.pos), cyl.dir)); // isin baslangic noktasi silindir eksenine paralel olan kisim
+	u = vec3_sub(vec3_sub(ray.origin, cyl.pos), u); // isin baslangic noktasi silindir eksenine paralel olmayan kisim
+	i = dot_pd(v, v); // ikinci dereceden denklem icin t² katsayisi
+	j = 2 * dot_pd(v, u); //  t katsayisi
+	k = dot_pd(u, u) - pow(cyl.radius, 2); // sabit katsayisi
+	a[0] = (-j + sqrt(pow(j, 2) - 4 * i * k)) / (2 * i); // denklemin birinci koku
+	a[1] = (-j - sqrt(pow(j, 2) - 4 * i * k)) / (2 * i); // denklemin ikinci koku
+	if (a[0] < EPSILON && a[1] < EPSILON) // kesisim mesafesi sifirdan kucukse kesisim yok
 		return (0);
-	return (1);
+	return (1); // kesisim varsa a[0] ve a[1] degerleri atanir ve 1 dondurulur
 }
 
 void	calc_normal(double a[2], t_cylinder cyl, double d1, double d2)
 {
 	double	i;
 
-	if ((d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON)
+	if ((d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON) // iki adet kesisim varsa
 		&& (d2 >= 0 && d2 <= cyl.height && a[1] > EPSILON))
 	{
 		i = a[1];
-		if (a[0] < a[1])
+		if (a[0] < a[1]) // en yakin olan secilir
 			i = a[0];
 	}
-	else if (d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON)
+	else if (d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON) // sadece bir kesisim varsa
 		i = a[0];
-	else
+	else // o kesisim alinir
 		i = a[1];
 	a[0] = i;
 }
@@ -98,13 +99,13 @@ double	isec_side(t_ray ray, t_cylinder cyl)
 
 	if (!solve_cyl(a, ray, cyl)) // ikinci dereceden denklemi cozer
 		return (INFINITY);
-	d1 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[0]),
+	d1 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[0]), // silindir ekseni ustundeki ilk kesisim noktasi mesafesi hesaplaniyor
 				vec3_sub(cyl.pos, ray.origin)));
-	d2 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[1]),
+	d2 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[1]), // silindir ekseni ustundeki ikinci kesisim noktasi mesafesi hesaplaniyor
 				vec3_sub(cyl.pos, ray.origin)));
-	if (!((d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON)
+	if (!((d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON) // kesisim noktasi silindir yuksekligi icinde mi kontrolu
 			|| (d2 >= 0 && d2 <= cyl.height && a[0] > EPSILON)))
-		return (INFINITY);
-	calc_normal(a, cyl, d1, d2);
-	return (a[0]);
+		return (INFINITY); // kesisim yoksa
+	calc_normal(a, cyl, d1, d2); // fonksiyon devami, uygun mesafe secilir ve a guncellenir
+	return (a[0]); // kesisim mesafesi dondurulur
 }
