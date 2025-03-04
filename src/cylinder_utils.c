@@ -6,22 +6,22 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:30:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/05 01:39:43 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:42:32 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
-static double	solve_pl(t_vector3 origin, t_vector3 dir, t_vector3 pos, t_vector3 n)
+static double	solve_pl(t_vector3 o, t_vector3 d, t_vector3 p, t_vector3 n)
 {
 	double	denom;
 	double	t;
 
-	denom = dot_pd(n, dir);
+	denom = dot_pd(n, d);
 	if (denom == 0)
 		return (INFINITY);
-	t = dot_pd(n, vec3_sub(pos, origin)) / denom;
+	t = dot_pd(n, vec3_sub(p, o)) / denom;
 	if (t > EPSILON)
 		return (t);
 	return (INFINITY);
