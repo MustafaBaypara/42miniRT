@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 19:42:13 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:39:56 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_scene	*init_scene(t_scene *scene)
 	return (scene);
 }
 
-t_scene	*parse(int fd)
+static t_scene	*parse(int fd)
 {
 	t_scene	*scene;
 	char	*line;

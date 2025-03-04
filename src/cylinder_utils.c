@@ -6,14 +6,14 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:30:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/05 01:18:16 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:39:43 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
-double	solve_pl(t_vector3 origin, t_vector3 dir, t_vector3 pos, t_vector3 n)
+static double	solve_pl(t_vector3 origin, t_vector3 dir, t_vector3 pos, t_vector3 n)
 {
 	double	denom;
 	double	t;
@@ -29,7 +29,7 @@ double	solve_pl(t_vector3 origin, t_vector3 dir, t_vector3 pos, t_vector3 n)
 
 // it² + jt + k = 0
 // t = (-j ± √(j² - 4ik)) / 2i
-int	solve_cyl(double a[2], t_ray ray, t_cylinder cyl)
+static int	solve_cyl(double a[2], t_ray ray, t_cylinder cyl)
 {
 	t_vector3	v;
 	t_vector3	u;
@@ -51,7 +51,7 @@ int	solve_cyl(double a[2], t_ray ray, t_cylinder cyl)
 	return (1);
 }
 
-void	calc_normal(double a[2], t_cylinder cyl, double d1, double d2)
+static void	calc_normal(double a[2], t_cylinder cyl, double d1, double d2)
 {
 	double	i;
 

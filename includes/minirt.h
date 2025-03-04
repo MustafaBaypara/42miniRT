@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 20:04:53 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:39:28 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,6 @@ double		dot_pd(t_vector3 v1, t_vector3 v2);
 void		sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		plane_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		cyl_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
-void		calc_normal(double a[2], t_cylinder cyl, double d1, double d2);
-int			solve_cyl(double a[2], t_ray ray, t_cylinder cyl);
-double		solve_pl(t_vector3 origin, t_vector3 dir,
-				t_vector3 pos, t_vector3 n);
 double		isec_cap(t_ray ray, t_cylinder cyl, double d1, double d2);
 double		isec_side(t_ray ray, t_cylinder cyl);
 
