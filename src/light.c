@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 20:13:27 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:32:57 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_ray	to_light(t_impact *imp, t_light *light)
 	return (to_light);
 }
 
+//  max(0, n.l) / 1 / d²
 static double	dot_light_func(t_impact *imp, t_light *light, t_ray to_light)
 {
 	double	dot_light;
