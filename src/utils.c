@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:54:43 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 20:10:56 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/04 23:54:15 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static void	func_swap(void *a, void *b)
 	b = tmp;
 }
 
+// ax² + bx + c = 0 point = {a, b, c}
+// b² - 4ac = 0 // discriminant
+// x = -b ± √(b² - 4ac) / 2a
 int	quadratic_solver(t_vector3 point, double *a, double *b)
 {
 	double	discriminant;

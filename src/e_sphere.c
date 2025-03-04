@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_sphere.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaypara <mbaypara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:28:22 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/01/04 19:16:17 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:10:01 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	sphere_intersection(t_ray ray, t_sphere sphere, t_impact *impact)
 	else if (b <= 0.)
 		b = a;
 	impact->distance = get_minf(a, b);
-	vector = vec3_add(ray.origin, vec3_mult(ray.dir, b));
+	vector = vec3_add(ray.origin, vec3_mult(ray.dir, impact->distance));
 	impact->normal = vec3_norm(vec3_sub(vector, sphere.pos));
 	impact->point = vec3_add(vector, vec3_mult(impact->normal, EPSILON));
 	return (1);

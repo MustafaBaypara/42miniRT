@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_cylinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 20:05:54 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 01:24:12 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static double	cylinder_intersection(t_ray ray, t_cylinder cyl, int *is_side)
 	return (INFINITY);
 }
 
+// t = (P - A) · AB / (AB · AB) // closest point on line
 static t_vector3	closest_point(t_vector3 A, t_vector3 B, t_vector3 P)
 {
 	t_vector3	a_p;

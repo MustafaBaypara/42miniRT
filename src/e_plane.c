@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   e_plane.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 19:18:30 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 20:06:41 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/04 23:40:47 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
 
+// n . (p - o) / n . d = t = distance
 static int	plane_intersection(t_ray ray, t_plane plane, t_impact *impact)
 {
 	double	denom;

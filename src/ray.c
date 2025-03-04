@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:56:49 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/04 19:57:17 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:14:12 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	init_vectors(t_vector3 *p, t_vector3 *y, t_vector3 *r, t_vector3 o)
 	p->y = sin(o.x * M_PI);
 }
 
+// Add rotation matrix to vector direction
 static t_vector3	rotate_by_orientation(t_vector3 dir, t_vector3 orient)
 {
 	t_vector3	pitch;

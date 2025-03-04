@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 20:15:21 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:59:46 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <stdio.h>
 #include <math.h>
+#include "mlx.h"
 
 static void	put_pixel(char *addr, t_size pos, int color, t_size res)
 {
@@ -74,6 +75,6 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 			}
 			imaging_ext(sc, color, pixels, win);
 		}
+		mlx_put_image_to_window(win->mlx, win->win, win->frame->img, 0, 0);
 	}
-	printf("\033[KScene Loaded Successfully!\n");
 }
