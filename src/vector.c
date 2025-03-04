@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:58:56 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/04 01:53:13 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:29:57 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_vector3	new_vec3(double x, double y, double z)
 
 double	distance(t_vector3 a, t_vector3 b)
 {
+	// sqrt((x2 - x1)² + (y2 - y1)² + (z2 - z1)²) oklidyen mesafe (dogrusal uzaklik)
 	return (sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2) + pow(b.z - a.z, 2)));
 }
 

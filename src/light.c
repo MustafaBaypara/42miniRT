@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:23 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 18:43:31 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/04 18:47:12 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static double	dot_light_func(t_impact *imp, t_light *light, t_ray to_light)
 
 	// dot pd normal vektor ile isik yonu acisi yuzeyin onundeyse pozitif yoksa 0
 	dot_light = get_maxf(dot_pd(imp->normal, to_light.dir), 0) // max(0, n.l)
-		/ (distance(imp->point, light->position) // kesisim ile isik arasindaki mesafe
+		/ (distance(imp->point, light->position) // kesisim ile isik arasindaki mesafe (isik azalmasi mesafesnin karekokuyle ters orantili 1/d²)
 			* distance(imp->point, light->position)); // mesafenin karesi
 	return (dot_light);
 }
