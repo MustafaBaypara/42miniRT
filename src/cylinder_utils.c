@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:30:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 20:05:31 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:57:46 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ double	isec_side(t_ray ray, t_cylinder cyl)
 	d2 = dot_pd(cyl.dir, vec3_sub(vec3_mult(ray.dir, a[1]),
 				vec3_sub(cyl.pos, ray.origin)));
 	if (!((d1 >= 0 && d1 <= cyl.height && a[0] > EPSILON)
-			|| (d2 >= 0 && d2 <= cyl.height && a[0] > EPSILON)))
+			|| (d2 >= 0 && d2 <= cyl.height && a[1] > EPSILON)))
 		return (INFINITY);
 	calc_normal(a, cyl, d1, d2);
 	return (a[0]);
