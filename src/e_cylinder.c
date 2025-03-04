@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 14:33:19 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 15:32:39 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/04 02:45:29 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,17 @@ static t_vector3	closest_point(t_vector3 A, t_vector3 B, t_vector3 P)
 	double		ap;
 	double		t;
 
-	a_b = vec3_sub(B, A); // A ve B noktalari arasindaki vektor a ust b alt
-	ab2 = dot_pd(a_b, a_b); // karesi
+
+	a_b = vec3_sub(B, A); // A ve B noktalari arasindaki vektor a ust b alt AB = B - A
+	ab2 = dot_pd(a_b, a_b); // karesi 
 	a_p = vec3_sub(P, A); // A ve P noktalari arasindaki vektor a ust p kesisim noktasi
 	ap = dot_pd(a_p, a_b); // a ve p vektorun a ve b vektoru ile dot productu
-	t = ap / ab2; // p noktasi ile a ve b arasindaki vektorun oranini
+	t = ap / ab2; // p noktasi ile a ve b arasindaki vektorun oranini t = (P - A) · AB / (AB · AB)
 	if (t < 0) // t orani segment sinirina sikistirilir
 		t = 0;
 	else if (t > 1)
 		t = 1;
-	return (vec3_add(A, vec3_mult(a_b, t))); // segmentin en yakin noktasi
+	return (vec3_add(A, vec3_mult(a_b, t))); // segmentin en yakin noktasi 	// Q = A + t * AB
 }
 
 static void	init_imp(t_impact *imp, double tmp, t_cylinder *cyl, t_ray r)

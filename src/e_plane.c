@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 19:18:30 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/02 17:10:28 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/04 01:26:26 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	plane_intersection(t_ray ray, t_plane plane, t_impact *impact)
 	if (fabs(denom) > EPSILON) // mutlak degeri epsilon dan buyukse ise paralel degil (ise yarar)
 	{
 		t = dot_pd(vec3_sub(plane.pos, ray.origin), plane.normal) / denom;
-		// kesisim mesafesi hesaplaniyor. isinin duzleme mesafesi
+		// kesisim mesafesi hesaplaniyor. isinin duzleme mesafesi // denom aciyi hesaba katmasi icin
 		
 		// kesisim kameranin onundemi ve kameraya en yakin kesisim alinir
 		if (t > EPSILON && t < impact->distance)

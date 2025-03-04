@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/04 00:05:36 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/04 03:06:18 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 			if (objects)
 			{
 				*color = object_color(imp->object, objects);
-				if (dot_pd(imp->normal, ray.dir) >= 0)
+				if (dot_pd(imp->normal, ray.dir) >= 0) // onceki yonde gelen normali ters cevir
 					imp->normal = vec3_minus(imp->normal);
-				lighting(sc, imp, color);
+				lighting(sc, imp, color); // isik
 			}
 			do_somethings(sc, color, pixels, win);
 		}
