@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 14:35:11 by abakirca          #+#    #+#             */
-/*   Updated: 2025/03/03 19:40:52 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:33:56 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,47 @@ int	cy_parser(char **data)
 	if (float_checker(data[4]) || ft_atof(data[4]) < 0)
 		return (1);
 	if (rgb_checker(data[5]))
+		return (1);
+	return (0);
+}
+
+static int	tr_parser_ext(char **data)
+{
+	int		i;
+	char	**strs;
+
+	strs = ft_split(data[3], ',');
+	if (!strs)
+		return (1);
+	i = -1;
+	while (strs[++i])
+		if (float_checker(strs[i]))
+			return (1);
+	if (rgb_checker(data[4]))
+		return (1);
+	return (0);
+}
+
+int	tr_parser(char **data)
+{
+	int		i;
+	char	**strs;
+
+	i = -1;
+	strs = ft_split(data[1], ',');
+	if (!strs)
+		return (1);
+	while (strs[++i])
+		if (float_checker(strs[i]))
+			return (1);
+	strs = ft_split(data[2], ',');
+	if (!strs)
+		return (1);
+	i = -1;
+	while (strs[++i])
+		if (float_checker(strs[i]))
+			return (1);
+	if (tr_parser_ext(data))
 		return (1);
 	return (0);
 }

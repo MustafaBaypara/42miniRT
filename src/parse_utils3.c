@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:10:29 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 19:40:37 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:33:58 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	ctrl_data_ext(char **data)
 		return (pl_parser(data));
 	else if (ft_strcmp(data[0], "cy") == 0)
 		return (cy_parser(data));
+	else if (ft_strcmp(data[0], "tr") == 0)
+		return (tr_parser(data));
 	else
 		return (0);
 }
@@ -63,7 +65,7 @@ static int	ctrl_data(char **data)
 	{
 		while (data[i][j])
 		{
-			if (ft_strchr("ACLplscy,.+-0123456789\n", data[i][j]))
+			if (ft_strchr("ACLplscytr,.+-0123456789\n", data[i][j]))
 				j++;
 			else
 				return (1);
@@ -94,6 +96,8 @@ int	parse_ext(char **data, t_scene *scene, char *line)
 		set_plane(scene, data);
 	else if (check_line(line, data, "cy", 6) && check_comma(data, 2))
 		set_cylinder(scene, data);
+	else if (check_line(line, data, "tr", 5) && check_comma(data, 3))
+		set_triangle(scene, data);
 	else
 		return (1);
 	return (0);

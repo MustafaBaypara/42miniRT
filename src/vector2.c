@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 18:54:30 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 20:10:29 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:34:18 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 t_vector3	vec3_norm(t_vector3 v)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 13:49:41 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/03 19:41:49 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:33:25 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_color	object_color(char *type, void *obj)
 		return (((t_plane *)obj)->color);
 	if (!ft_strcmp(type, "cy"))
 		return (((t_cylinder *)obj)->color);
+	if (!ft_strcmp(type, "tr"))
+		return (((t_triangle *)obj)->color);
 	return ((t_color){0, 0, 0});
 }
 
