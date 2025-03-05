@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:13:02 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/05 01:39:28 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:31:16 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "utils.h"
 # include "libft.h"
+# include "mlx.h"
+# include <math.h>
+# include <stdio.h>
 
 typedef struct s_scene
 {
@@ -26,6 +29,7 @@ typedef struct s_scene
 	t_list		*spheres;
 	t_list		*planes;
 	t_list		*cylinders;
+	t_list		*triangles;
 }	t_scene;
 
 typedef struct s_frame
@@ -63,6 +67,7 @@ void		set_light(t_scene *scene, char **data);
 void		set_sphere(t_scene *scene, char **strs);
 void		set_plane(t_scene *scene, char **strs);
 void		set_cylinder(t_scene *scene, char **strs);
+void		set_triangle(t_scene *scene, char **strs);
 int			float_checker(char *str);
 int			rgb_checker(char *str);
 int			al_parser(char **data);
@@ -71,6 +76,7 @@ int			l_parser(char **data);
 int			sp_parser(char **data);
 int			pl_parser(char **data);
 int			cy_parser(char **data);
+int			tr_parser(char **data);
 
 // Utils
 int			quadratic_solver(t_vector3 point, double *a, double *b);
@@ -104,9 +110,15 @@ t_vector3	vec3_minus(t_vector3 v1);
 double		dot_pd(t_vector3 v1, t_vector3 v2);
 
 // Elements
+void		triangle_ray(t_ray ray, t_scene *scene,
+				t_impact *impact, void **obj);
 void		sphere_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		plane_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
 void		cyl_ray(t_ray ray, t_scene *scene, t_impact *impact, void **obj);
+void		calc_normal(double a[2], t_cylinder cyl, double d1, double d2);
+int			solve_cyl(double a[2], t_ray ray, t_cylinder cyl);
+double		solve_pl(t_vector3 origin, t_vector3 dir,
+				t_vector3 pos, t_vector3 n);
 double		isec_cap(t_ray ray, t_cylinder cyl, double d1, double d2);
 double		isec_side(t_ray ray, t_cylinder cyl);
 
