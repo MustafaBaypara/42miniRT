@@ -6,7 +6,7 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 12:53:26 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/05 01:39:56 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:02:02 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@ static t_scene	*init_scene(t_scene *scene)
 	scene->cylinders = ft_lstnew(NULL);
 	if (!scene->cylinders)
 		return (NULL);
+	scene->triangles = ft_lstnew(NULL);
+	if (!scene->triangles)
+		return (NULL);
 	return (scene);
 }
 
-static t_scene	*parse(int fd)
+t_scene	*parse(int fd)
 {
 	t_scene	*scene;
 	char	*line;

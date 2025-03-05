@@ -6,11 +6,11 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:57:48 by abakirca          #+#    #+#             */
-/*   Updated: 2025/03/05 02:23:20 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/04 18:39:43 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 void	set_camera(t_scene *scene, char **data)
 {

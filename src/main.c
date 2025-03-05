@@ -6,13 +6,11 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/05 00:08:37 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/04 18:51:14 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <stdio.h>
-#include "../mlx/mlx.h"
 
 static int	close_window(t_window *window)
 {
@@ -22,13 +20,6 @@ static int	close_window(t_window *window)
 	clear_garbage();
 	printf("Window closed\n");
 	exit(0);
-	return (0);
-}
-
-static int	key_hook(int keycode, t_window *window)
-{
-	if (keycode == 65307)
-		close_window(window);
 	return (0);
 }
 
@@ -69,7 +60,6 @@ int	main(int argc, char **av)
 	if (!window)
 		error_exit("Window initialization failed", 1);
 	mlx_hook(window->win, 17, 1L << 17, close_window, window);
-	mlx_key_hook(window->win, key_hook, window);
 	imaging(window, (t_camera *)scene->cameras->content, scene, NULL);
 	mlx_loop(window->mlx);
 	return (0);
