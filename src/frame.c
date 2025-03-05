@@ -6,13 +6,12 @@
 /*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/03/04 03:06:18 by mbaypara         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:28:33 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
-#include <time.h>
 
 static void	put_pixel(char *addr, t_size pos, int color, t_size res)
 {
@@ -56,10 +55,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 	t_ray		ray;
 	t_color		*color;
 	void		*objects;
-	clock_t baslangic, bitis;
-    double sure;
 
-	baslangic = clock();
 	pixels.height = -1;
 	while (++pixels.height < sc->res.height)
 	{
@@ -72,16 +68,13 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 			if (objects)
 			{
 				*color = object_color(imp->object, objects);
-				if (dot_pd(imp->normal, ray.dir) >= 0) // onceki yonde gelen normali ters cevir
+				if (dot_pd(imp->normal, ray.dir) >= 0)
 					imp->normal = vec3_minus(imp->normal);
-				lighting(sc, imp, color); // isik
+				lighting(sc, imp, color);
 			}
 			do_somethings(sc, color, pixels, win);
 		}
 		mlx_put_image_to_window(win->mlx, win->win, win->frame->img, 0, 0);
 	}
-	bitis = clock();
-	sure = (double)(bitis - baslangic) / CLOCKS_PER_SEC;
-	printf("\033[KRendering Time: %.2f seconds\n", sure);
 	printf("\033[KScene Loaded Successfully!\n");
 }
