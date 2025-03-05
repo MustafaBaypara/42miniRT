@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:43:04 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/04 13:39:03 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:28:33 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	imaging(t_window *win, t_camera *cam, t_scene *sc, t_impact *imp)
 			}
 			do_somethings(sc, color, pixels, win);
 		}
+		mlx_put_image_to_window(win->mlx, win->win, win->frame->img, 0, 0);
 	}
 	printf("\033[KScene Loaded Successfully!\n");
 }

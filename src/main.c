@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abakirca <abakirca@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaypara <mbaypara@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:55:25 by mbaypara          #+#    #+#             */
-/*   Updated: 2025/02/03 18:18:55 by abakirca         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:28:22 by mbaypara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ int	main(int argc, char **av)
 	window = init_window(scene, NULL);
 	if (!window)
 		error_exit("Window initialization failed", 1);
-	imaging(window, (t_camera *)scene->cameras->content, scene, NULL);
-	mlx_put_image_to_window(window->mlx, window->win, window->frame->img, 0, 0);
 	mlx_hook(window->win, 17, 1L << 17, close_window, window);
+	imaging(window, (t_camera *)scene->cameras->content, scene, NULL);
 	mlx_loop(window->mlx);
 	return (0);
 }
